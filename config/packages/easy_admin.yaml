@@ -1,0 +1,59 @@
+#easy_admin:
+#    entities:
+#        # List the entity class name you want to manage
+#        - App\Entity\Product
+#        - App\Entity\Category
+#        - App\Entity\User
+
+easy_admin:
+    entities:
+        # List the entity class name you want to manage
+#        User:
+#            class: App\Entity\User
+        Person:
+            class: App\Entity\Person
+            list:
+#                title: 'Person'
+                fields:
+#                   - 'username'
+                   - { property: 'id', type: 'integer', label: 'Id' }
+                   - { property: 'username', type: 'text', label: 'Username' }
+                   - { property: 'email', type: 'text', label: 'E-mail' }
+                   - { property: 'personalEmail', type: 'text', label: 'p.E-mail' }
+                   - { property: 'name', type: 'text', label: 'Nome' }
+                   - { property: 'surname', type: 'text', label: 'Cognome' }
+                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
+                   - { property: 'leaderOfGroup', type: 'text', label: 'C/gruppo' }
+                   - { property: 'qualification', type: 'text', label: 'Qualifica' }
+                   - { property: 'organization', type: 'text', label: 'Ente' }
+                   - { property: 'totalHoursPerYear', type: 'integer', label: 'H/anno' }
+                   - { property: 'totalContractualHoursPerYear', type: 'integer', label: 'Hc/anno' }
+                   - { property: 'parttimePercent', type: 'float', label: '%pt' }
+                   - { property: 'isTimeSheetEnabled', type: 'toggle', label: 'T.S.' }
+                   - { property: 'created', type: 'date', label: 'Creata' }
+                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
+                   - { property: 'validTo', type: 'date', label: 'Valifo fino a' }
+                   - { property: 'version', type: 'text', label: 'V.' }
+                   - { property: 'note', type: 'text', label: 'Note' }
+            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+#                title: 'Form'
+                fields:
+#                   - 'username'
+                   - { property: 'username', type: 'text', label: 'Username' }
+                   - { property: 'email', type: 'text', label: 'E-mail' }
+                   - { property: 'personalEmail', type: 'text', label: 'E-mail personale' }
+                   - { property: 'name', type: 'text', label: 'Nome' }
+                   - { property: 'surname', type: 'text', label: 'Cognome' }
+                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
+                   - { property: 'leaderOfGroup', type: 'text', label: 'Capogruppo di' }
+                   - { property: 'qualification', type: 'text', label: 'Qualifica' }
+                   - { property: 'organization', type: 'text', label: 'Ente' }
+                   - { property: 'totalHoursPerYear', type: 'integer', label: 'Ore disponibili per anno' }
+                   - { property: 'totalContractualHoursPerYear', type: 'integer', label: 'Ore contrattuali per anno' }
+                   - { property: 'parttimePercent', type: 'number', label: 'Percento part-time' }
+                   - { property: 'isTimeSheetEnabled', type: 'checkbox', label: 'Compila timesheet' }
+                   - { property: 'created', type: 'date', label: 'Creata' }
+                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
+                   - { property: 'validTo', type: 'date', label: 'Valifo fino a' }
+                   - { property: 'version', type: 'text', label: 'Versione' }
+                   - { property: 'note', type: 'text', label: 'Note' }

@@ -1,0 +1,331 @@
+<?php
+
+namespace App\Entity;
+
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
+ */
+class Person
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $personalEmail;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $surname;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $groupName;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $leaderOfGroup;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $qualification;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $organization;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalHoursPerYear;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $totalContractualHoursPerYear;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $parttimePercent;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isTimeSheetEnabled;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $validFrom;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $validTo;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $version;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $note;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPersonalEmail(): ?string
+    {
+        return $this->personalEmail;
+    }
+
+    public function setPersonalEmail(?string $personalEmail): self
+    {
+        $this->personalEmail = $personalEmail;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(string $surname): self
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getGroupName(): ?string
+    {
+        return $this->groupName;
+    }
+
+    public function setGroupName(?string $groupName): self
+    {
+        $this->groupName = $groupName;
+
+        return $this;
+    }
+
+    public function getLeaderOfGroup(): ?string
+    {
+        return $this->leaderOfGroup;
+    }
+
+    public function setLeaderOfGroup(?string $leaderOfGroup): self
+    {
+        $this->leaderOfGroup = $leaderOfGroup;
+
+        return $this;
+    }
+
+    public function getQualification(): ?string
+    {
+        return $this->qualification;
+    }
+
+    public function setQualification(string $qualification): self
+    {
+        $this->qualification = $qualification;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?string
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(string $organization): self
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getTotalHoursPerYear(): ?int
+    {
+        return $this->totalHoursPerYear;
+    }
+
+    public function setTotalHoursPerYear(int $totalHoursPerYear): self
+    {
+        $this->totalHoursPerYear = $totalHoursPerYear;
+
+        return $this;
+    }
+
+    public function getTotalContractualHoursPerYear(): ?int
+    {
+        return $this->totalContractualHoursPerYear;
+    }
+
+    public function setTotalContractualHoursPerYear(int $totalContractualHoursPerYear): self
+    {
+        $this->totalContractualHoursPerYear = $totalContractualHoursPerYear;
+
+        return $this;
+    }
+
+    public function getParttimePercent(): ?float
+    {
+        return $this->parttimePercent;
+    }
+
+    public function setParttimePercent(float $parttimePercent): self
+    {
+        $this->parttimePercent = $parttimePercent;
+
+        return $this;
+    }
+
+    public function getIsTimeSheetEnabled(): ?bool
+    {
+        return $this->isTimeSheetEnabled;
+    }
+
+    public function setIsTimeSheetEnabled(bool $isTimeSheetEnabled): self
+    {
+        $this->isTimeSheetEnabled = $isTimeSheetEnabled;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getValidFrom(): ?\DateTimeInterface
+    {
+        return $this->validFrom;
+    }
+
+    public function setValidFrom(\DateTimeInterface $validFrom): self
+    {
+        $this->validFrom = $validFrom;
+
+        return $this;
+    }
+
+    public function getValidTo(): ?\DateTimeInterface
+    {
+        return $this->validTo;
+    }
+
+    public function setValidTo(\DateTimeInterface $validTo): self
+    {
+        $this->validTo = $validTo;
+
+        return $this;
+    }
+
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    public function setVersion(string $version): self
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+}
