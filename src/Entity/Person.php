@@ -31,7 +31,7 @@ class Person
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $personalEmail;
+    private $secondaryEmail;
 
     /**
      * @ORM\Column(type="text")
@@ -108,6 +108,76 @@ class Person
      */
     private $note;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $accountContactPerson;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accountIsNew;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $accountStartDate;
+
+    /**
+     * @ORM\Column(type="datetimetz", nullable=true)
+     */
+    private $accountEndDate;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $accountProfile;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accountEmailEnabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accountWindowsEnabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accountLinuxEnabled;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $accountNote;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accountRequestDone;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accountSipraDone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $officePhone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $officeMobile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $officeLocation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,14 +207,14 @@ class Person
         return $this;
     }
 
-    public function getPersonalEmail(): ?string
+    public function getSecondaryEmail(): ?string
     {
-        return $this->personalEmail;
+        return $this->secondaryEmail;
     }
 
-    public function setPersonalEmail(?string $personalEmail): self
+    public function setSecondaryEmail(?string $secondaryEmail): self
     {
-        $this->personalEmail = $personalEmail;
+        $this->secondaryEmail = $secondaryEmail;
 
         return $this;
     }
@@ -325,6 +395,174 @@ class Person
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getAccountContactPerson(): ?string
+    {
+        return $this->accountContactPerson;
+    }
+
+    public function setAccountContactPerson(string $accountContactPerson): self
+    {
+        $this->accountContactPerson = $accountContactPerson;
+
+        return $this;
+    }
+
+    public function getAccountIsNew(): ?bool
+    {
+        return $this->accountIsNew;
+    }
+
+    public function setAccountIsNew(bool $accountIsNew): self
+    {
+        $this->accountIsNew = $accountIsNew;
+
+        return $this;
+    }
+
+    public function getAccountStartDate(): ?\DateTimeInterface
+    {
+        return $this->accountStartDate;
+    }
+
+    public function setAccountStartDate(\DateTimeInterface $accountStartDate): self
+    {
+        $this->accountStartDate = $accountStartDate;
+
+        return $this;
+    }
+
+    public function getAccountEndDate(): ?\DateTimeInterface
+    {
+        return $this->accountEndDate;
+    }
+
+    public function setAccountEndDate(?\DateTimeInterface $accountEndDate): self
+    {
+        $this->accountEndDate = $accountEndDate;
+
+        return $this;
+    }
+
+    public function getAccountProfile(): ?string
+    {
+        return $this->accountProfile;
+    }
+
+    public function setAccountProfile(string $accountProfile): self
+    {
+        $this->accountProfile = $accountProfile;
+
+        return $this;
+    }
+
+    public function getAccountEmailEnabled(): ?bool
+    {
+        return $this->accountEmailEnabled;
+    }
+
+    public function setAccountEmailEnabled(bool $accountEmailEnabled): self
+    {
+        $this->accountEmailEnabled = $accountEmailEnabled;
+
+        return $this;
+    }
+
+    public function getAccountWindowsEnabled(): ?bool
+    {
+        return $this->accountWindowsEnabled;
+    }
+
+    public function setAccountWindowsEnabled(bool $accountWindowsEnabled): self
+    {
+        $this->accountWindowsEnabled = $accountWindowsEnabled;
+
+        return $this;
+    }
+
+    public function getAccountLinuxEnabled(): ?bool
+    {
+        return $this->accountLinuxEnabled;
+    }
+
+    public function setAccountLinuxEnabled(bool $accountLinuxEnabled): self
+    {
+        $this->accountLinuxEnabled = $accountLinuxEnabled;
+
+        return $this;
+    }
+
+    public function getAccountNote(): ?string
+    {
+        return $this->accountNote;
+    }
+
+    public function setAccountNote(?string $accountNote): self
+    {
+        $this->accountNote = $accountNote;
+
+        return $this;
+    }
+
+    public function getAccountRequestDone(): ?bool
+    {
+        return $this->accountRequestDone;
+    }
+
+    public function setAccountRequestDone(bool $accountRequestDone): self
+    {
+        $this->accountRequestDone = $accountRequestDone;
+
+        return $this;
+    }
+
+    public function getAccountSipraDone(): ?bool
+    {
+        return $this->accountSipraDone;
+    }
+
+    public function setAccountSipraDone(bool $accountSipraDone): self
+    {
+        $this->accountSipraDone = $accountSipraDone;
+
+        return $this;
+    }
+
+    public function getOfficePhone(): ?string
+    {
+        return $this->officePhone;
+    }
+
+    public function setOfficePhone(?string $officePhone): self
+    {
+        $this->officePhone = $officePhone;
+
+        return $this;
+    }
+
+    public function getOfficeMobile(): ?string
+    {
+        return $this->officeMobile;
+    }
+
+    public function setOfficeMobile(?string $officeMobile): self
+    {
+        $this->officeMobile = $officeMobile;
+
+        return $this;
+    }
+
+    public function getOfficeLocation(): ?string
+    {
+        return $this->officeLocation;
+    }
+
+    public function setOfficeLocation(?string $officeLocation): self
+    {
+        $this->officeLocation = $officeLocation;
 
         return $this;
     }

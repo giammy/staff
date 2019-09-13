@@ -10,6 +10,16 @@ security:
                     api: # api/api
                         password: $2y$12$9tSW4RKsti0ScgK2kkLBzeyZ.XCN2oXXSq5sL6WpTsmq5544MXhBO
                         roles: 'ROLE_API'
+
+        my_ldap:
+            ldap:
+                service: Symfony\Component\Ldap\Ldap
+                base_dn: '%env(resolve:LDAP_SEARCH_BASEDN)%'
+                search_dn: '%env(resolve:LDAP_SEARCH_USER)%'
+                search_password: '%env(resolve:LDAP_SEARCH_PASSWORD)%'
+                default_roles: ROLE_USER
+                uid_key: uid
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -17,6 +27,20 @@ security:
         main:
             http_basic: true
             provider: in_memory
+
+
+            http_basic_ldap:
+                provider: my_ldap
+                service: Symfony\Component\Ldap\Ldap
+                dn_string: '{username}'
+
+            # form_login_ldap:
+            #     login_path: login
+            #     check_path: login
+            #     service: Symfony\Component\Ldap\Ldap
+            #     dn_string: '%env(resolve:LDAP_LOGIN_STRING)%'
+            # logout: true
+                
 
             # anonymous: true
 
@@ -35,7 +59,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/, roles: ROLE_API }
-        - { path: ^/admin/, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/, roles: ROLE_USER }
+#        - { path: ^/api/, roles: ROLE_API }
+#        - { path: ^/admin/, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
+
+
+

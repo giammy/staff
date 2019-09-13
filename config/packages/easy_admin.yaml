@@ -19,7 +19,7 @@ easy_admin:
                    - { property: 'id', type: 'integer', label: 'Id' }
                    - { property: 'username', type: 'text', label: 'Username' }
                    - { property: 'email', type: 'text', label: 'E-mail' }
-                   - { property: 'personalEmail', type: 'text', label: 'p.E-mail' }
+                   - { property: 'secondaryEmail', type: 'text', label: 's.E-mail' }
                    - { property: 'name', type: 'text', label: 'Nome' }
                    - { property: 'surname', type: 'text', label: 'Cognome' }
                    - { property: 'groupName', type: 'text', label: 'Gruppo' }
@@ -32,16 +32,31 @@ easy_admin:
                    - { property: 'isTimeSheetEnabled', type: 'toggle', label: 'T.S.' }
                    - { property: 'created', type: 'date', label: 'Creata' }
                    - { property: 'validFrom', type: 'date', label: 'Valido da' }
-                   - { property: 'validTo', type: 'date', label: 'Valifo fino a' }
+                   - { property: 'validTo', type: 'date', label: 'Valido fino a' }
                    - { property: 'version', type: 'text', label: 'V.' }
                    - { property: 'note', type: 'text', label: 'Note' }
+
+                   - { property: 'accountContactPerson', type: 'text', label: 'Contact Person' }
+                   - { property: 'accountIsNew', type: 'toggle', label: 'New account' }
+                   - { property: 'accountStartDate', type: 'date', label: 'Start Date' }
+                   - { property: 'accountEndDate', type: 'date', label: 'End Date' }
+                   - { property: 'accountEmailEnabled', type: 'toggle', label: 'enable Email' }
+                   - { property: 'accountWindowsEnabled', type: 'toggle', label: 'enable Windows' }
+                   - { property: 'accountLinuxEnabled', type: 'toggle', label: 'enable Linux' }
+                   - { property: 'accountNote', type: 'text', label: 'account Note' }
+                   - { property: 'accountRequestDone', type: 'toggle', label: 'account Done' }
+                   - { property: 'accountSipraDone', type: 'toggle', label: 'account Sipra Done' }
+                   - { property: 'officePhone', type: 'text', label: 'office Phone' }
+                   - { property: 'officeMobile', type: 'text', label: 'office Mobile' }
+                   - { property: 'officeLocation', type: 'text', label: 'office Location' }
+
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
 #                title: 'Form'
                 fields:
 #                   - 'username'
                    - { property: 'username', type: 'text', label: 'Username' }
                    - { property: 'email', type: 'text', label: 'E-mail' }
-                   - { property: 'personalEmail', type: 'text', label: 'E-mail personale' }
+                   - { property: 'secondaryEmail', type: 'text', label: 'E-mail secondaria' }
                    - { property: 'name', type: 'text', label: 'Nome' }
                    - { property: 'surname', type: 'text', label: 'Cognome' }
                    - { property: 'groupName', type: 'text', label: 'Gruppo' }
@@ -57,3 +72,17 @@ easy_admin:
                    - { property: 'validTo', type: 'date', label: 'Valifo fino a' }
                    - { property: 'version', type: 'text', label: 'Versione' }
                    - { property: 'note', type: 'text', label: 'Note' }
+
+                   - { property: 'accountContactPerson', type: 'text', label: 'Contact Person' }
+                   - { property: 'accountIsNew', type: 'checkbox', label: 'New account' }
+                   - { property: 'accountStartDate', type: 'date', label: 'Start Date' }
+                   - { property: 'accountEndDate', type: 'date', label: 'End Date' }
+                   - { property: 'accountEmailEnabled', type: 'checkbox', label: 'enable Email' }
+                   - { property: 'accountWindowsEnabled', type: 'checkbox', label: 'enable Windows' }
+                   - { property: 'accountLinuxEnabled', type: 'checkbox', label: 'enable Linux' }
+                   - { property: 'accountNote', type: 'text', label: 'account Note' }
+                   - { property: 'accountRequestDone', type: 'checkbox', label: 'account Done' }
+                   - { property: 'accountSipraDone', type: 'checkbox', label: 'account Sipra Done' }
+                   - { property: 'officePhone', type: 'text', label: 'office Phone' }
+                   - { property: 'officeMobile', type: 'text', label: 'office Mobile' }
+                   - { property: 'officeLocation', type: 'text', label: 'office Location' }
