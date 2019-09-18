@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Person;
+use App\Entity\Staff;
 
 class AppFixtures extends Fixture
 {
@@ -14,7 +14,7 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
 
         for ($i=0; $i<10; $i++) {
-            $person = new Person();
+            $person = new Staff();
             $person->setUsername('username' . $i);
             $person->setEmail('username' . $i . '@email.com');
             $person->setSecondaryEmail('');

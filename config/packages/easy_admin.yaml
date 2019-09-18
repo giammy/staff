@@ -8,14 +8,11 @@
 easy_admin:
     entities:
         # List the entity class name you want to manage
-#        User:
-#            class: App\Entity\User
-        Person:
-            class: App\Entity\Person
+        Staff:
+            class: App\Entity\Staff
             list:
-#                title: 'Person'
+#                title: 'Staff'
                 fields:
-#                   - 'username'
                    - { property: 'id', type: 'integer', label: 'Id' }
                    - { property: 'username', type: 'text', label: 'Username' }
                    - { property: 'email', type: 'text', label: 'E-mail' }
@@ -53,7 +50,6 @@ easy_admin:
             form:  # <-- 'form' is applied to both 'new' and 'edit' views
 #                title: 'Form'
                 fields:
-#                   - 'username'
                    - { property: 'username', type: 'text', label: 'Username' }
                    - { property: 'email', type: 'text', label: 'E-mail' }
                    - { property: 'secondaryEmail', type: 'text', label: 'E-mail secondaria' }

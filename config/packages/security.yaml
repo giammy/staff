@@ -1,15 +1,7 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: 
-            memory:
-                users:
-                    admin: # admin/admin
-                        password: $2y$12$LLZrVYGQgfSE3ldV68Y19egI7Th8JI318Mcae9VnVNAQtxeuKA8fi
-                        roles: 'ROLE_ADMIN'
-                    api: # api/api
-                        password: $2y$12$9tSW4RKsti0ScgK2kkLBzeyZ.XCN2oXXSq5sL6WpTsmq5544MXhBO
-                        roles: 'ROLE_API'
+        in_memory: { memory: null }
 
         my_ldap:
             ldap:
@@ -18,31 +10,32 @@ security:
                 search_dn: '%env(resolve:LDAP_SEARCH_USER)%'
                 search_password: '%env(resolve:LDAP_SEARCH_PASSWORD)%'
                 default_roles: ROLE_USER
-                uid_key: uid
+                #uid_key: cn
+                uid_key: sAMAccountName
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            http_basic: true
-            provider: in_memory
 
-
-            http_basic_ldap:
+            form_login_ldap:
                 provider: my_ldap
+                login_path: login
+                check_path: login
                 service: Symfony\Component\Ldap\Ldap
-                dn_string: '{username}'
+                dn_string: '%env(resolve:LDAP_LOGIN_STRING)%'
+            logout: true
 
-            # form_login_ldap:
-            #     login_path: login
-            #     check_path: login
-            #     service: Symfony\Component\Ldap\Ldap
-            #     dn_string: '%env(resolve:LDAP_LOGIN_STRING)%'
-            # logout: true
-                
+        main:
+            form_login_ldap:
+                provider: my_ldap
+                login_path: login
+                check_path: login
+                service: Symfony\Component\Ldap\Ldap
+                dn_string: '%env(resolve:LDAP_LOGIN_STRING)%'
+            logout: true
 
-            # anonymous: true
+            anonymous: true 
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -50,24 +43,10 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
-    encoders:
-        Symfony\Component\Security\Core\User\User:
-           algorithm: bcrypt
-           cost: 12
-
-
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/, roles: ROLE_USER }
-#        - { path: ^/api/, roles: ROLE_API }
-#        - { path: ^/admin/, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-
-
-
-
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
