@@ -31,11 +31,11 @@ security:
             security: false
 
         main:
+            provider: chain_provider
+
             http_basic: true
-            provider: in_memory
 
             form_login_ldap:
-                provider: my_ldap
                 login_path: login
                 check_path: login
                 service: Symfony\Component\Ldap\Ldap
