@@ -1,5 +1,5 @@
 
-#wrapper {
+#main-header {
   overflow:auto;
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a0d8ef+0,ddf1f9+0,feffff+100 */
 background: #a0d8ef; /* Old browsers */
@@ -8,3 +8,27 @@ background: -webkit-linear-gradient(top,  #a0d8ef 0%,#ddf1f9 0%,#feffff 100%); /
 background: linear-gradient(to bottom,  #a0d8ef 0%,#ddf1f9 0%,#feffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0d8ef', endColorstr='#feffff',GradientType=0 ); /* IE6-9 */
 }
+
+.button {
+    //background-color: #4CAF50; /* Green */
+    background-color: #0099bf; /* blue */ 
+    font-family: 'Helvetica', Arial, Lucida Grande, sans-serif !important;
+    color: black;
+    // border: none;
+    border: 2px;
+    // color: white;
+    padding: 20px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    text-transform: uppercase;
+    border-radius: 12px;
+    margin: 5px 5px 5px 5px;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 4px 12px 0 rgba(0,0,0,0.19);
+}
+
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+

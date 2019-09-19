@@ -3,25 +3,47 @@
 {% extends 'base.html.twig' %}
  
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-     
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-     
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
-     
+  {% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+  {% endif %}
+
+  <script>
+    function forceLower(strInput) {
+      strInput.value=strInput.value.toLowerCase();
+    }
+  </script>
+    
+  <form action="{{ path('login') }}" method="post">
+    <center>
+      <table>
+        <tr>
+          <td><label for="username"><h2>Username:</h2></label></td>
+          <td><input type="text" id="username" name="_username" 
+                     value="{{ last_username }}" 
+                     onkeyup="return forceLower(this);" 
+                     style="text-transform: lowercase;"/></td>
+        </tr>
+        <tr>
+          <td><label for="password"><h2>Password:</h2></label></td>
+          <td><input type="password" id="password" name="_password" /></td>
+        </tr>
         {#
-            If you want to control the URL the user
-            is redirected to on success (more details below)
-            <input type="hidden" name="_target_path" value="/account" />
+          If you want to control the URL the user
+          is redirected to on success (more details below)
+          <input type="hidden" name="_target_path" value="/account" />
         #}
-     
-        <button type="submit">login</button>
-    </form>
+        <tr>
+          <td></td>
+          <td>
+            <button type="submit" id="login-submit" class="button"
+                    style="background-color: #0099bf; width: 120px">LOGIN</button></td>
+        </tr>
+      </table>
+    </center>
+  </form>
+  <div align="right">
+    <b>Insert username and password</b>
+  </div>
 {% endblock %}
  
 {% block stylesheets %}
