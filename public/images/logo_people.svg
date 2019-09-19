@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="594mm" height="420mm" version="1.1" viewBox="0 0 594 420" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<defs>
+<filter id="a" x="-.038641" y="-.99764" width="1.0773" height="2.9953" color-interpolation-filters="sRGB">
+<feGaussianBlur stdDeviation="1.7282961"/>
+</filter>
+</defs>
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<dc:title/>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<g transform="translate(0,123)">
+<rect x="2.0428e-14" y="-128.28" width="600.33" height="432.66" fill="#fff"/>
+<ellipse transform="matrix(1.1598 0 0 2.0174 -58.558 -296.97)" cx="309.75" cy="273.94" rx="53.673" ry="2.0789" fill="#666" filter="url(#a)"/>
+<g transform="matrix(.66598 0 0 .66598 317.08 33.046)" fill="#70ae5b">
+<circle cx="307.99" cy="-57.665" r="41.134"/>
+<path d="m256.71 110.58 10.706 133.31 82.682-0.37795 12.001-132.48z"/>
+<rect x="231.03" y="-2.4259" width="154.88" height="126.23" ry="4.2658"/>
+<path d="m233.96-1.5755 74.468-7.1809 73.516 6.9662"/>
+<rect x="267" y="143.61" width="83.388" height="103.67" ry="4.009"/>
+</g>
+<rect x="346.62" y="2.378" width="141.85" height="115.86" ry="8.1207" fill="#fff"/>
+<g transform="matrix(.83255 0 0 .83255 160.76 11.467)" fill="#6f4f7e">
+<circle cx="307.99" cy="-57.665" r="41.134"/>
+<path d="m256.71 110.58 10.706 133.31 82.682-0.37795 12.001-132.48z"/>
+<rect x="231.03" y="-2.4259" width="154.88" height="126.23" ry="4.2658"/>
+<path d="m233.96-1.5755 74.468-7.1809 73.516 6.9662"/>
+<rect x="267" y="143.61" width="83.388" height="103.67" ry="4.009"/>
+</g>
+<g transform="matrix(.66271 0 0 .66271 -138.01 34.072)" fill="#59bca7">
+<circle cx="307.99" cy="-57.665" r="41.134"/>
+<path d="m256.71 110.58 10.706 133.31 82.682-0.37795 12.001-132.48z"/>
+<rect x="231.03" y="-2.4259" width="154.88" height="126.23" ry="4.2658"/>
+<path d="m233.96-1.5755 74.468-7.1809 73.516 6.9662"/>
+<rect x="267" y="143.61" width="83.388" height="103.67" ry="4.009"/>
+</g>
+<rect x="100.24" y="-.071964" width="141.01" height="116.83" ry="8.1885" fill="#fff"/>
+<g transform="matrix(.81398 0 0 .81398 -80.061 9.8374)" fill="#e88049">
+<circle cx="307.99" cy="-57.665" r="41.134"/>
+<path d="m256.71 110.58 10.706 133.31 82.682-0.37795 12.001-132.48z"/>
+<rect x="231.03" y="-2.4259" width="154.88" height="126.23" ry="4.2658"/>
+<path d="m233.96-1.5755 74.468-7.1809 73.516 6.9662"/>
+<rect x="267" y="143.61" width="83.388" height="103.67" ry="4.009"/>
+</g>
+<rect x="213.62" y="-10.372" width="173.2" height="142" ry="16.247" fill="#fff"/>
+<g transform="translate(-8.2153 .02778)" fill="#af3976">
+<circle cx="307.99" cy="-57.665" r="41.134"/>
+<path d="m256.71 110.58 10.706 133.31 82.682-0.37795 12.001-132.48z"/>
+<rect x="231.03" y="-2.4259" width="154.88" height="126.23" ry="4.2658"/>
+<path d="m233.96-1.5755 74.468-7.1809 73.516 6.9662"/>
+<rect x="267" y="143.61" width="83.388" height="103.67" ry="4.009"/>
+</g>
+<ellipse transform="matrix(.82019 0 0 1.5326 165.03 -195.44)" cx="309.75" cy="273.94" rx="53.673" ry="2.0789" fill="#666" filter="url(#a)"/>
+<ellipse transform="matrix(.67797 0 0 1.4054 314.39 -181.99)" cx="309.75" cy="273.94" rx="53.673" ry="2.0789" fill="#666" filter="url(#a)"/>
+<ellipse transform="matrix(.78054 0 0 1.5562 -68.575 -207.25)" cx="309.75" cy="273.94" rx="53.673" ry="2.0789" fill="#666" filter="url(#a)"/>
+<ellipse transform="matrix(.71922 0 0 1.1541 -156.49 -111.92)" cx="309.75" cy="273.94" rx="53.673" ry="2.0789" fill="#666" filter="url(#a)"/>
+</g>
+</svg>
