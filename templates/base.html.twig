@@ -10,7 +10,7 @@
 
     <!-- header -->
     <div id="main-header">
-      <center>
+      <center> 
         <a href="{{ path('root') }}">
           <img src="{{ asset(logo_file) }}"
             alt="Logo" height="96" 
@@ -21,6 +21,11 @@
 
     <div align="right">
       {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        {% if userBelongsTo(users_admin, app.user.username) %} <font color="red">ADMIN</font> --- {% endif %}
+        {% if userBelongsTo(users_manager, app.user.username) %} <font >MANAGER</font> --- {% endif %}
+        {% if userBelongsTo(users_it, app.user.username) %} <font >IT</font> --- {% endif %}
+        {% if userBelongsTo(users_ufficio_personale, app.user.username) %} <font >UFFICIO_PERSONALE</font> --- {% endif %}
+        User: {{ app.user.username }} ---
         <a href="{{ logout_path('main') }}">Logout</a>
       {% endif %}
     </div>

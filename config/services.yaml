@@ -5,6 +5,12 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+    # each type of user is allowed to his own sections
+    users_admin: '%env(resolve:USERS_ADMIN)%'
+    users_manager: '%env(resolve:USERS_MANAGER)%'
+    users_it: '%env(resolve:USERS_IT)%'
+    users_ufficio_personale: '%env(resolve:USERS_UFFICIO_PERSONALE)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
