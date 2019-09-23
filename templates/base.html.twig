@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Datatables/datatables.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('Datatables/datatables.min.css') }}"/>
+
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css"> 
     {% block stylesheets %}{% endblock %}
   </head>
@@ -31,9 +36,9 @@
     </div>
     <hr>
 
-    {% block body %}{% endblock %}
     {% block javascripts %}{% endblock %}
 
+    {% block body %}{% endblock %}
 
     <!-- footer -->
     <hr> 

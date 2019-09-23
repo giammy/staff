@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NewAccount - Showall{% endblock %}
+
+{% block javascripts %}
+  <script>
+    // initialization and configuration
+    $(document).ready( function () {
+        $('#newaccountShowallTable').dataTable( {
+              "fixedHeader": true,
+              "lengthMenu": [ 200, 100, 75, 50, 25, 10 ]
+              //"info":     false, // remove header and footer
+              //"ordering": false,
+              //"bPaginate": false,
+              //"sDom": 'T<"clear">lfrtip'
+        } ); // end dataTable
+    } ); // end ready function
+    // END initialization and configuration
+  </script>
+{% endblock %}
+
+
+{% block body %}
+
+<table id="newaccountShowallTable">
+  <thead>
+    <tr>
+      <td>Id</td>
+      <td>Name</td>
+      <td>Surname</td>
+      <td>Is NEW?</td>
+      <td>Group Name</td>
+      <td>Request Date</td>
+      <td>Contact Person</td>
+      <td>Arrival Date</td>
+      <td>Departure Date</td>
+      <td>User Profile</td>
+{#      <td>Systems to enable</td> #}
+      <td>Note</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for ar in staffList %}
+    <tr>
+      <td> {{ ar.id }} </td>
+      <td> {{ ar.name }} </td>
+      <td> {{ ar.surname }} </td>
+      <td> {% if ar.accountIsNew %} YES {% else %} NO {% endif %} </td>
+      <td> {{ ar.groupName }} </td>
+      <td> {{ ar.created|date('d/m/Y') }} </td>
+      <td> {{ ar.accountContactPerson }} </td>
+      <td> {{ ar.accountStartDate|date('d/m/Y') }} </td>
+      <td> {{ ar.accountEndDate|date('d/m/Y') }} </td>
+      <td> {{ ar.accountProfile }} </td>
+{#      <td> {% for x in ar.systemsToEnable %} {{ x }} <br> {% endfor %} </td> #}
+      <td> {{ ar.accountNote }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
