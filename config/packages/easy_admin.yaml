@@ -7,78 +7,107 @@
 
 easy_admin:
     entities:
-        # List the entity class name you want to manage
-        Staff:
-            class: App\Entity\Staff
-            list:
-#                title: 'Staff'
-                fields:
-                   - { property: 'id', type: 'integer', label: 'Id' }
-                   - { property: 'username', type: 'text', label: 'Username' }
-                   - { property: 'email', type: 'text', label: 'E-mail' }
-                   - { property: 'secondaryEmail', type: 'text', label: 's.E-mail' }
-                   - { property: 'name', type: 'text', label: 'Nome' }
-                   - { property: 'surname', type: 'text', label: 'Cognome' }
-                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
-                   - { property: 'leaderOfGroup', type: 'text', label: 'C/gruppo' }
-                   - { property: 'qualification', type: 'text', label: 'Qualifica' }
-                   - { property: 'organization', type: 'text', label: 'Ente' }
-                   - { property: 'totalHoursPerYear', type: 'integer', label: 'H/anno' }
-                   - { property: 'totalContractualHoursPerYear', type: 'integer', label: 'Hc/anno' }
-                   - { property: 'parttimePercent', type: 'float', label: '%pt' }
-                   - { property: 'isTimeSheetEnabled', type: 'toggle', label: 'T.S.' }
-                   - { property: 'created', type: 'date', label: 'Creata' }
-                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
-                   - { property: 'validTo', type: 'date', label: 'Valido fino a' }
-                   - { property: 'version', type: 'text', label: 'V.' }
-                   - { property: 'note', type: 'text', label: 'Note' }
+        - App\Entity\Staff
+        - App\Entity\Account
 
-                   - { property: 'accountContactPerson', type: 'text', label: 'Contact Person' }
-                   - { property: 'accountIsNew', type: 'toggle', label: 'New account' }
-                   - { property: 'accountStartDate', type: 'date', label: 'Start Date' }
-                   - { property: 'accountEndDate', type: 'date', label: 'End Date' }
-                   - { property: 'accountEmailEnabled', type: 'toggle', label: 'enable Email' }
-                   - { property: 'accountWindowsEnabled', type: 'toggle', label: 'enable Windows' }
-                   - { property: 'accountLinuxEnabled', type: 'toggle', label: 'enable Linux' }
-                   - { property: 'accountNote', type: 'text', label: 'account Note' }
-                   - { property: 'accountRequestDone', type: 'toggle', label: 'account Done' }
-                   - { property: 'accountSipraDone', type: 'toggle', label: 'account Sipra Done' }
-                   - { property: 'officePhone', type: 'text', label: 'office Phone' }
-                   - { property: 'officeMobile', type: 'text', label: 'office Mobile' }
-                   - { property: 'officeLocation', type: 'text', label: 'office Location' }
 
-            form:  # <-- 'form' is applied to both 'new' and 'edit' views
-#                title: 'Form'
-                fields:
-                   - { property: 'username', type: 'text', label: 'Username' }
-                   - { property: 'email', type: 'text', label: 'E-mail' }
-                   - { property: 'secondaryEmail', type: 'text', label: 'E-mail secondaria' }
-                   - { property: 'name', type: 'text', label: 'Nome' }
-                   - { property: 'surname', type: 'text', label: 'Cognome' }
-                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
-                   - { property: 'leaderOfGroup', type: 'text', label: 'Capogruppo di' }
-                   - { property: 'qualification', type: 'text', label: 'Qualifica' }
-                   - { property: 'organization', type: 'text', label: 'Ente' }
-                   - { property: 'totalHoursPerYear', type: 'integer', label: 'Ore disponibili per anno' }
-                   - { property: 'totalContractualHoursPerYear', type: 'integer', label: 'Ore contrattuali per anno' }
-                   - { property: 'parttimePercent', type: 'number', label: 'Percento part-time' }
-                   - { property: 'isTimeSheetEnabled', type: 'checkbox', label: 'Compila timesheet' }
-                   - { property: 'created', type: 'date', label: 'Creata' }
-                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
-                   - { property: 'validTo', type: 'date', label: 'Valifo fino a' }
-                   - { property: 'version', type: 'text', label: 'Versione' }
-                   - { property: 'note', type: 'text', label: 'Note' }
 
-                   - { property: 'accountContactPerson', type: 'text', label: 'Contact Person' }
-                   - { property: 'accountIsNew', type: 'checkbox', label: 'New account' }
-                   - { property: 'accountStartDate', type: 'date', label: 'Start Date' }
-                   - { property: 'accountEndDate', type: 'date', label: 'End Date' }
-                   - { property: 'accountEmailEnabled', type: 'checkbox', label: 'enable Email' }
-                   - { property: 'accountWindowsEnabled', type: 'checkbox', label: 'enable Windows' }
-                   - { property: 'accountLinuxEnabled', type: 'checkbox', label: 'enable Linux' }
-                   - { property: 'accountNote', type: 'text', label: 'account Note' }
-                   - { property: 'accountRequestDone', type: 'checkbox', label: 'account Done' }
-                   - { property: 'accountSipraDone', type: 'checkbox', label: 'account Sipra Done' }
-                   - { property: 'officePhone', type: 'text', label: 'office Phone' }
-                   - { property: 'officeMobile', type: 'text', label: 'office Mobile' }
-                   - { property: 'officeLocation', type: 'text', label: 'office Location' }
+#        # List the entity class name you want to manage
+#        Staff:
+#            class: App\Entity\Staff
+#            list:
+##                title: 'Staff'
+#                fields:
+#                   - { property: 'id', type: 'integer', label: 'Id' }
+#                   - { property: 'username', type: 'text', label: 'Username' }
+#                   - { property: 'email', type: 'text', label: 'E-mail' }
+#                   - { property: 'secondaryEmail', type: 'text', label: 's.E-mail' }
+#                   - { property: 'name', type: 'text', label: 'Nome' }
+#                   - { property: 'surname', type: 'text', label: 'Cognome' }
+#                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
+#                   - { property: 'leaderOfGroup', type: 'text', label: 'C/gruppo' }
+#                   - { property: 'qualification', type: 'text', label: 'Qualifica' }
+#                   - { property: 'organization', type: 'text', label: 'Ente' }
+#                   - { property: 'totalHoursPerYear', type: 'integer', label: 'H/anno' }
+#                   - { property: 'totalContractualHoursPerYear', type: 'integer', label: 'Hc/anno' }
+#                   - { property: 'parttimePercent', type: 'float', label: '%pt' }
+#                   - { property: 'isTimeSheetEnabled', type: 'toggle', label: 'T.S.' }
+#                   - { property: 'created', type: 'date', label: 'Creata' }
+#                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
+#                   - { property: 'validTo', type: 'date', label: 'Valido fino a' }
+#                   - { property: 'version', type: 'text', label: 'V.' }
+#                   - { property: 'note', type: 'text', label: 'Note' }
+#                   - { property: 'officePhone', type: 'text', label: 'office Phone' }
+#                   - { property: 'officeMobile', type: 'text', label: 'office Mobile' }
+#                   - { property: 'officeLocation', type: 'text', label: 'office Location' }
+#
+#            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+##                title: 'Form'
+#                fields:
+#                   - { property: 'id', type: 'integer', label: 'Id' }
+#                   - { property: 'username', type: 'text', label: 'Username' }
+#                   - { property: 'email', type: 'text', label: 'E-mail' }
+#                   - { property: 'secondaryEmail', type: 'text', label: 's.E-mail' }
+#                   - { property: 'name', type: 'text', label: 'Nome' }
+#                   - { property: 'surname', type: 'text', label: 'Cognome' }
+#                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
+#                   - { property: 'leaderOfGroup', type: 'text', label: 'C/gruppo' }
+#                   - { property: 'qualification', type: 'text', label: 'Qualifica' }
+#                   - { property: 'organization', type: 'text', label: 'Ente' }
+#                   - { property: 'totalHoursPerYear', type: 'integer', label: 'H/anno' }
+#                   - { property: 'totalContractualHoursPerYear', type: 'integer', label: 'Hc/anno' }
+#                   - { property: 'parttimePercent', type: 'float', label: '%pt' }
+#                   - { property: 'isTimeSheetEnabled', type: 'toggle', label: 'T.S.' }
+#                   - { property: 'created', type: 'date', label: 'Creata' }
+#                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
+#                   - { property: 'validTo', type: 'date', label: 'Valido fino a' }
+#                   - { property: 'version', type: 'text', label: 'V.' }
+#                   - { property: 'note', type: 'text', label: 'Note' }
+#                   - { property: 'officePhone', type: 'text', label: 'office Phone' }
+#                   - { property: 'officeMobile', type: 'text', label: 'office Mobile' }
+#                   - { property: 'officeLocation', type: 'text', label: 'office Location' }
+#
+#        # List the entity class name you want to manage
+#        Account:
+#            class: App\Entity\Account
+#            list:
+##                title: 'Account'
+#                fields:
+#                   - { property: 'id', type: 'integer', label: 'Id' }
+#                   - { property: 'username', type: 'text', label: 'Username' }
+#                   - { property: 'requested', type: 'date', label: 'Requested' }
+#                   - { property: 'created', type: 'date', label: 'Created' }
+#                   - { property: 'name', type: 'text', label: 'Nome' }
+#                   - { property: 'surname', type: 'text', label: 'Cognome' }
+#                   - { property: 'contactPerson', type: 'text', label: 'Contact' }
+#                   - { property: 'accountIsNew', type: 'toggle', label: 'New account' }
+#                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
+#                   - { property: 'validTo', type: 'date', label: 'Valido fino a' }
+#                   - { property: 'profile', type: 'text', label: 'Profile' }
+#                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
+#                   - { property: 'emailEnabled', type: 'toggle', label: 'Email' }
+#                   - { property: 'windowsEnabled', type: 'toggle', label: 'Win' }
+#                   - { property: 'linuxEnabled', type: 'toggle', label: 'Linux' }
+#                   - { property: 'note', type: 'text', label: 'Note' }
+#
+#            form:  # <-- 'form' is applied to both 'new' and 'edit' views
+##                title: 'Form'
+#                fields:
+#                   - { property: 'id', type: 'integer', label: 'Id' }
+#                   - { property: 'username', type: 'text', label: 'Username' }
+#                   - { property: 'requested', type: 'date', label: 'Requested' }
+#                   - { property: 'created', type: 'date', label: 'Created' }
+#                   - { property: 'name', type: 'text', label: 'Nome' }
+#                   - { property: 'surname', type: 'text', label: 'Cognome' }
+#                   - { property: 'contactPerson', type: 'text', label: 'Contact' }
+#                   - { property: 'accountIsNew', type: 'toggle', label: 'New account' }
+#                   - { property: 'validFrom', type: 'date', label: 'Valido da' }
+#                   - { property: 'validTo', type: 'date', label: 'Valido fino a' }
+#                   - { property: 'profile', type: 'text', label: 'Profile' }
+#                   - { property: 'groupName', type: 'text', label: 'Gruppo' }
+#                   - { property: 'emailEnabled', type: 'toggle', label: 'Email' }
+#                   - { property: 'windowsEnabled', type: 'toggle', label: 'Win' }
+#                   - { property: 'linuxEnabled', type: 'toggle', label: 'Linux' }
+#                   - { property: 'note', type: 'text', label: 'Note' }
+
+

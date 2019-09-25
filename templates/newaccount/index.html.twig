@@ -25,7 +25,7 @@
   </tr>
   <tr>
     <td> Contact Person</td>
-    <td> {{ form_widget(attribute(form, "accountContactPerson"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "contactPerson"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Is a NEW account?</td>
@@ -33,15 +33,15 @@
   </tr>
   <tr>
     <td> Arrival Date</td>
-    <td> {{ form_widget(attribute(form, "accountStartDate"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "validFrom"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Departure Date</td>
-    <td> {{ form_widget(attribute(form, "accountEndDate"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "validTo"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> User profile</td>
-    <td> {{ form_widget(attribute(form, "accountProfile"), { 'attr': {'size': '11'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "profile"), { 'attr': {'size': '11'} }) }} </td>
   </tr>
   <tr>
     <td> Main Group</td>
@@ -50,15 +50,15 @@
 
   <tr>
     <td> Needs email account</td>
-    <td> {{ form_widget(attribute(form, "accountEmailEnabled"), { 'attr': {'size': '3'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "emailEnabled"), { 'attr': {'size': '3'} }) }} </td>
   </tr>
   <tr>
     <td> Needs Windows account</td>
-    <td> {{ form_widget(attribute(form, "accountWindowsEnabled"), { 'attr': {'size': '3'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "windowsEnabled"), { 'attr': {'size': '3'} }) }} </td>
   </tr>
   <tr>
     <td> Needs Linux account</td>
-    <td> {{ form_widget(attribute(form, "accountLinuxEnabled"), { 'attr': {'size': '3'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "linuxEnabled"), { 'attr': {'size': '3'} }) }} </td>
   </tr>
 
   <tr>

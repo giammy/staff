@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Staff;
+use App\Entity\Account;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -20,25 +21,25 @@ class NewaccountController extends AbstractController
      */
     public function newaccountIndex(Request $request)
     {
-        $staff = new Staff();
-        $staff->setCreated(new \DateTime(date('Y-m-d H:i:s')));
+        $account = new Account();
+        $account->setRequested(new \DateTime(date('Y-m-d H:i:s')));
 
-        $form = $this->createFormBuilder($staff)
+        $form = $this->createFormBuilder($account)
             ->add('name', TextType::class)
             ->add('surname', TextType::class)
-            ->add('accountContactPerson', TextType::class)
+            ->add('contactPerson', TextType::class)
             ->add('accountIsNew', ChoiceType::class, array(
 				 'expanded' => true,
 				 'multiple' => false,
 				 'choices'  => array(
 					 'Yes' => true,  
 		    	      	         'No' => false,),
-		                  'data' => false,
+		                  'data' => true,
 		  	         ))
 
-            ->add('accountStartDate', DateType::class, array('data' => new \DateTime()))
-            ->add('accountEndDate', DateType::class, array('data' => new \DateTime()))
-            ->add('accountProfile', ChoiceType::class, array(
+            ->add('validFrom', DateType::class, array('data' => new \DateTime()))
+            ->add('validTo', DateType::class, array('data' => new \DateTime()))
+            ->add('profile', ChoiceType::class, array(
 				'choices'  => array(
 				'CNR' => 'CNR',
 				'UNIPD' => 'UNIPD',
@@ -64,15 +65,13 @@ class NewaccountController extends AbstractController
 		      	    'IP' => 'GIP',
 		    	    'SE' => 'GSE',
 			    'IE' => 'GIE',
-                            'NBI' => 'NBI',
-                            'DIR' => 'DIR',
 			    'IT' => 'IT',
  	       	            'Officine' => 'OME',
        		            'SX-Alimentazioni' => 'SXA',
 		            'SX-Controlli' => 'SXC',
      		            'SX-Diagnostiche' => 'SXD',
    		       	    'SX-Macchina' => 'SXM',
-		      	    'Amministrazione' => 'AMM',
+		      	    'Ufficio Acquisti' => 'AMM',
      			    'Ufficio Manutenzione' => 'SMA',
 	  		    'Ufficio Tecnico' => 'UTE',
       			    'Ospiti' => 'Ospiti',
@@ -80,30 +79,30 @@ class NewaccountController extends AbstractController
 	  	           ),
 	          ))
 
-            ->add('accountEmailEnabled', ChoiceType::class, array(
+            ->add('emailEnabled', ChoiceType::class, array(
                                  'expanded' => true,
                                  'multiple' => false,
                                  'choices'  => array(
-                                            'Yes' => false,  // label says "IS NEW", so invert
-                                            'No' => true,
+                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'No' => false,
                                             ),
                                  'data' => false,
                                            ))
-            ->add('accountWindowsEnabled', ChoiceType::class, array(
+            ->add('windowsEnabled', ChoiceType::class, array(
                                  'expanded' => true,
                                  'multiple' => false,
                                  'choices'  => array(
-                                            'Yes' => false,  // label says "IS NEW", so invert
-                                            'No' => true,
+                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'No' => false,
                                             ),
                                  'data' => false,
                                            ))
-            ->add('accountLinuxEnabled', ChoiceType::class, array(
+            ->add('linuxEnabled', ChoiceType::class, array(
                                  'expanded' => true,
                                  'multiple' => false,
                                  'choices'  => array(
-                                            'Yes' => false,  // label says "IS NEW", so invert
-                                            'No' => true,
+                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'No' => false,
                                             ),
                                  'data' => false,
                                            ))
@@ -120,25 +119,14 @@ class NewaccountController extends AbstractController
 	if ($form->isSubmitted() && $form->isValid()) {
              // $form->getData() holds the submitted values
              // but, the original `$task` variable has also been updated
-	     $staff = $form->getData();
-             $staff->setUsername("");
-             $staff->setEmail("");
-             $staff->setQualification("");
-             $staff->setOrganization("");
-             $staff->setTotalHoursPerYear(0);
-             $staff->setTotalContractualHoursPerYear(0);
-             $staff->setParttimePercent(0);
-             $staff->setIsTimesheetEnabled(false);
-             $staff->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
-             $staff->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
-             $staff->setVersion(1);
-	     $staff->setAccountRequestDone(false);
-	     $staff->setAccountSipraDone(false);
+	     $account = $form->getData();
+             $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
+             $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
 
 	     // save
 	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');
              $em = $this->getDoctrine()->getManager();
-             $em->persist($staff);
+             $em->persist($account);
              $em->flush();
 
 /*
@@ -163,7 +151,7 @@ class NewaccountController extends AbstractController
 		                $this->get('mailer')->send($message);
 				     }
 */
-            return $this->redirectToRoute('newaccount');
+            return $this->redirectToRoute('thanks');
     	}
 
         // replace this example code with whatever you need
@@ -171,12 +159,6 @@ class NewaccountController extends AbstractController
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
-
-
-
-//        return $this->render('newaccount/index.html.twig', [
-//            'controller_name' => 'NewaccountController',
-//        ]);
     }
 
     /**
@@ -184,13 +166,22 @@ class NewaccountController extends AbstractController
      */
     public function newaccountShowallIndex()
     {
-        $repo = $this->getDoctrine()->getRepository(Staff::class);
+        $repo = $this->getDoctrine()->getRepository(Account::class);
 
 	return $this->render('newaccount/showall.html.twig', [
             'controller_name' => 'NewaccountShowallController',
-            'staffList' => $repo->findAll(),
+            'list' => $repo->findAll(),
             ]);
     }
 
+    /**
+     * @Route("newaccount/thanks", name="thanks")
+     */
+    public function thanksAction(Request $request)
+    {
+        return $this->render('newaccount/thanks.html.twig', array(
+            'note' => "note",
+            ));
+    }
 
 }

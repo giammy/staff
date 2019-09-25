@@ -26,35 +26,43 @@
   <thead>
     <tr>
       <td>Id</td>
+      <td>Username</td>
       <td>Name</td>
       <td>Surname</td>
       <td>Is NEW?</td>
       <td>Group Name</td>
       <td>Request Date</td>
+      <td>Create Date</td>
       <td>Contact Person</td>
       <td>Arrival Date</td>
       <td>Departure Date</td>
       <td>User Profile</td>
-{#      <td>Systems to enable</td> #}
+      <td>Em</td>
+      <td>Win</td>
+      <td>Lin</td>
       <td>Note</td>
     </tr>
   </thead>
 
   <tbody>
-    {% for ar in staffList %}
+    {% for ar in list %}
     <tr>
       <td> {{ ar.id }} </td>
+      <td> {{ ar.username }} </td>
       <td> {{ ar.name }} </td>
       <td> {{ ar.surname }} </td>
       <td> {% if ar.accountIsNew %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.groupName }} </td>
+      <td> {{ ar.requested|date('d/m/Y') }} </td>
       <td> {{ ar.created|date('d/m/Y') }} </td>
-      <td> {{ ar.accountContactPerson }} </td>
-      <td> {{ ar.accountStartDate|date('d/m/Y') }} </td>
-      <td> {{ ar.accountEndDate|date('d/m/Y') }} </td>
-      <td> {{ ar.accountProfile }} </td>
-{#      <td> {% for x in ar.systemsToEnable %} {{ x }} <br> {% endfor %} </td> #}
-      <td> {{ ar.accountNote }} </td>
+      <td> {{ ar.contactPerson }} </td>
+      <td> {{ ar.validFrom|date('d/m/Y') }} </td>
+      <td> {{ ar.validTo|date('d/m/Y') }} </td>
+      <td> {{ ar.profile }} </td>
+      <td> {% if ar.emailEnabled %} YES {% else %} NO {% endif %} </td>
+      <td> {% if ar.windowsEnabled %} YES {% else %} NO {% endif %} </td>
+      <td> {% if ar.linuxEnabled %} YES {% else %} NO {% endif %} </td>
+      <td> {{ ar.note }} </td>
     </tr>
     {% endfor %}
   </tbody>

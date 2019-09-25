@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Staff;
+use App\Entity\Account;
 
 class AppFixtures extends Fixture
 {
@@ -33,23 +34,28 @@ class AppFixtures extends Fixture
             $person->setValidTo(new \Datetime());
             $person->setVersion("1");
             $person->setNote("URGENTE!");
-
-            $person->setAccountContactPerson("Dal Bello");
-            $person->setAccountIsNew(false);
-            $person->setAccountStartDate(new \Datetime());
-            $person->setAccountEndDate(new \Datetime());
-            $person->setAccountProfile("completo");
-            $person->setAccountEmailEnabled(true);
-            $person->setAccountWindowsEnabled(true);
-            $person->setAccountLinuxEnabled(true);
-            $person->setAccountNote("URGENTISSIMO!!!");
-            $person->setAccountRequestDone(false);
-            $person->setAccountSipraDone(false);
             $person->setOfficePhone("555-123-456");
             $person->setOfficeMobile("555-123-456");
             $person->setOfficeLocation("C1P8");
-
             $manager->persist($person);
+
+            $acc = new Account();
+            $acc->setUsername('username' . $i);
+            $acc->setCreated(new \Datetime());
+            $acc->setRequested(new \Datetime());
+            $acc->setName('Nome' . $i);
+            $acc->setSurname('Cognome' . $i);          
+            $acc->setContactPerson("Dal Bello");
+            $acc->setAccountIsNew(false);
+            $acc->setValidFrom(new \Datetime());
+            $acc->setValidTo(new \Datetime());
+            $acc->setProfile("completo");
+            $acc->setGroupName("completo");
+            $acc->setEmailEnabled(true);
+            $acc->setWindowsEnabled(true);
+            $acc->setLinuxEnabled(true);
+            $acc->setNote("URGENTISSIMO!!!");
+            $manager->persist($acc);
         }
 
         $manager->flush();

@@ -19,12 +19,12 @@ class Staff
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $username;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $email;
 
@@ -54,27 +54,27 @@ class Staff
     private $leaderOfGroup;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $qualification;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $organization;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $totalHoursPerYear;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $totalContractualHoursPerYear;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $parttimePercent;
 
@@ -109,65 +109,9 @@ class Staff
     private $note;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $accountContactPerson;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $accountIsNew;
-
-    /**
-     * @ORM\Column(type="datetimetz")
-     */
-    private $accountStartDate;
-
-    /**
-     * @ORM\Column(type="datetimetz", nullable=true)
-     */
-    private $accountEndDate;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $accountProfile;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $accountEmailEnabled;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $accountWindowsEnabled;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $accountLinuxEnabled;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $accountNote;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $accountRequestDone;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $accountSipraDone;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $officePhone;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -188,7 +132,7 @@ class Staff
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -200,7 +144,7 @@ class Staff
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -272,7 +216,7 @@ class Staff
         return $this->qualification;
     }
 
-    public function setQualification(string $qualification): self
+    public function setQualification(?string $qualification): self
     {
         $this->qualification = $qualification;
 
@@ -284,7 +228,7 @@ class Staff
         return $this->organization;
     }
 
-    public function setOrganization(string $organization): self
+    public function setOrganization(?string $organization): self
     {
         $this->organization = $organization;
 
@@ -296,7 +240,7 @@ class Staff
         return $this->totalHoursPerYear;
     }
 
-    public function setTotalHoursPerYear(int $totalHoursPerYear): self
+    public function setTotalHoursPerYear(?int $totalHoursPerYear): self
     {
         $this->totalHoursPerYear = $totalHoursPerYear;
 
@@ -308,7 +252,7 @@ class Staff
         return $this->totalContractualHoursPerYear;
     }
 
-    public function setTotalContractualHoursPerYear(int $totalContractualHoursPerYear): self
+    public function setTotalContractualHoursPerYear(?int $totalContractualHoursPerYear): self
     {
         $this->totalContractualHoursPerYear = $totalContractualHoursPerYear;
 
@@ -320,7 +264,7 @@ class Staff
         return $this->parttimePercent;
     }
 
-    public function setParttimePercent(float $parttimePercent): self
+    public function setParttimePercent(?float $parttimePercent): self
     {
         $this->parttimePercent = $parttimePercent;
 
@@ -395,138 +339,6 @@ class Staff
     public function setNote(?string $note): self
     {
         $this->note = $note;
-
-        return $this;
-    }
-
-    public function getAccountContactPerson(): ?string
-    {
-        return $this->accountContactPerson;
-    }
-
-    public function setAccountContactPerson(string $accountContactPerson): self
-    {
-        $this->accountContactPerson = $accountContactPerson;
-
-        return $this;
-    }
-
-    public function getAccountIsNew(): ?bool
-    {
-        return $this->accountIsNew;
-    }
-
-    public function setAccountIsNew(bool $accountIsNew): self
-    {
-        $this->accountIsNew = $accountIsNew;
-
-        return $this;
-    }
-
-    public function getAccountStartDate(): ?\DateTimeInterface
-    {
-        return $this->accountStartDate;
-    }
-
-    public function setAccountStartDate(\DateTimeInterface $accountStartDate): self
-    {
-        $this->accountStartDate = $accountStartDate;
-
-        return $this;
-    }
-
-    public function getAccountEndDate(): ?\DateTimeInterface
-    {
-        return $this->accountEndDate;
-    }
-
-    public function setAccountEndDate(?\DateTimeInterface $accountEndDate): self
-    {
-        $this->accountEndDate = $accountEndDate;
-
-        return $this;
-    }
-
-    public function getAccountProfile(): ?string
-    {
-        return $this->accountProfile;
-    }
-
-    public function setAccountProfile(string $accountProfile): self
-    {
-        $this->accountProfile = $accountProfile;
-
-        return $this;
-    }
-
-    public function getAccountEmailEnabled(): ?bool
-    {
-        return $this->accountEmailEnabled;
-    }
-
-    public function setAccountEmailEnabled(bool $accountEmailEnabled): self
-    {
-        $this->accountEmailEnabled = $accountEmailEnabled;
-
-        return $this;
-    }
-
-    public function getAccountWindowsEnabled(): ?bool
-    {
-        return $this->accountWindowsEnabled;
-    }
-
-    public function setAccountWindowsEnabled(bool $accountWindowsEnabled): self
-    {
-        $this->accountWindowsEnabled = $accountWindowsEnabled;
-
-        return $this;
-    }
-
-    public function getAccountLinuxEnabled(): ?bool
-    {
-        return $this->accountLinuxEnabled;
-    }
-
-    public function setAccountLinuxEnabled(bool $accountLinuxEnabled): self
-    {
-        $this->accountLinuxEnabled = $accountLinuxEnabled;
-
-        return $this;
-    }
-
-    public function getAccountNote(): ?string
-    {
-        return $this->accountNote;
-    }
-
-    public function setAccountNote(?string $accountNote): self
-    {
-        $this->accountNote = $accountNote;
-
-        return $this;
-    }
-
-    public function getAccountRequestDone(): ?bool
-    {
-        return $this->accountRequestDone;
-    }
-
-    public function setAccountRequestDone(bool $accountRequestDone): self
-    {
-        $this->accountRequestDone = $accountRequestDone;
-
-        return $this;
-    }
-
-    public function getAccountSipraDone(): ?bool
-    {
-        return $this->accountSipraDone;
-    }
-
-    public function setAccountSipraDone(bool $accountSipraDone): self
-    {
-        $this->accountSipraDone = $accountSipraDone;
 
         return $this;
     }
