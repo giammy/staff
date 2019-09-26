@@ -156,7 +156,6 @@ class NewaccountController extends AbstractController
             return $this->redirectToRoute('thanks');
     	}
 
-        // replace this example code with whatever you need
         return $this->render('newaccount/index.html.twig', [
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
@@ -168,12 +167,17 @@ class NewaccountController extends AbstractController
      */
     public function newaccountShowallIndex()
     {
-        $repo = $this->getDoctrine()->getRepository(Account::class);
-
-	return $this->render('newaccount/showall.html.twig', [
-            'controller_name' => 'NewaccountShowallController',
-            'list' => $repo->findAll(),
-            ]);
+        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	$allowedUsers = preg_split('/, */', $this->params->get('users_newaccount_admin'));
+        if (in_array($username, $allowedUsers)) {
+            $repo = $this->getDoctrine()->getRepository(Account::class);
+	    return $this->render('newaccount/showall.html.twig', [
+                'controller_name' => 'NewaccountShowallController',
+                'list' => $repo->findAll(),
+                ]);
+        } else {
+            return $this->redirectToRoute('newaccount');
+        }
     }
 
     /**

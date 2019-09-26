@@ -1,25 +1,25 @@
 <html>
- <body>
- New account request - FORM DATA:
- <ul>
-  <li> Name: <b>{{ ar.name }}</b> </li>
-  <li> Surname: <b>{{ ar.surname }}</b> </li>
-  <li> Group: <b>{{ ar.groupName }} </b> </li>
-  <li> Contact person: <b> {{ ar.contactPerson }} </b> </li>
-  <li> Arrival date: <b>{{ ar.validFrom|date('d/m/Y') }} </b> </li>
-  <li> Departure date: <b>{{ ar.validTo|date('d/m/Y') }} </b> </li>
-  <li> Profile: <b>{{ ar.profile }} </b> </li>
-  <li> Notes: <b>{{ ar.note }} </b> </li>
-  <li> Is NEW account? <b> {% if ar.accountIsNew %}   YES {% else %} NO {% endif %} </b> </li>
-  <li> E-mail enabled? <b> {% if ar.emailEnabled %}   YES {% else %} NO {% endif %} </b> </li>
-  <li> Windows enabled?<b> {% if ar.windowsEnabled %} YES {% else %} NO {% endif %} </b> </li>
-  <li> Linux enabled?  <b> {% if ar.linuxEnabled %}   YES {% else %} NO {% endif %} </b> </li>
- </ul>
+  <body>
+    New account request - FORM DATA:
+    <ul>
+      <li> Name:           <b> {{ ar.name }} </b> </li>
+      <li> Surname:        <b> {{ ar.surname }} </b> </li>
+      <li> Group:          <b> {{ ar.groupName }} </b> </li>
+      <li> Contact person: <b> {{ ar.contactPerson }} </b> </li>
+      <li> Arrival date:   <b> {{ ar.validFrom|date('d/m/Y') }} </b> </li>
+      <li> Departure date: <b> {{ ar.validTo|date('d/m/Y') }} </b> </li>
+      <li> Profile:        <b> {{ ar.profile }} </b> </li>
+      <li> Notes:          <b> {{ ar.note }} </b> </li>
+      <li> Is NEW account? <b> {% if ar.accountIsNew %}   YES {% else %} NO {% endif %} </b> </li>
+      <li> E-mail enabled? <b> {% if ar.emailEnabled %}   YES {% else %} NO {% endif %} </b> </li>
+      <li> Windows enabled?<b> {% if ar.windowsEnabled %} YES {% else %} NO {% endif %} </b> </li>
+      <li> Linux enabled?  <b> {% if ar.linuxEnabled %}   YES {% else %} NO {% endif %} </b> </li>
+    </ul>
 
- <br>
- date: {{ ar.requested|date('d/m/Y') }}
- <br>
- Regards
- </body>
+    <br>
+    date: {{ ar.requested|date('d/m/Y') }}
+    <br>
+    Regards
+  </body>
 </html>
 

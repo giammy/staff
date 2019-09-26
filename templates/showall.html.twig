@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}NewAccount - Showall{% endblock %}
+{% block title %}Staff - Showall{% endblock %}
 
 {% block javascripts %}
   <script>
     // initialization and configuration
     $(document).ready( function () {
-        $('#newaccountShowallTable').dataTable( {
+        $('#staffShowallTable').dataTable( {
               "fixedHeader": true,
               "lengthMenu": [ 200, 100, 75, 50, 25, 10 ]
               //"info":     false, // remove header and footer
@@ -22,31 +22,31 @@
 
 {% block body %}
 
-{#
-{% if is_granted("ROLE_USER") %}
-  <h3>Request from: {{ app.user.username }}</h3>
-{% endif %}
-#}
-
-<table id="newaccountShowallTable">
+<table id="staffShowallTable">
   <thead>
     <tr>
       <td>Id</td>
       <td>Username</td>
+      <td>E-mail</td>
+      <td>Secondary E-mail</td>
       <td>Name</td>
       <td>Surname</td>
-      <td>Is NEW?</td>
-      <td>Group Name</td>
-      <td>Request Date</td>
+      <td>Group</td>
+      <td>Capogruppo di</td>
+      <td>Qualification</td>
+      <td>Organization</td>
+      {# <td>Total H/year</td> #}
+      <td>Total H/year</td>
+      <td>Partime</td>
+      <td>Timesheet</td>
       <td>Create Date</td>
-      <td>Contact Person</td>
-      <td>Arrival Date</td>
-      <td>Departure Date</td>
-      <td>User Profile</td>
-      <td>Em</td>
-      <td>Win</td>
-      <td>Lin</td>
+      <td>Valid From</td>
+      <td>Valid To</td>
       <td>Note</td>
+      <td>Version</td>
+      <td>Office Phone</td>
+      <td>Office Mobile</td>
+      <td>Office Location</td>
     </tr>
   </thead>
 
@@ -55,20 +55,26 @@
     <tr>
       <td> {{ ar.id }} </td>
       <td> {{ ar.username }} </td>
+      <td> {{ ar.email }} </td>
+      <td> {{ ar.secondaryEmail }} </td>
       <td> {{ ar.name }} </td>
       <td> {{ ar.surname }} </td>
-      <td> {% if ar.accountIsNew %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.groupName }} </td>
-      <td> {{ ar.requested|date('d/m/Y') }} </td>
+      <td> {{ ar.leaderOfGroup }} </td>
+      <td> {{ ar.qualification }} </td>
+      <td> {{ ar.organization }} </td>
+      {# <td> {{ ar.totalHoursPerYear }} </td> #}
+      <td> {{ ar.totalContractualHoursPerYear }} </td>
+      <td> {{ ar.parttimePercent }} </td>
+      <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.created|date('d/m/Y') }} </td>
-      <td> {{ ar.contactPerson }} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
-      <td> {{ ar.profile }} </td>
-      <td> {% if ar.emailEnabled %} YES {% else %} NO {% endif %} </td>
-      <td> {% if ar.windowsEnabled %} YES {% else %} NO {% endif %} </td>
-      <td> {% if ar.linuxEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.note }} </td>
+      <td> {{ ar.version }} </td>
+      <td> {{ ar.officePhone }} </td>
+      <td> {{ ar.officeMobile }} </td>
+      <td> {{ ar.officeLocation }} </td>
     </tr>
     {% endfor %}
   </tbody>

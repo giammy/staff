@@ -1,23 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NewaccountController!{% endblock %}
+{% block title %}Newaccount Main Page{% endblock %}
 
 {% block body %}
 
-
-  <div align="center">
-      <h2>User Account Request - to be filled by the Group Manager</h2>
-      <h3>Please fill in all the fields</h3>
-  </div>
-
-
-
-
-{#
-{% if is_granted("ROLE_USER") %}
-<h3>Request from: {{ app.user.username }}</h3>
-{% endif %}
-#}
+<div align="center">
+  <h2>User Account Request - to be filled by the Group Manager</h2>
+  <h3>Please fill in all the fields</h3>
+</div>
 
 {{ form_start(form) }}
 {# {{ form_widget(form) }} #}
@@ -54,7 +44,6 @@
     <td> Main Group</td>
     <td> {{ form_widget(attribute(form, "groupName"), { 'attr': {'size': '11'} }) }} </td>
   </tr>
-
   <tr>
     <td> Needs email account</td>
     <td> {{ form_widget(attribute(form, "emailEnabled"), { 'attr': {'size': '3'} }) }} </td>
@@ -67,12 +56,10 @@
     <td> Needs Linux account</td>
     <td> {{ form_widget(attribute(form, "linuxEnabled"), { 'attr': {'size': '3'} }) }} </td>
   </tr>
-
   <tr>
     <td> Note</td>
     <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
-
 </table>
 
 <center>
