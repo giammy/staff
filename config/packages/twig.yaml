@@ -9,3 +9,4 @@ twig:
         users_manager: '%env(USERS_MANAGER)%'
         users_it: '%env(USERS_IT)%'
         users_ufficio_personale: '%env(USERS_UFFICIO_PERSONALE)%'
+        users_newaccount_admin: '%env(USERS_NEWACCOUNT_ADMIN)%'

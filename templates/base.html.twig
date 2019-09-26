@@ -29,7 +29,8 @@
         {% if userBelongsTo(users_admin, app.user.username) %} <font color="red">ADMIN</font> --- {% endif %}
         {% if userBelongsTo(users_manager, app.user.username) %} <font >MANAGER</font> --- {% endif %}
         {% if userBelongsTo(users_it, app.user.username) %} <font >IT</font> --- {% endif %}
-        {% if userBelongsTo(users_ufficio_personale, app.user.username) %} <font >UFFICIO_PERSONALE</font> --- {% endif %}
+        {% if userBelongsTo(users_ufficio_personale, app.user.username) %} <font >Ufficio_Personale</font> --- {% endif %}
+        {% if userBelongsTo(users_newaccount_admin, app.user.username) %} <font >NewAccountAdmin</font> --- {% endif %}
         User: {{ app.user.username }} ---
         <a href="{{ logout_path('main') }}">Logout</a>
       {% endif %}
