@@ -9,6 +9,9 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Entity\Staff;
 use App\Entity\Account;
 
+use Psr\Log\LoggerInterface;
+
+
 class RootController extends AbstractController
 {
     private $params;
@@ -19,8 +22,10 @@ class RootController extends AbstractController
     /**
      * @Route("/", name="root")
      */
-    public function rootIndex()
+    public function rootIndex(LoggerInterface $logger)
     {
+        $logger->info('rootIndex: IN');
+
         return $this->render('index.html.twig', [
             'controller_name' => 'RootController',
             'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
