@@ -16,6 +16,7 @@
         "symfony/ldap": "4.3.*",
         "symfony/process": "4.3.*",
         "symfony/security-bundle": "4.3.*",
+        "symfony/swiftmailer-bundle": "^3.2",
         "symfony/yaml": "4.3.*",
         "twig/extensions": "^1.5",
         "webonyx/graphql-php": "^0.13.8"

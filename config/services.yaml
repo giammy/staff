@@ -11,6 +11,10 @@ parameters:
     users_it: '%env(resolve:USERS_IT)%'
     users_ufficio_personale: '%env(resolve:USERS_UFFICIO_PERSONALE)%'
 
+    users_newaccount_admin: '%env(resolve:USERS_NEWACCOUNT_ADMIN)%'
+    newaccount_mailstonotify: '%env(resolve:NEWACCOUNT_MAILSTONOTIFY)%'
+
+
 services:
     # default configuration for services in *this* file
     _defaults:

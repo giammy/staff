@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Staff;
 use App\Entity\Account;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -16,10 +17,16 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class NewaccountController extends AbstractController
 {
+
+    private $params;
+    public function __construct(ParameterBagInterface $params) {
+        $this->params = $params;
+    }
+
     /**
      * @Route("/newaccount", name="newaccount")
      */
-    public function newaccountIndex(Request $request)
+    public function newaccountIndex(Request $request, \Swift_Mailer $mailer)
     {
         $account = new Account();
         $account->setRequested(new \DateTime(date('Y-m-d H:i:s')));
@@ -129,28 +136,23 @@ class NewaccountController extends AbstractController
              $em->persist($account);
              $em->flush();
 
-/*
-	     // Using service to get LDAP attributes
-             $srvc = $this->container->get('get.attributes');
-	     $attributes = $srvc->getAttributes($this->getUser()->getUsername());
+             $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	     $mailsToNotify = preg_split('/, */', $this->params->get('newaccount_mailstonotify'));
+	     array_push($mailsToNotify, $username . '@igi.cnr.it');
 
-	     $mailsToNotify = $this->container->getParameter('mailsToNotify');
-		     array_push($mailsToNotify, $attributes['email']);
-
-             // OK ALL DONE!
-	          foreach ($mailsToNotify as $recipient) {
-		           $message = \Swift_Message::newInstance()
-			                ->setSubject('New account request from ' . $ar->getGroupHead() . ' for ' . $ar->getName() . ' ' . $ar->getSurname())
-							       ->setFrom('webmaster@igi.cnr.it')
-								     ->setTo($recipient)
-									     ->setBody(
-											$this->renderView(
-                        'emails/newaccount.html.twig',
-                        array('ar' => $ar)
-                      ),'text/html');
-		                $this->get('mailer')->send($message);
-				     }
-*/
+             // send emails
+             foreach ($mailsToNotify as $recipient) {
+		 $message = (new \Swift_Message('New account request from ' . $username . ' for ' . 
+                                  $account->getName() . ' ' . $account->getSurname()))
+		     ->setFrom('webmaster@igi.cnr.it')
+		     ->setTo($recipient)
+		     ->setBody(
+			$this->renderView(
+                         'newaccount/requestEmail.html.twig',
+                          array('ar' => $account)
+                        ),'text/html');
+		 $mailer->send($message);
+             }
             return $this->redirectToRoute('thanks');
     	}
 
