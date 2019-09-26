@@ -25,38 +25,38 @@
 <table id="staffShowallTable">
   <thead>
     <tr>
-      <td>Id</td>
       <td>Username</td>
       <td>E-mail</td>
-      <td>Secondary E-mail</td>
       <td>Name</td>
       <td>Surname</td>
       <td>Group</td>
-      <td>Capogruppo di</td>
-      <td>Qualification</td>
-      <td>Organization</td>
+      <td>Capog.</td>
+      <td>Qual</td>
+      <td>Org</td>
       {# <td>Total H/year</td> #}
-      <td>Total H/year</td>
-      <td>Partime</td>
-      <td>Timesheet</td>
-      <td>Create Date</td>
+      <td>Tot H/y</td>
+      <td>Ptime</td>
+      <td>T.s</td>
       <td>Valid From</td>
       <td>Valid To</td>
       <td>Note</td>
+      {% if userBelongsTo(users_admin, username) %}
+      <td>Id</td>
+      <td>Secondary E-mail</td>
+      <td>Create Date</td>
       <td>Version</td>
       <td>Office Phone</td>
       <td>Office Mobile</td>
       <td>Office Location</td>
+      {% endif %}
     </tr>
   </thead>
 
   <tbody>
     {% for ar in list %}
     <tr>
-      <td> {{ ar.id }} </td>
       <td> {{ ar.username }} </td>
       <td> {{ ar.email }} </td>
-      <td> {{ ar.secondaryEmail }} </td>
       <td> {{ ar.name }} </td>
       <td> {{ ar.surname }} </td>
       <td> {{ ar.groupName }} </td>
@@ -67,14 +67,18 @@
       <td> {{ ar.totalContractualHoursPerYear }} </td>
       <td> {{ ar.parttimePercent }} </td>
       <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
-      <td> {{ ar.created|date('d/m/Y') }} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
       <td> {{ ar.note }} </td>
+      {% if userBelongsTo(users_admin, username) %}
+      <td> {{ ar.id }} </td>
+      <td> {{ ar.secondaryEmail }} </td>
+      <td> {{ ar.created|date('d/m/Y') }} </td>
       <td> {{ ar.version }} </td>
       <td> {{ ar.officePhone }} </td>
       <td> {{ ar.officeMobile }} </td>
       <td> {{ ar.officeLocation }} </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>

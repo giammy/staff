@@ -39,6 +39,7 @@ class RootController extends AbstractController
 	    return $this->render('showall.html.twig', [
                 'controller_name' => 'ShowallController',
                 'list' => $repo->findAll(),
+                'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                 ]);
         } else {
             return $this->redirectToRoute('root');
