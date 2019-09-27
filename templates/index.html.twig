@@ -6,15 +6,15 @@
 
   <center><h2>
     {% if userBelongsTo(users_admin, username) %}
-    <a href="{{ path('newaccount') }}" class="button" style="width:42%">Richiesta nuovo account</a>
-    <br><p><br>
+      <a href="{{ path('newaccount') }}" class="button" style="width:42%">Richiesta nuovo account</a>
+      <br><p><br>
     {% endif %}
     {% if userBelongsTo(users_ufficio_personale, username) %}
-    <a href="{{ path('root') }}" class="button" style="width:42%">Inserisci nuovo dipendente</a>
-    <br><p><br>
-    <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra lista dipendenti</a>
+      <a href="{{ path('editUser') }}" class="button" style="width:42%">Inserisci nuovo dipendente</a>
+      <br><p><br>
+      <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra lista dipendenti</a>
     {% else %}
-    <center><h2>Area riservata per l'ufficio personale</h2></center>
+      <center><h2>Area riservata per l'ufficio personale</h2></center>
     {% endif %}
   </h2></center>
 

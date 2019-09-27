@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newuser Page{% endblock %}
+
+{% block body %}
+
+{{ form_start(form) }}
+{# {{ form_widget(form) }} #}
+<table>
+  <tr>
+    <td> Username</td>
+    <td> {{ form_widget(attribute(form, "username"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> E-mail</td>
+    <td> {{ form_widget(attribute(form, "email"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> E-mail secondaria</td>
+    <td> {{ form_widget(attribute(form, "secondaryEmail"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Nome</td>
+    <td> {{ form_widget(attribute(form, "name"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Cognome</td>
+    <td> {{ form_widget(attribute(form, "surname"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Gruppo</td>
+    <td> {{ form_widget(attribute(form, "groupName"), { 'attr': {'size': '23'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Capo Gruppo di</td>
+    <td> {{ form_widget(attribute(form, "leaderOfGroup"), { 'attr': {'size': '23'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Qualifica</td>
+    <td> {{ form_widget(attribute(form, "qualification"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Organizzazione</td>
+    <td> {{ form_widget(attribute(form, "organization"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  {#<tr>
+    <td> Ore all'anno - da contract calcolato part-time</td>
+    <td> {{ form_widget(attribute(form, "totalHoursPerYear"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>#}
+  <tr>
+    <td> Ore all'anno</td>
+    <td> {{ form_widget(attribute(form, "totalContractualHoursPerYear"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Percentuale part-time</td>
+    <td> {{ form_widget(attribute(form, "parttimePercent"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Timesheet abilitato?</td>
+    <td> {{ form_widget(attribute(form, "isTimeSheetEnabled"), { 'attr': {'size': '2'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Data Inizio</td>
+    <td> {{ form_widget(attribute(form, "validFrom"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Data Fine</td>
+    <td> {{ form_widget(attribute(form, "validTo"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Note</td>
+    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '11'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Telefono Ufficio</td>
+    <td> {{ form_widget(attribute(form, "officePhone"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Cellulare Ufficio</td>
+    <td> {{ form_widget(attribute(form, "officeMobile"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> Posizione Ufficio</td>
+    <td> {{ form_widget(attribute(form, "officeLocation"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+</table>
+
+<center>
+<input type="submit" value="SEND REQUEST" class='button' style='width: 80%; font-size: 20px;'/>
+</center>
+{{ form_end(form) }}
+
+{% endblock %}
