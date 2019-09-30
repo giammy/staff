@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 // TODO use Psr\Log\LoggerInterface;
 
@@ -92,7 +93,7 @@ class NewaccountController extends AbstractController
                                  'expanded' => true,
                                  'multiple' => false,
                                  'choices'  => array(
-                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'Yes' => true,
                                             'No' => false,
                                             ),
                                  'data' => false,
@@ -101,7 +102,7 @@ class NewaccountController extends AbstractController
                                  'expanded' => true,
                                  'multiple' => false,
                                  'choices'  => array(
-                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'Yes' => true,
                                             'No' => false,
                                             ),
                                  'data' => false,
@@ -110,19 +111,23 @@ class NewaccountController extends AbstractController
                                  'expanded' => true,
                                  'multiple' => false,
                                  'choices'  => array(
-                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'Yes' => true,
                                             'No' => false,
                                             ),
                                  'data' => false,
                                            ))
-            ->add('itRegulationAccepted', ChoiceType::class, array(
-                                 'expanded' => true,
-                                 'multiple' => false,
-                                 'choices'  => array(
-                                            'Yes' => true,  // label says "IS NEW", so invert
-                                            'No' => false,
-                                            ),
-                                 'data' => false,
+            ->add('itRegulationAccepted', CheckboxType::class, array(
+                                 'mapped' => false,
+                                 'constraints' => [
+                                    new IsTrue([
+                                       'message' => 'I know, it\'s silly, but you must agree to our terms.'
+                                   ])],
+                                 //'expanded' => false,
+                                 //'multiple' => false,
+                                 //'choices'  => array(
+                                 //           'Yes' => true,
+                                 //           ),
+                                 //'data' => false,
                                            ))
             ->add('note', TextType::class, array(
   	          	      'required'    => false,
@@ -141,6 +146,7 @@ class NewaccountController extends AbstractController
              $account->setVersion($this->params->get('account_current_db_format_version'));
              $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
              $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
+             $account->setItRegulationAccepted(true); // form input will force the check of this flag
 
 	     // save
 	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');

@@ -35,19 +35,21 @@
       <td>Username</td>
       <td>Name</td>
       <td>Surname</td>
-      <td>Is NEW?</td>
-      <td>Group Name</td>
-      <td>Request Date</td>
-      <td>Create Date</td>
+      <td>New</td>
+      <td>Group</td>
       <td>Contact Person</td>
       <td>Arrival Date</td>
       <td>Departure Date</td>
       <td>User Profile</td>
-      <td>Em</td>
-      <td>Win</td>
-      <td>Lin</td>
-      <td>Rule</td>
+      <td>E</td>
+      <td>W</td>
+      <td>L</td>
+      <td>R</td>
       <td>Note</td>
+      <td>Request Date</td>
+      <td>Create Date</td>
+      <td>Ver</td>
+      <td>Res</td>
     </tr>
   </thead>
 
@@ -58,19 +60,21 @@
       <td> {{ ar.username }} </td>
       <td> {{ ar.name }} </td>
       <td> {{ ar.surname }} </td>
-      <td> {% if ar.accountIsNew %} YES {% else %} NO {% endif %} </td>
+      <td> {% if ar.accountIsNew %} Y {% else %} N {% endif %} </td>
       <td> {{ ar.groupName }} </td>
-      <td> {{ ar.requested|date('d/m/Y') }} </td>
-      <td> {{ ar.created|date('d/m/Y') }} </td>
       <td> {{ ar.contactPerson }} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
       <td> {{ ar.profile }} </td>
-      <td> {% if ar.emailEnabled %} YES {% else %} NO {% endif %} </td>
-      <td> {% if ar.windowsEnabled %} YES {% else %} NO {% endif %} </td>
-      <td> {% if ar.linuxEnabled %} YES {% else %} NO {% endif %} </td>
-      <td> {% if ar.itRegulationAccepted %} YES {% else %} NO {% endif %} </td>
+      <td> {% if ar.emailEnabled %} Y {% else %} N {% endif %} </td>
+      <td> {% if ar.windowsEnabled %} Y {% else %} N {% endif %} </td>
+      <td> {% if ar.linuxEnabled %} Y {% else %} N {% endif %} </td>
+      <td> {% if ar.itRegulationAccepted %} Y {% else %} N {% endif %} </td>
       <td> {{ ar.note }} </td>
+      <td> {{ ar.requested|date('d/m/Y') }} </td>
+      <td> {{ ar.created|date('d/m/Y') }} </td>
+      <td> {{ ar.version }} </td>
+      <td> {{ ar.internalNote }} </td>
     </tr>
     {% endfor %}
   </tbody>
