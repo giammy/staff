@@ -63,8 +63,9 @@ class RootController extends AbstractController
     /**
      * @Route("/editUser", name="editUser")
      */
-    public function editUserAction(Request $request, \Swift_Mailer $mailer)
+    public function editUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $logger)
     {
+        $logger->info("IN: editUserAction");
         $account = new Staff();
         $account->setCreated(new \DateTime(date('Y-m-d H:i:s')));
 
@@ -148,6 +149,9 @@ class RootController extends AbstractController
 
 	$form->handleRequest($request);
 
+        $logger->info("IN: editUserAction: isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
+                    " isValid=" . ($form->isSubmitted()?($form->isValid()?"TRUE":"FALSE"):"---") );
+
 	if ($form->isSubmitted() && $form->isValid()) {
              // $form->getData() holds the submitted values
              // but, the original variable has also been updated
@@ -156,6 +160,8 @@ class RootController extends AbstractController
 // TODO se non impostati impostali
 //             $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
 //             $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
+
+	     $account->setVersion(2);
 
 	     // save
 	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');
