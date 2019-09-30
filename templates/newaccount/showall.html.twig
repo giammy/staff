@@ -46,6 +46,7 @@
       <td>Em</td>
       <td>Win</td>
       <td>Lin</td>
+      <td>Rule</td>
       <td>Note</td>
     </tr>
   </thead>
@@ -68,6 +69,7 @@
       <td> {% if ar.emailEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {% if ar.windowsEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {% if ar.linuxEnabled %} YES {% else %} NO {% endif %} </td>
+      <td> {% if ar.itRegulationAccepted %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.note }} </td>
     </tr>
     {% endfor %}

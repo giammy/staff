@@ -115,6 +115,15 @@ class NewaccountController extends AbstractController
                                             ),
                                  'data' => false,
                                            ))
+            ->add('itRegulationAccepted', ChoiceType::class, array(
+                                 'expanded' => true,
+                                 'multiple' => false,
+                                 'choices'  => array(
+                                            'Yes' => true,  // label says "IS NEW", so invert
+                                            'No' => false,
+                                            ),
+                                 'data' => false,
+                                           ))
             ->add('note', TextType::class, array(
   	          	      'required'    => false,
 	      		        // 'placeholder' => '',
@@ -129,6 +138,7 @@ class NewaccountController extends AbstractController
              // $form->getData() holds the submitted values
              // but, the original `$task` variable has also been updated
 	     $account = $form->getData();
+             $account->setVersion($this->params->get('account_current_db_format_version'));
              $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
              $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
 

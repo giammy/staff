@@ -161,7 +161,7 @@ class RootController extends AbstractController
 //             $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
 //             $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
 
-	     $account->setVersion(2);
+             $account->setVersion($this->params->get('staff_current_db_format_version'));
 
 	     // save
 	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');

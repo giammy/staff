@@ -14,6 +14,8 @@ parameters:
     users_newaccount_admin: '%env(resolve:USERS_NEWACCOUNT_ADMIN)%'
     newaccount_mailstonotify: '%env(resolve:NEWACCOUNT_MAILSTONOTIFY)%'
 
+    account_current_db_format_version: '%env(resolve:ACCOUNT_CURRENT_DB_FORMAT_VERSION)%'
+    staff_current_db_format_version: '%env(resolve:STAFF_CURRENT_DB_FORMAT_VERSION)%'
 
 services:
     # default configuration for services in *this* file

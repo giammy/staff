@@ -93,6 +93,21 @@ class Account
      */
     private $note;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $itRegulationAccepted;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $version;
+
+    /**
+     * @ORM\Column(type="string", length=1024, nullable=true)
+     */
+    private $internalNote;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -274,6 +289,42 @@ class Account
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getItRegulationAccepted(): ?bool
+    {
+        return $this->itRegulationAccepted;
+    }
+
+    public function setItRegulationAccepted(bool $itRegulationAccepted): self
+    {
+        $this->itRegulationAccepted = $itRegulationAccepted;
+
+        return $this;
+    }
+
+    public function getVersion(): ?int
+    {
+        return $this->version;
+    }
+
+    public function setVersion(int $version): self
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    public function getInternalNote(): ?string
+    {
+        return $this->internalNote;
+    }
+
+    public function setInternalNote(?string $internalNote): self
+    {
+        $this->internalNote = $internalNote;
 
         return $this;
     }

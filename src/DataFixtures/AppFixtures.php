@@ -55,6 +55,8 @@ class AppFixtures extends Fixture
             $acc->setWindowsEnabled(true);
             $acc->setLinuxEnabled(true);
             $acc->setNote("URGENTISSIMO!!!");
+            $acc->setVersion(2);
+            $acc->setItRegulationAccepted(true);
             $manager->persist($acc);
         }
 
