@@ -11,9 +11,6 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
         for ($i=0; $i<10; $i++) {
             $person = new Staff();
             $person->setUsername('username' . $i);
@@ -39,6 +36,7 @@ class AppFixtures extends Fixture
             $person->setOfficeLocation("C1P8");
             $manager->persist($person);
 
+            /*
             $acc = new Account();
             $acc->setUsername('username' . $i);
             $acc->setCreated(new \Datetime());
@@ -58,6 +56,7 @@ class AppFixtures extends Fixture
             $acc->setVersion(2);
             $acc->setItRegulationAccepted(true);
             $manager->persist($acc);
+            */
         }
 
         $manager->flush();
