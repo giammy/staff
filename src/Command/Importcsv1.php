@@ -81,7 +81,12 @@ class Importcsv1 extends Command
                 $acc->setNote($row[13]);
                 $acc->setItRegulationAccepted(false);
                 $acc->setVersion(1);
-                $acc->setInternalNote("IMPORTED groupHead: '" . $row[4] . "' mailingLists: '" . $row[12] . "'");
+                if (strlen($row[12])>0) {
+		    $str = "mailingLists: '" . $row[12] . "'";
+                } else {
+  		    $str = '';
+                }
+                $acc->setInternalNote("IMPORTED groupHead: '" . $row[4] . "'" . $str);
                 $this->manager->persist($acc);
                 $this->manager->flush();
 
