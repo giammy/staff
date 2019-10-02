@@ -5,6 +5,12 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
 
+    ldap_server: '%env(resolve:LDAP_SERVER)%'
+    ldap_server_port: '%env(resolve:LDAP_SERVER_PORT)%'
+    ldap_user: '%env(resolve:LDAP_SEARCH_USER)%'
+    ldap_password: '%env(resolve:LDAP_SEARCH_PASSWORD)%'
+    ldap_search_basedn: '%env(resolve:LDAP_SEARCH_BASEDN)%'
+
     # each type of user is allowed to his own sections
     users_admin: '%env(resolve:USERS_ADMIN)%'
     users_manager: '%env(resolve:USERS_MANAGER)%'
@@ -16,6 +22,8 @@ parameters:
 
     account_current_db_format_version: '%env(resolve:ACCOUNT_CURRENT_DB_FORMAT_VERSION)%'
     staff_current_db_format_version: '%env(resolve:STAFF_CURRENT_DB_FORMAT_VERSION)%'
+
+    staff_import_exceptions: '%env(resolve:STAFF_IMPORT_EXCEPTIONS)%'
 
 services:
     # default configuration for services in *this* file
@@ -49,3 +57,7 @@ services:
                 options:
                     protocol_version: '%env(resolve:LDAP_VERSION)%'
                     referrals: false
+
+    convertsurnamenametousernamedata.convert:
+        class: App\Services\ConvertSurnameNameToUsernameData
+        arguments: []
