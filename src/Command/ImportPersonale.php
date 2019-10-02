@@ -102,15 +102,19 @@ class ImportPersonale extends Command
                     $output->write('"' . $row[$c] . '",');
                 }
                 $output->writeln("");
+                $rowNo++;
+
+	        $usernameData = $this->convertSurnameNameToUsernameData->convert($row[1]);
+                if ($row[0]=="" || (strlen($usernameData['username'])==0 && $row[0]=="BLK")) {
+                    continue;
+                }
 
 		// store data in db
-
                 $acc = new Staff();
                 //  0       1              2               3              4    
                 // "GROUP","SURNAME NAME","QUALIFICATION","ORGANIZATION","1720",
                 //  5          6             7      8   9
                 // "LEADEROF","isTimesheet","1720","1","",
-	        $usernameData = $this->convertSurnameNameToUsernameData->convert($row[1]);
                 $acc->setUsername($usernameData['username']);
                 $acc->setEmail($usernameData['email']);
                 $acc->setSecondaryEmail(null);
@@ -134,7 +138,6 @@ class ImportPersonale extends Command
                 $acc->setOfficeLocation(null);
                 $this->manager->persist($acc);
                 $this->manager->flush();
-                $rowNo++;
             }
             fclose($fp);
         }
