@@ -12,6 +12,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         for ($i=0; $i<10; $i++) {
+/*
             $person = new Staff();
             $person->setUsername('username' . $i);
             $person->setEmail('username' . $i . '@email.com');
@@ -35,6 +36,7 @@ class AppFixtures extends Fixture
             $person->setOfficeMobile("555-123-456");
             $person->setOfficeLocation("C1P8");
             $manager->persist($person);
+*/
 
             /*
             $acc = new Account();

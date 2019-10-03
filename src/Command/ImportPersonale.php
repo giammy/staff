@@ -36,6 +36,8 @@ class ImportPersonale extends Command
         ->setHelp('Import file personale*.csv from SIPRA.')
 
         ->addArgument('filename', InputArgument::REQUIRED, 'CSV filename')
+        ->addArgument('validityStart', InputArgument::REQUIRED, 'Validity start year')
+        ->addArgument('validityEnd', InputArgument::REQUIRED, 'Validity end year')
       ;
     }
 
@@ -71,6 +73,8 @@ class ImportPersonale extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $filename = $input->getArgument('filename');
+        $validityStart = $input->getArgument('validityStart');
+        $validityEnd = $input->getArgument('validityEnd');
         $output->writeln('Import file personale*.csv from file: ' . $filename);
 
         $rowNo = 1;
@@ -91,7 +95,9 @@ class ImportPersonale extends Command
                     exit;
                 }
 
-                if ($row[0] == "BLK" || $row[0] == "") {
+	        $usernameData = $this->convertSurnameNameToUsernameData->convert($row[1]);
+
+                if ($row[0]=="" || (strlen($usernameData['username'])==0 && $row[0]=="BLK")) {
                     $output->write('-IGNORING: ');
 		} else {
                     $output->write('Importing: ');
@@ -104,7 +110,6 @@ class ImportPersonale extends Command
                 $output->writeln("");
                 $rowNo++;
 
-	        $usernameData = $this->convertSurnameNameToUsernameData->convert($row[1]);
                 if ($row[0]=="" || (strlen($usernameData['username'])==0 && $row[0]=="BLK")) {
                     continue;
                 }
@@ -129,13 +134,16 @@ class ImportPersonale extends Command
                 $acc->setParttimePercent(floatval($row[8])); // float
                 $acc->setIsTimeSheetEnabled($row[6]=="1");
                 $acc->setCreated(new \Datetime()); // set import date
-                $acc->setValidFrom(\DateTime::createFromFormat('d/m/Y', "01/01/2000"));
-                $acc->setValidTo(\DateTime::createFromFormat('d/m/Y', "31/12/2999"));
+                $acc->setValidFrom(\DateTime::createFromFormat('d/m/Y', ("01/01/".$validityStart)));
+                $acc->setValidTo(\DateTime::createFromFormat('d/m/Y', ("31/12/".$validityEnd)));
                 $acc->setVersion(1);
                 $acc->setNote(null);
                 $acc->setOfficePhone(null);
                 $acc->setOfficeMobile(null);
                 $acc->setOfficeLocation(null);
+ 		$acc->setInternalNote(null);
+		$acc->setLastChangeAuthor('importer');
+		$acc->setLastChangeDate(new \Datetime());
                 $this->manager->persist($acc);
                 $this->manager->flush();
             }

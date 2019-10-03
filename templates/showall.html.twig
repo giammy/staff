@@ -33,21 +33,26 @@
       <td>Capog.</td>
       <td>Qual</td>
       <td>Org</td>
-      {# <td>Total H/year</td> #}
-      <td>Tot H/y</td>
+{#
+      <td>Contr.H</td>
       <td>Ptime</td>
+#}
+      <td>Av.H</td>
       <td>T.s</td>
       <td>Valid From</td>
       <td>Valid To</td>
-      <td>Note</td>
       {% if userBelongsTo(users_admin, username) %}
       <td>Id</td>
+      <td>Note</td>
       <td>Secondary E-mail</td>
       <td>Create Date</td>
       <td>Version</td>
       <td>Office Phone</td>
       <td>Office Mobile</td>
       <td>Office Location</td>
+      <td>Last Change Atuthor</td>
+      <td>Last Change Date</td>
+      <td>Internal Note</td>
       {% endif %}
     </tr>
   </thead>
@@ -63,21 +68,26 @@
       <td> {{ ar.leaderOfGroup }} </td>
       <td> {{ ar.qualification }} </td>
       <td> {{ ar.organization }} </td>
-      {# <td> {{ ar.totalHoursPerYear }} </td> #}
+{#
       <td> {{ ar.totalContractualHoursPerYear }} </td>
       <td> {{ ar.parttimePercent }} </td>
+#}
+      <td> <font color="gray">({{ ar.totalContractualHoursPerYear }}*{{ ar.parttimePercent|number_format(2, '.', '') }}=)</font>{{ ar.totalHoursPerYear }} </td>
       <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
-      <td> {{ ar.note }} </td>
       {% if userBelongsTo(users_admin, username) %}
       <td> {{ ar.id }} </td>
+      <td> {{ ar.note }} </td>
       <td> {{ ar.secondaryEmail }} </td>
       <td> {{ ar.created|date('d/m/Y') }} </td>
       <td> {{ ar.version }} </td>
       <td> {{ ar.officePhone }} </td>
       <td> {{ ar.officeMobile }} </td>
       <td> {{ ar.officeLocation }} </td>
+      <td> {{ ar.lastChangeAuthor }} </td>
+      <td> {{ ar.lastChangeDate|date('d/m/Y') }} </td>
+      <td> {{ ar.internalNote }} </td>
       {% endif %}
     </tr>
     {% endfor %}

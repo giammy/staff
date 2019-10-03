@@ -122,6 +122,21 @@ class Staff
      */
     private $officeLocation;
 
+    /**
+     * @ORM\Column(type="string", length=1024, nullable=true)
+     */
+    private $internalNote;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastChangeAuthor;
+
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $lastChangeDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -375,6 +390,42 @@ class Staff
     public function setOfficeLocation(?string $officeLocation): self
     {
         $this->officeLocation = $officeLocation;
+
+        return $this;
+    }
+
+    public function getInternalNote(): ?string
+    {
+        return $this->internalNote;
+    }
+
+    public function setInternalNote(?string $internalNote): self
+    {
+        $this->internalNote = $internalNote;
+
+        return $this;
+    }
+
+    public function getLastChangeAuthor(): ?string
+    {
+        return $this->lastChangeAuthor;
+    }
+
+    public function setLastChangeAuthor(string $lastChangeAuthor): self
+    {
+        $this->lastChangeAuthor = $lastChangeAuthor;
+
+        return $this;
+    }
+
+    public function getLastChangeDate(): ?\DateTimeInterface
+    {
+        return $this->lastChangeDate;
+    }
+
+    public function setLastChangeDate(\DateTimeInterface $lastChangeDate): self
+    {
+        $this->lastChangeDate = $lastChangeDate;
 
         return $this;
     }

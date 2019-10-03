@@ -162,6 +162,9 @@ class RootController extends AbstractController
 //             $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
 
              $account->setVersion($this->params->get('staff_current_db_format_version'));
+	     $account->setInternalNote(null);
+	     $account->setLastChangeAuthor($this->get('security.token_storage')->getToken()->getUser()->getUsername());
+	     $account->setLastChangeDate(new \Datetime());
 
 	     // save
 	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');
