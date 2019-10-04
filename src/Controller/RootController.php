@@ -28,9 +28,9 @@ class RootController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function homeAction(LoggerInterface $logger)
+    public function homeAction(LoggerInterface $appLogger)
     {
-        $logger->info("IN: homeAction:");
+        $appLogger->info("IN: homeAction:");
 
         return $this->render('index.html.twig', [
             'controller_name' => 'HomeController',
@@ -41,14 +41,14 @@ class RootController extends AbstractController
     /**
      * @Route("/showall", name="showall")
      */
-    public function showallAction(LoggerInterface $logger)
+    public function showallAction(LoggerInterface $appLogger)
     {
-        $logger->info("IN: showallAction:");
+        $appLogger->info("IN: showallAction:");
 
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
         if (in_array($username, $allowedUsers)) {
-            $logger->info("IN: showallAction: username='" . $username . "' allowed");
+            $appLogger->info("IN: showallAction: username='" . $username . "' allowed");
             $repo = $this->getDoctrine()->getRepository(Staff::class);
 	    return $this->render('showall.html.twig', [
                 'controller_name' => 'ShowallController',
@@ -63,9 +63,9 @@ class RootController extends AbstractController
     /**
      * @Route("/editUser", name="editUser")
      */
-    public function editUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $logger)
+    public function editUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger)
     {
-        $logger->info("IN: editUserAction");
+        $appLogger->info("IN: editUserAction");
         $account = new Staff();
         $account->setCreated(new \DateTime(date('Y-m-d H:i:s')));
 
@@ -149,7 +149,7 @@ class RootController extends AbstractController
 
 	$form->handleRequest($request);
 
-        $logger->info("IN: editUserAction: isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
+        $appLogger->info("IN: editUserAction: isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
                     " isValid=" . ($form->isSubmitted()?($form->isValid()?"TRUE":"FALSE"):"---") );
 
 	if ($form->isSubmitted() && $form->isValid()) {

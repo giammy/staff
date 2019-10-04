@@ -28,10 +28,10 @@ class PublicController extends AbstractController
     /**
      * @Route("/public/agenda", name="publicagenda")
      */
-    public function publicAgendaAction(LoggerInterface $logger)
+    public function publicAgendaAction(LoggerInterface $appLogger)
     {
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
-        $logger->info("IN: publicAgendaAction: username='" . $username . "' allowed");
+        $appLogger->info("IN: publicAgendaAction: username='" . $username . "' allowed");
         $dateNow = new \DateTime();
         $repo = $this->getDoctrine()->getRepository(Staff::class);
 	return $this->render('public/agenda.html.twig', [

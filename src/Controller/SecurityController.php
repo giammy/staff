@@ -13,7 +13,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction(Request $request, AuthenticationUtils $authUtils, LoggerInterface $logger)
+    public function loginAction(Request $request, AuthenticationUtils $authUtils, LoggerInterface $appLogger)
     {
         // get the login error if there is one
         $error = $authUtils->getLastAuthenticationError();
@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authUtils->getLastUsername();
 
-        $logger->info("IN: loginAction: lastUsername='" . $lastUsername . "' lastError='" . $error . "'");
+        $appLogger->info("IN: loginAction: lastUsername='" . $lastUsername . "' lastError='" . $error . "'");
          
         return $this->render('login.html.twig', array(
             'last_username' => $lastUsername,
@@ -32,8 +32,8 @@ class SecurityController extends AbstractController
    /**
      * @Route("/logout", name="logout")
      */
-    public function logoutAction(Request $request, LoggerInterface $logger) {
-        $logger->info("IN: logoutAction");
+    public function logoutAction(Request $request, LoggerInterface $appLogger) {
+        $appLogger->info("IN: logoutAction");
         return $this->redirect($this->generateUrl('root'));
     }
 

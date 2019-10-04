@@ -1,5 +1,13 @@
 monolog:
     handlers:
+
+        app:
+            # log all messages (since debug is the lowest level)
+            level:    debug
+            type:     stream
+            path:     '%kernel.logs_dir%/app.log'
+            channels: [app]
+
         main:
             type: fingers_crossed
             action_level: error
