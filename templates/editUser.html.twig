@@ -8,18 +8,6 @@
 {# {{ form_widget(form) }} #}
 <table>
   <tr>
-    <td> Username</td>
-    <td> {{ form_widget(attribute(form, "username"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
-    <td> E-mail</td>
-    <td> {{ form_widget(attribute(form, "email"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
-    <td> E-mail secondaria</td>
-    <td> {{ form_widget(attribute(form, "secondaryEmail"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
     <td> Nome</td>
     <td> {{ form_widget(attribute(form, "name"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
@@ -28,31 +16,31 @@
     <td> {{ form_widget(attribute(form, "surname"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
-    <td> Gruppo</td>
-    <td> {{ form_widget(attribute(form, "groupName"), { 'attr': {'size': '23'} }) }} </td>
+    <td> Gruppo di appartenenza</td>
+    <td> {{ form_widget(attribute(form, "groupName"), { 'attr': {'size': '1'} }) }} </td>
   </tr>
   <tr>
     <td> Capo Gruppo di</td>
-    <td> {{ form_widget(attribute(form, "leaderOfGroup"), { 'attr': {'size': '23'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "leaderOfGroup"), { 'attr': {'size': '1'} }) }} </td>
   </tr>
   <tr>
     <td> Qualifica</td>
-    <td> {{ form_widget(attribute(form, "qualification"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "qualification"), { 'attr': {'size': '1'} }) }} </td>
   </tr>
   <tr>
     <td> Organizzazione</td>
-    <td> {{ form_widget(attribute(form, "organization"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "organization"), { 'attr': {'size': '1'} }) }} </td>
   </tr>
   {#<tr>
     <td> Ore all'anno - da contract calcolato part-time</td>
     <td> {{ form_widget(attribute(form, "totalHoursPerYear"), { 'attr': {'size': '60'} }) }} </td>
   </tr>#}
   <tr>
-    <td> Ore all'anno</td>
+    <td> Ore all'anno (come da contratto) </td>
     <td> {{ form_widget(attribute(form, "totalContractualHoursPerYear"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
-    <td> Percentuale part-time</td>
+    <td> Percentuale part-time (100 indica tempo pieno)</td>
     <td> {{ form_widget(attribute(form, "parttimePercent"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
@@ -66,6 +54,21 @@
   <tr>
     <td> Data Fine</td>
     <td> {{ form_widget(attribute(form, "validTo"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+
+  <tr><td></td><td bgcolor="gray"><font color='white'><center>Seguono campi facoltativi</center></font></td></tr>
+
+  <tr>
+    <td> Username</td>
+    <td> {{ form_widget(attribute(form, "username"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> E-mail</td>
+    <td> {{ form_widget(attribute(form, "email"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+  <tr>
+    <td> E-mail secondaria</td>
+    <td> {{ form_widget(attribute(form, "secondaryEmail"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Note</td>

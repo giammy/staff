@@ -39,20 +39,31 @@ class RootController extends AbstractController
     }
 
     /**
-     * @Route("/showall", name="showall")
+     * @Route("/showall/{item}", name="showall")
      */
-    public function showallAction(LoggerInterface $appLogger)
+    public function showallAction(LoggerInterface $appLogger, $item="0")
     {
         $appLogger->info("IN: showallAction:");
+
+	$item=intval($item);
 
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
         if (in_array($username, $allowedUsers)) {
             $appLogger->info("IN: showallAction: username='" . $username . "' allowed");
             $repo = $this->getDoctrine()->getRepository(Staff::class);
+            $dateNow = new \DateTime();
 	    return $this->render('showall.html.twig', [
                 'controller_name' => 'ShowallController',
                 'list' => $repo->findAll(),
+                'list' => array_filter($repo->findAll(), function ($x) use ($dateNow, $item) { 
+                    if ($item == -1) {
+                        return true;
+                    } else {
+                        $valid = $x->getValidTo();
+                        return (($x->getName() != "noname") && ($valid >= $dateNow)); 
+                    }
+                }),
                 'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                 ]);
         } else {
@@ -70,12 +81,18 @@ class RootController extends AbstractController
         $account->setCreated(new \DateTime(date('Y-m-d H:i:s')));
 
         $form = $this->createFormBuilder($account)
-            ->add('username', TextType::class)
-            ->add('email', TextType::class)
-            ->add('secondaryEmail', TextType::class)
+            ->add('username', TextType::class, array(
+                         'required' => false,))
+            ->add('email', TextType::class, array(
+                         'required' => false,))
+            ->add('secondaryEmail', TextType::class, array(
+                         'required' => false,))
             ->add('name', TextType::class)
             ->add('surname', TextType::class)
             ->add('groupName', ChoiceType::class, array(
+                         //'expanded' => false,
+                         //'multiple' => false,
+                         'placeholder' => 'Scegliere un gruppo',
 			 'choices'  => array(
 			    'AI' => 'GAI',
 			    'FA' => 'GFA',
@@ -102,6 +119,8 @@ class RootController extends AbstractController
 	  	         ),
 	          ))
             ->add('leaderOfGroup', ChoiceType::class, array(
+                         'required' => false,
+                         'placeholder' => 'Se capogruppo, indicare il gruppo',
 			 'choices'  => array(
 			    'AI' => 'GAI',
 			    'FA' => 'GFA',
@@ -127,24 +146,59 @@ class RootController extends AbstractController
 			    'Altro' => 'BLK',
 	  	         ),
 	          ))
-            ->add('qualification', TextType::class)
-            ->add('organization', TextType::class)
-            ->add('totalContractualHoursPerYear', IntegerType::class)
-            ->add('parttimePercent', NumberType::class)
+            ->add('qualification', ChoiceType::class, array(
+                         'placeholder' => 'Scegliere la qualifica',
+			 'choices'  => array(
+			    'AMM' => 'AMM',
+			    'ASG' => 'ASG',
+			    'COL' => 'COL',
+	    	            'DOT' => 'DOT',
+			    'PRF' => 'PRF',
+			    'PRO' => 'PRO',
+		      	    'RC1' => 'RC1',
+		    	    'RC2' => 'RC2',
+			    'RC3' => 'RC3',
+			    'TEC' => 'TEC',
+	  	         ),
+	          ))
+            ->add('organization', ChoiceType::class, array(
+                         'placeholder' => "Scegliere l'ente",
+			 'choices'  => array(
+			    'CNR' => 'CNR',
+			    'ENEA' => 'ENE',
+			    'INFN' => 'INF',
+	    	            'RFX' => 'RFX',
+			    'UNIPD' => 'UPD',
+	  	         ),
+	          ))
+            ->add('totalContractualHoursPerYear', IntegerType::class, array(
+	                         'data' => '1720',
+	                        ))
+            ->add('parttimePercent', IntegerType::class, array(
+	                         'data' => '100',
+                                ))
             ->add('isTimeSheetEnabled', ChoiceType::class, array(
 				 'expanded' => true,
 				 'multiple' => false,
 				 'choices'  => array(
 					 'Yes' => true,  
 		    	      	         'No' => false,),
-		                  'data' => true,
+		                  'data' => null,
 		  	         ))
             ->add('validFrom', DateType::class, array('data' => new \DateTime()))
-            ->add('validTo', DateType::class, array('data' => new \DateTime()))
-            ->add('note', TextType::class)
-            ->add('officePhone', TextType::class)
-            ->add('officeMobile', TextType::class)
-            ->add('officeLocation', TextType::class)
+            ->add('validTo', DateType::class, array(
+                                  'years' => range(date('Y')-1, date('Y')+100),
+                                  'data' => new \DateTime('2099-12-31 11:59:59'),
+
+                                 ))
+            ->add('note', TextType::class, array(
+                         'required' => false,))
+            ->add('officePhone', TextType::class, array(
+                         'required' => false,))
+            ->add('officeMobile', TextType::class, array(
+                         'required' => false,))
+            ->add('officeLocation', TextType::class, array(
+                        'required' => false,))
             ->getForm();
 
 	$form->handleRequest($request);
@@ -157,12 +211,14 @@ class RootController extends AbstractController
              // but, the original variable has also been updated
 	     $account = $form->getData();
 
-// TODO se non impostati impostali
-//             $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
-//             $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
+             // TODO se non impostati impostali
+	     // $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
+	     // $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
+	     // $account->setInternalNote(null);
 
+             $account->setTotalHoursPerYear(($account->getTotalContractualHoursPerYear()*
+                                             $account->getParttimePercent())/100);
              $account->setVersion($this->params->get('staff_current_db_format_version'));
-	     $account->setInternalNote(null);
 	     $account->setLastChangeAuthor($this->get('security.token_storage')->getToken()->getUser()->getUsername());
 	     $account->setLastChangeDate(new \Datetime());
 
