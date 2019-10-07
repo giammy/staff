@@ -25,10 +25,9 @@
 <table id="staffShowallTable">
   <thead>
     <tr>
-      <td>Username</td>
-      <td>E-mail</td>
-      <td>Name</td>
+      <td></td>
       <td>Surname</td>
+      <td>Name</td>
       <td>Group</td>
       <td>Capog.</td>
       <td>Qual</td>
@@ -41,6 +40,8 @@
       <td>T.s</td>
       <td>Valid From</td>
       <td>Valid To</td>
+      <td>E-mail</td>
+      <td>Username</td>
       {% if userBelongsTo(users_admin, username) %}
       <td>Id</td>
       <td>Note</td>
@@ -53,6 +54,7 @@
       <td>Last Change Atuthor</td>
       <td>Last Change Date</td>
       <td>Internal Note</td>
+      <td></td>
       {% endif %}
     </tr>
   </thead>
@@ -60,10 +62,13 @@
   <tbody>
     {% for ar in list %}
     <tr>
-      <td> {{ ar.username }} </td>
-      <td> {{ ar.email }} </td>
-      <td> {{ ar.name }} </td>
+      <td>        
+        <a href="{{ path('editUser', { 'id': ar.id }) }}">
+          <img src="{{ asset('images/icon-edit.svg') }}" alt="edit" height="24" style="float:left"></img>
+        </a>
+      </td>
       <td> {{ ar.surname }} </td>
+      <td> {{ ar.name }} </td>
       <td> {{ ar.groupName }} </td>
       <td> {{ ar.leaderOfGroup }} </td>
       <td> {{ ar.qualification }} </td>
@@ -76,6 +81,8 @@
       <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
+      <td> {{ ar.email }} </td>
+      <td> {{ ar.username }} </td>
       {% if userBelongsTo(users_admin, username) %}
       <td> {{ ar.id }} </td>
       <td> {{ ar.note }} </td>
@@ -88,6 +95,7 @@
       <td> {{ ar.lastChangeAuthor }} </td>
       <td> {{ ar.lastChangeDate|date('d/m/Y') }} </td>
       <td> {{ ar.internalNote }} </td>
+      <td> DEL </td>
       {% endif %}
     </tr>
     {% endfor %}

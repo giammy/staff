@@ -72,13 +72,22 @@ class RootController extends AbstractController
     }
 
     /**
-     * @Route("/editUser", name="editUser")
+     * @Route("/editUser/{id}", name="editUser")
      */
-    public function editUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger)
+    public function editUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger, $id="-1")
     {
         $appLogger->info("IN: editUserAction");
-        $account = new Staff();
-        $account->setCreated(new \DateTime(date('Y-m-d H:i:s')));
+        $id = intval($id);
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+
+        // if id == -1 -> new user, else edit id user TODO
+	$account = $repo->find($id);
+        $oldAccount = $account;
+        if (!$account) {
+            // id does not exist: create new user
+            $account = new Staff();
+            $account->setCreated(new \DateTime(date('Y-m-d H:i:s')));
+        }
 
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
@@ -172,10 +181,10 @@ class RootController extends AbstractController
 	  	         ),
 	          ))
             ->add('totalContractualHoursPerYear', IntegerType::class, array(
-	                         'data' => '1720',
+	                         //'data' => '1720',
 	                        ))
             ->add('parttimePercent', IntegerType::class, array(
-	                         'data' => '100',
+	                         //'data' => '100',
                                 ))
             ->add('isTimeSheetEnabled', ChoiceType::class, array(
 				 'expanded' => true,
@@ -183,7 +192,7 @@ class RootController extends AbstractController
 				 'choices'  => array(
 					 'Yes' => true,  
 		    	      	         'No' => false,),
-		                  'data' => null,
+		                  //'data' => null,
 		  	         ))
             ->add('validFrom', DateType::class, array('data' => new \DateTime()))
             ->add('validTo', DateType::class, array(
@@ -210,17 +219,17 @@ class RootController extends AbstractController
              // $form->getData() holds the submitted values
              // but, the original variable has also been updated
 	     $account = $form->getData();
-
-             // TODO se non impostati impostali
-	     // $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
-	     // $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
-	     // $account->setInternalNote(null);
-
              $account->setTotalHoursPerYear(($account->getTotalContractualHoursPerYear()*
                                              $account->getParttimePercent())/100);
-             $account->setVersion($this->params->get('staff_current_db_format_version'));
 	     $account->setLastChangeAuthor($this->get('security.token_storage')->getToken()->getUser()->getUsername());
 	     $account->setLastChangeDate(new \Datetime());
+
+// GMY - TODO
+             if ($oldAccount == null) { // new entry
+                 $account->setVersion($this->params->get('staff_current_db_format_version'));
+             } else {
+                 // change validity dates? duplicate? store new version?
+             }
 
 	     // save
 	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');
@@ -228,7 +237,7 @@ class RootController extends AbstractController
              $em->persist($account);
              $em->flush();
 
-// TODO pagina ringraziamento
+             // TODO pagina ringraziamento?
              return $this->redirectToRoute('home');
     	}
 
