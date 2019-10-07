@@ -25,6 +25,8 @@ parameters:
 
     staff_import_exceptions: '%env(resolve:STAFF_IMPORT_EXCEPTIONS)%'
 
+    export_personale_filename: '%env(resolve:EXPORT_PERSONALE_FILENAME)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
