@@ -7,6 +7,11 @@ monolog:
             type:     stream
             path:     '%kernel.logs_dir%/app.log'
             channels: [app]
+            formatter: 'monolog.formatter.json'
+
+# line
+# json
+
 
         main:
             type: stream
