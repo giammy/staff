@@ -40,6 +40,9 @@
       <td>T.s</td>
       <td>Valid From</td>
       <td>Valid To</td>
+      {% if userBelongsTo(users_admin, username) %}
+      <td></td>
+      {% endif %}
       <td>E-mail</td>
       <td>Username</td>
       {% if userBelongsTo(users_admin, username) %}
@@ -54,7 +57,6 @@
       <td>Last Change Atuthor</td>
       <td>Last Change Date</td>
       <td>Internal Note</td>
-      <td></td>
       {% endif %}
     </tr>
   </thead>
@@ -81,6 +83,12 @@
       <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
+      {% if userBelongsTo(users_admin, username) %}
+      <td>
+        <a href="{{ path('editUser', { 'id': ar.id }) }}">
+          <img src="{{ asset('images/icon-delete.svg') }}" alt="edit" height="24" style="float:left"></img>
+      </td>
+      {% endif %}
       <td> {{ ar.email }} </td>
       <td> {{ ar.username }} </td>
       {% if userBelongsTo(users_admin, username) %}
@@ -95,7 +103,6 @@
       <td> {{ ar.lastChangeAuthor }} </td>
       <td> {{ ar.lastChangeDate|date('d/m/Y') }} </td>
       <td> {{ ar.internalNote }} </td>
-      <td> DEL </td>
       {% endif %}
     </tr>
     {% endfor %}

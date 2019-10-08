@@ -6,30 +6,42 @@
 
 {{ form_start(form) }}
 {# {{ form_widget(form) }} #}
-<table>
+<table style="border-collapse: collapse;">
   <tr>
     <td> Nome</td>
-    <td> {{ form_widget(attribute(form, "name"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "name"), { 'attr': {'size': '40'} }) }} </td>
+    <td bgcolor="gray" style="border-left: 4px solid #000000;"></td>
+    <td bgcolor="gray"><font color='white'>Campi facoltativi</font></td>
   </tr>
   <tr>
     <td> Cognome</td>
-    <td> {{ form_widget(attribute(form, "surname"), { 'attr': {'size': '60'} }) }} </td>
+    <td> {{ form_widget(attribute(form, "surname"), { 'attr': {'size': '40'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> Username</td>
+    <td> {{ form_widget(attribute(form, "username"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Gruppo di appartenenza</td>
     <td> {{ form_widget(attribute(form, "groupName"), { 'attr': {'size': '1'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> E-mail</td>
+    <td> {{ form_widget(attribute(form, "email"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Capo Gruppo di</td>
     <td> {{ form_widget(attribute(form, "leaderOfGroup"), { 'attr': {'size': '1'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> E-mail secondaria</td>
+    <td> {{ form_widget(attribute(form, "secondaryEmail"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Qualifica</td>
     <td> {{ form_widget(attribute(form, "qualification"), { 'attr': {'size': '1'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> Note</td>
+    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Organizzazione</td>
     <td> {{ form_widget(attribute(form, "organization"), { 'attr': {'size': '1'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> Telefono Ufficio</td>
+    <td> {{ form_widget(attribute(form, "officePhone"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   {#<tr>
     <td> Ore all'anno - da contract calcolato part-time</td>
@@ -38,60 +50,44 @@
   <tr>
     <td> Ore all'anno (come da contratto) </td>
     <td> {{ form_widget(attribute(form, "totalContractualHoursPerYear"), { 'attr': {'size': '60'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> Secondo Telefono Ufficio</td>
+    <td> {{ form_widget(attribute(form, "officeMobile"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Percentuale part-time (100 indica tempo pieno)</td>
     <td> {{ form_widget(attribute(form, "parttimePercent"), { 'attr': {'size': '60'} }) }} </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"> Posizione Ufficio</td>
+    <td> {{ form_widget(attribute(form, "officeLocation"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Timesheet abilitato?</td>
     <td> {{ form_widget(attribute(form, "isTimeSheetEnabled"), { 'attr': {'size': '2'} }) }} </td>
+    <td style="border-left: 4px solid #000000;"></td>
   </tr>
   <tr>
     <td> Data Inizio</td>
     <td> {{ form_widget(attribute(form, "validFrom"), { 'attr': {'size': '60'} }) }} </td>
+    <td style="border-left: 4px solid #000000;"></td>
   </tr>
   <tr>
     <td> Data Fine</td>
     <td> {{ form_widget(attribute(form, "validTo"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-
-  <tr><td></td><td bgcolor="gray"><font color='white'><center>Seguono campi facoltativi</center></font></td></tr>
-
-  <tr>
-    <td> Username</td>
-    <td> {{ form_widget(attribute(form, "username"), { 'attr': {'size': '60'} }) }} </td>
+    <td style="border-left: 4px solid #000000;"></td>
   </tr>
   <tr>
-    <td> E-mail</td>
-    <td> {{ form_widget(attribute(form, "email"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
-    <td> E-mail secondaria</td>
-    <td> {{ form_widget(attribute(form, "secondaryEmail"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
-    <td> Note</td>
-    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '11'} }) }} </td>
-  </tr>
-  <tr>
-    <td> Telefono Ufficio</td>
-    <td> {{ form_widget(attribute(form, "officePhone"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
-    <td> Cellulare Ufficio</td>
-    <td> {{ form_widget(attribute(form, "officeMobile"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
-  <tr>
-    <td> Posizione Ufficio</td>
-    <td> {{ form_widget(attribute(form, "officeLocation"), { 'attr': {'size': '60'} }) }} </td>
+    <td colspan="2" style="border-top: 4px solid #000000;">
+      <center>
+      <a href="{{ path('home') }}" class="button" style="width:80%">ANNULLA</a>
+      </center>
+    </td>
+    <td colspan="2" style="border-top: 4px solid #000000;">
+      <center>
+      <input type="submit" value="SALVA" class='button' style='width: 80%; font-size: 20px;'/>
+      </center>
+    </td>
   </tr>
 </table>
 
-<center>
-<a href="{{ path('home') }}" class="button" style="width:40%">ANNULLA</a>
-<input type="submit" value="SALVA" class='button' style='width: 40%; font-size: 20px;'/>
-</center>
 {{ form_end(form) }}
 
 {% endblock %}
