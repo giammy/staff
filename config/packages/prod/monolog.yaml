@@ -7,6 +7,7 @@ monolog:
             type:     stream
             path:     '%kernel.logs_dir%/app.log'
             channels: [app]
+            formatter: 'monolog.formatter.json'
 
         main:
             type: fingers_crossed

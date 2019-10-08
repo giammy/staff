@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use App\Entity\Staff;
 
 class ExportPersonaleService {
@@ -13,14 +14,18 @@ class ExportPersonaleService {
 
 
     public function __construct(ObjectManager $manager,
-                                ParameterBagInterface $params) {
+                                ParameterBagInterface $params,
+				LoggerInterface $appLogger) {
         $this->manager = $manager;
         $this->params = $params;
+        $this->appLogger = $appLogger;
     }
     
     public function export($filenamePar) {
         $filename = $filenamePar?$filenamePar:$this->params->get('export_personale_filename');
         // var_dump($filename);exit;
+
+        $this->appLogger->info("IN: ExportPersonaleService.export: filename=" . $filename);
 
         file_put_contents($filename, 'CAT,DIP,QUAL,ENTE,"TOTAL AVAILABLE HOURS
 2019",RESPONSABILE,TIMESHEET,ANNUAL PRODUCTIVE HOURS,"PPY AVAILABLE

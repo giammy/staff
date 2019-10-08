@@ -33,7 +33,8 @@ class SecurityController extends AbstractController
      * @Route("/logout", name="logout")
      */
     public function logoutAction(Request $request, LoggerInterface $appLogger) {
-        $appLogger->info("IN: logoutAction");
+        $appLogger->info("IN: logoutAction username='" . 
+            $this->get('security.token_storage')->getToken()->getUser()->getUsername() . "'");
         return $this->redirect($this->generateUrl('root'));
     }
 

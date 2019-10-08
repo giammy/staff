@@ -17,12 +17,16 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use App\Services\ExportPersonaleService;
 
 class RootController extends AbstractController
 {
     private $params;
-    public function __construct(ParameterBagInterface $params) {
+    private $exportPersonaleService;
+    public function __construct(ParameterBagInterface $params,
+                                ExportPersonaleService $exportPersonaleService) {
         $this->params = $params;
+        $this->exportPersonaleService = $exportPersonaleService;
     }
 
     /**
@@ -30,11 +34,12 @@ class RootController extends AbstractController
      */
     public function homeAction(LoggerInterface $appLogger)
     {
-        $appLogger->info("IN: homeAction:");
+        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+        $appLogger->info("IN: homeAction: username='" . $username . "'");
 
         return $this->render('index.html.twig', [
             'controller_name' => 'HomeController',
-            'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
+            'username' => $username,
         ]);
     }
 
@@ -43,8 +48,6 @@ class RootController extends AbstractController
      */
     public function showallAction(LoggerInterface $appLogger, $item="0")
     {
-        $appLogger->info("IN: showallAction:");
-
 	$item=intval($item);
 
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
@@ -79,6 +82,7 @@ class RootController extends AbstractController
                 'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                 ]);
         } else {
+            $appLogger->info("IN: showallAction: username='" . $username . "' NOT allowed");
             return $this->redirectToRoute('home');
         }
     }
@@ -88,7 +92,7 @@ class RootController extends AbstractController
      */
     public function editUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger, $id="-1")
     {
-        $appLogger->info("IN: editUserAction");
+        //$appLogger->info("IN: editUserAction");
         $id = intval($id);
         $repo = $this->getDoctrine()->getRepository(Staff::class);
 
@@ -224,8 +228,13 @@ class RootController extends AbstractController
 
 	$form->handleRequest($request);
 
-        $appLogger->info("IN: editUserAction: isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
-                    " isValid=" . ($form->isSubmitted()?($form->isValid()?"TRUE":"FALSE"):"---") );
+        $appLogger->info("IN: editUserAction: username='" .
+            $this->get('security.token_storage')->getToken()->getUser()->getUsername() .
+            "' isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
+            " isValid=" . ($form->isSubmitted()?($form->isValid()?"TRUE":"FALSE"):"---") .
+            " form username='" . $account->getUsername() . "'(" . 
+            $account->getSurname() . ", " . $account->getName() . ")"
+            );
 
 	if ($form->isSubmitted() && $form->isValid()) {
              // $form->getData() holds the submitted values
@@ -249,6 +258,9 @@ class RootController extends AbstractController
                  $em->persist($newAccount);
              }
              $em->flush();
+
+	     // use default filename from environment variable EXPORT_PERSONALE_FILENAME
+             $this->exportPersonaleService->export(null); 
 
              // TODO pagina ringraziamento?
              return $this->redirectToRoute('home');

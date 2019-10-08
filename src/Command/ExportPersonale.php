@@ -40,7 +40,7 @@ class ExportPersonale extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $filename = $input->getArgument('filename');
-        $output->writeln("Export personale to file: '" . $filename . "'");
+        $output->writeln("Export personale to file: '" . ($filename?$filename:"EXPORT_PERSONALE_FILENAME") . "'");
         $this->exportPersonaleService->export($filename);
     }
 }

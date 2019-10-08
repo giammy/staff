@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
-// TODO use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 
 class NewaccountController extends AbstractController
 {
@@ -29,7 +29,8 @@ class NewaccountController extends AbstractController
     /**
      * @Route("/newaccount", name="newaccount")
      */
-    public function newaccountIndex(Request $request, \Swift_Mailer $mailer)
+    public function newaccountIndex(Request $request, \Swift_Mailer $mailer,
+    	   	    	            LoggerInterface $appLogger)
     {
         $account = new Account();
         $account->setRequested(new \DateTime(date('Y-m-d H:i:s')));
@@ -139,6 +140,13 @@ class NewaccountController extends AbstractController
 
 	$form->handleRequest($request);
 
+        $appLogger->info("IN: newaccountIndex: username='" .
+            $this->get('security.token_storage')->getToken()->getUser()->getUsername() .
+            "' isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
+            " isValid=" . ($form->isSubmitted()?($form->isValid()?"TRUE":"FALSE"):"---") .
+            " form surname,name='" . $account->getSurname() . "," . $account->getName() . "'"
+            );
+
 	if ($form->isSubmitted() && $form->isValid()) {
              // $form->getData() holds the submitted values
              // but, the original `$task` variable has also been updated
@@ -183,17 +191,19 @@ class NewaccountController extends AbstractController
     /**
      * @Route("/newaccount/showall", name="newaccountshowall")
      */
-    public function newaccountShowallIndex()
+    public function newaccountShowallIndex(LoggerInterface $appLogger)
     {
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$allowedUsers = preg_split('/, */', $this->params->get('users_newaccount_admin'));
         if (in_array($username, $allowedUsers)) {
+            $appLogger->info("IN: newaccountShowallIndex: username='" . $username . "' allowed");
             $repo = $this->getDoctrine()->getRepository(Account::class);
 	    return $this->render('newaccount/showall.html.twig', [
                 'controller_name' => 'NewaccountShowallController',
                 'list' => $repo->findAll(),
                 ]);
         } else {
+            $appLogger->info("IN: newaccountShowallIndex: username='" . $username . "' NOT allowed");
             return $this->redirectToRoute('newaccount');
         }
     }
