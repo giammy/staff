@@ -30,12 +30,21 @@ PART TIME
 
         $repo = $this->manager->getRepository(Staff::class);
         $dateNow = new \DateTime();
-        $list = array_filter($repo->findAll(), function ($x) use ($dateNow) { 
+        $listToShow = array_values(array_filter($repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']), function ($x) use ($dateNow) { 
                 $valid = $x->getValidTo();
                 return (($x->getName() != "noname") && ($valid >= $dateNow)); 
-            });
+            }));
 
-        foreach ($list as $x) {
+        $lastSurname = "";
+        for ($i=0; $i<count($listToShow); $i++) {
+	    if ($lastSurname == $listToShow[$i]->getSurname()) {
+		unset($listToShow[$i]);
+            } else {
+                $lastSurname = $listToShow[$i]->getSurname();
+	    }
+        }
+
+        foreach ($listToShow as $x) {
             $ostr = $x->getGroupName() . ",";
             $ostr = $ostr . strtoupper(str_replace(" ", "-", $x->getSurname()) . " " . $x->getName()) . ",";
             $ostr = $ostr . $x->getQualification() . ",";

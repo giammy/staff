@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
             $person->setOrganization('Org' . $i);
             $person->setTotalHoursPerYear(1720);
             $person->setTotalContractualHoursPerYear(1720);
-            $person->setParttimePercent(1.0);
+            $person->setParttimePercent(100);
             $person->setIsTimeSheetEnabled(true);
             $person->setCreated(new \Datetime());
             $person->setValidFrom(new \Datetime()); 

@@ -53,17 +53,29 @@ class RootController extends AbstractController
             $appLogger->info("IN: showallAction: username='" . $username . "' allowed");
             $repo = $this->getDoctrine()->getRepository(Staff::class);
             $dateNow = new \DateTime();
+            // $listToShow = $repo->findAll();
+	    $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
+
+            if ($item != -1) {
+                $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
+                    $valid = $x->getValidTo();
+                    return (($x->getName() != "noname") && ($valid >= $dateNow)); 
+                }));
+                // list is sorted by surname
+
+                $lastSurname = "";
+                for ($i=0; $i<count($listToShow); $i++) {
+		    if ($lastSurname == $listToShow[$i]->getSurname()) {
+		        unset($listToShow[$i]);
+                    } else {
+                        $lastSurname = $listToShow[$i]->getSurname();
+		    }
+                }
+            }
+            // echo("<pre>");var_dump($listToShow);exit;
 	    return $this->render('showall.html.twig', [
                 'controller_name' => 'ShowallController',
-                'list' => $repo->findAll(),
-                'list' => array_filter($repo->findAll(), function ($x) use ($dateNow, $item) { 
-                    if ($item == -1) {
-                        return true;
-                    } else {
-                        $valid = $x->getValidTo();
-                        return (($x->getName() != "noname") && ($valid >= $dateNow)); 
-                    }
-                }),
+                'list' => $listToShow,
                 'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
                 ]);
         } else {
@@ -224,17 +236,18 @@ class RootController extends AbstractController
 	     $account->setLastChangeAuthor($this->get('security.token_storage')->getToken()->getUser()->getUsername());
 	     $account->setLastChangeDate(new \Datetime());
 
-// GMY - TODO
+             $em = $this->getDoctrine()->getManager();
+
              if ($oldAccount == null) { // new entry
                  $account->setVersion($this->params->get('staff_current_db_format_version'));
+                 $em->persist($account);
              } else {
                  // change validity dates? duplicate? store new version?
+                 $newAccount = new Staff();
+                 $newAccount = clone $account;
+                 $em->detach($account);
+                 $em->persist($newAccount);
              }
-
-	     // save
-	     //$repo = $this->getDoctrine()->getrepository('AppBundle:AccountRequest');
-             $em = $this->getDoctrine()->getManager();
-             $em->persist($account);
              $em->flush();
 
              // TODO pagina ringraziamento?

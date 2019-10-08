@@ -131,7 +131,7 @@ class ImportPersonale extends Command
                 $acc->setOrganization($row[3]);
                 $acc->setTotalHoursPerYear(floatval($row[4])); // float
                 $acc->setTotalContractualHoursPerYear(intval($row[7])); // integer
-                $acc->setParttimePercent(floatval($row[8])); // float
+                $acc->setParttimePercent(floatval($row[8])*100.0); // float
                 $acc->setIsTimeSheetEnabled($row[6]=="1");
                 $acc->setCreated(new \Datetime()); // set import date
                 $acc->setValidFrom(\DateTime::createFromFormat('d/m/Y', ("01/01/".$validityStart)));
