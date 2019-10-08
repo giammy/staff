@@ -8,7 +8,7 @@
     {% if userBelongsTo(users_ufficio_personale, username) %}
       <a href="{{ path('editUser') }}" class="button" style="width:42%">Inserisci nuovo dipendente</a>
       <br><p><br>
-      <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra lista dipendenti</a>
+      <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra/modifica dipendenti</a>
     {% else %}
       <center><h2>Area riservata per l'ufficio personale</h2></center>
     {% endif %}
