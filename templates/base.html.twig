@@ -15,13 +15,16 @@
 
     <!-- header -->
     <div id="main-header">
-      <center> 
-        <a href="{{ path('home') }}">
+        <a href={% block homeURL %}{% endblock %}>
           <img src="{{ asset(logo_file) }}"
             alt="Logo" height="96" 
             style="margin-left:20px;margin-right:20px;margin-top:20px;margin-bottom:20px;float:left">
         </a>
-      </center>
+        <div style="margin-top: 20px; font-size: 32px; color: #032A5F;  color: #032A5F; font-family: Verdana, Geneva, sans-serif;">{% block headerTitle %}{% endblock %}
+        </div>
+        <div style="margin-top: 5px; font-size: 24px; color: #032A5F; font-family: Verdana, Geneva, sans-serif;">{% block headerSubTitle %}{% endblock %}
+        </div>
+
     </div>
 
     <div align="right">

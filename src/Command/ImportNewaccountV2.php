@@ -1,6 +1,6 @@
 <?php
 
-// src/Command/Importcsv1.php
+// src/Command/ImportNewaccountV2.php
 namespace App\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -10,10 +10,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Account;
 
-class Importcsv1 extends Command
+class ImportNewaccountV2 extends Command
 {
     // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'import:csv1';
+    protected static $defaultName = 'import:newaccountv2';
 
     private $manager;
 
@@ -25,11 +25,11 @@ class Importcsv1 extends Command
     protected function configure() {
       $this
         // the short description shown while running "php bin/console list"
-        ->setDescription('Import CSV1.')
+        ->setDescription('Import NewAccount CSV v2.')
 
         // the full command description shown when running the command with
         // the "--help" option
-        ->setHelp('Import CSV1.')
+        ->setHelp('Import NewAccount CSV v2.')
 
         ->addArgument('filename', InputArgument::REQUIRED, 'CSV filename')
       ;
@@ -37,8 +37,9 @@ class Importcsv1 extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $filename = $input->getArgument('filename');
-        $output->writeln('Import CSV1 from file: ' . $filename);
+        $output->writeln('Import CSV from file: ' . $filename);
 
+        $dateFormat = 'Y-m-d H:i:sO';
         $rowNo = 1;
         $fieldsNo = 0;
         // $fp is file pointer to filename
@@ -64,29 +65,24 @@ class Importcsv1 extends Command
 
 		// store data in db
                 $acc = new Account();
-                $acc->setUsername(null);
-                $acc->setCreated(new \Datetime()); // set import date
-                $acc->setRequested(\DateTime::createFromFormat('d/m/Y', $row[5]));
-                $acc->setName($row[1]);
-                $acc->setSurname($row[2]);          
+                $acc->setUsername($row[1]);
+                $acc->setCreated(\DateTime::createFromFormat($dateFormat, $row[2]));
+                $acc->setRequested(\DateTime::createFromFormat($dateFormat, $row[3]));
+                $acc->setName($row[4]);
+                $acc->setSurname($row[5]);          
                 $acc->setContactPerson($row[6]);
-                $acc->setAccountIsNew(strpos($row[3],'YES') !== false);
-                $acc->setValidFrom(\DateTime::createFromFormat('d/m/Y', $row[7]));
-                $acc->setValidTo(\DateTime::createFromFormat('d/m/Y', $row[8]));
-                $acc->setProfile($row[9]);
-                $acc->setGroupName($row[10]);
-                $acc->setEmailEnabled(strpos($row[11],'PostaElettronica') !== false);
-                $acc->setWindowsEnabled(strpos($row[11],'PCWindows') !== false);
-                $acc->setLinuxEnabled(strpos($row[11],'LinuxOffline') !== false);
-                $acc->setNote($row[13]);
-                $acc->setItRegulationAccepted(false);
-                $acc->setVersion(1);
-                if (strlen($row[12])>0) {
-		    $str = "mailingLists: '" . $row[12] . "'";
-                } else {
-  		    $str = '';
-                }
-                $acc->setInternalNote("IMPORTED groupHead: '" . $row[4] . "'" . $str);
+                $acc->setAccountIsNew(strpos($row[7],'YES') !== false);
+                $acc->setValidFrom(\DateTime::createFromFormat($dateFormat, $row[8]));
+                $acc->setValidTo(\DateTime::createFromFormat($dateFormat, $row[9]));
+                $acc->setProfile($row[10]);
+                $acc->setGroupName($row[11]);
+                $acc->setEmailEnabled(strpos($row[12],'YES') !== false);
+                $acc->setWindowsEnabled(strpos($row[13],'YES') !== false);
+                $acc->setLinuxEnabled(strpos($row[14],'YES') !== false);
+                $acc->setNote($row[15]);
+                $acc->setItRegulationAccepted(strpos($row[16],'YES') !== false);
+                $acc->setVersion($row[17]);
+                $acc->setInternalNote($row[18]);
                 $this->manager->persist($acc);
                 $this->manager->flush();
 
