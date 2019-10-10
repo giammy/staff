@@ -6,18 +6,21 @@
 
   <center><h2>
     {% if userBelongsTo(users_ufficio_personale, username) %}
-      <a href="{{ path('editUser') }}" class="button" style="width:42%">Inserisci nuovo dipendente</a>
-      <br><p><br>
-      <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra/modifica dipendenti</a>
-    {% else %}
-      <center><h2>Area riservata per l'ufficio personale</h2></center>
+      <div style="border-style: solid; border-color: grey">
+        <font size="2">Riservato per l'ufficio personale:</font><br>
+        <a href="{{ path('editUser') }}" class="button" style="width:42%">Inserisci nuovo dipendente</a>
+        <br><p><br>
+        <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra/modifica dipendenti</a>
+      </div>
     {% endif %}
+
+      <br>
+      <a href="{{ path('newaccount') }}" class="button" style="width:42%">Richiesta nuovo account</a>
+      <br><p>
 
     {% if userBelongsTo(users_admin, username) %}
       <div style="border-style: solid; border-color: red">
         <font size="2">Only for administrators:</font>
-        <br>
-        <a href="{{ path('newaccount') }}" class="button" style="width:42%">Richiesta nuovo account</a>
         <br>
         <a href="{{ path('showall', { 'item': -1 }) }}" class="button" style="width:42%">Mostra lista INTERNA dipendenti</a>
       </div>
