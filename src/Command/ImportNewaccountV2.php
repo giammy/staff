@@ -39,7 +39,7 @@ class ImportNewaccountV2 extends Command
         $filename = $input->getArgument('filename');
         $output->writeln('Import CSV from file: ' . $filename);
 
-        $dateFormat = 'Y-m-d H:i:sO';
+        $dateFormat = 'Y-m-dTH:i:sO';
         $rowNo = 1;
         $fieldsNo = 0;
         // $fp is file pointer to filename

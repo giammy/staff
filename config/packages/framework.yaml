@@ -9,7 +9,7 @@ framework:
         handler_id: null
         cookie_secure: auto
         cookie_samesite: strict
-        # cookie_samesite: lax original
+        # cookie_samesite: lax # original - GMY - MOD
 
     #esi: true
     #fragments: true
