@@ -12,7 +12,8 @@ security:
                         password: $2y$12$LLZrVYGQgfSE3ldV68Y19egI7Th8JI318Mcae9VnVNAQtxeuKA8fi
                         roles: 'ROLE_ADMIN'
                     api: # api/api
-                        password: $2y$12$9tSW4RKsti0ScgK2kkLBzeyZ.XCN2oXXSq5sL6WpTsmq5544MXhBO
+                        # password: $2y$12$9tSW4RKsti0ScgK2kkLBzeyZ.XCN2oXXSq5sL6WpTsmq5544MXhBO # api/api
+                        password: '%env(resolve:API_PASSWORD_STAFF)%'
                         roles: 'ROLE_API'
 
         my_ldap:
