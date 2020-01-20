@@ -9,6 +9,8 @@ DEPLOY_TO=`grep DEPLOY_HOST .env.local | cut -d'=' -f2`
 DEPLOY_HOST=`echo $DEPLOY_TO | cut -d':' -f1`
 rm -rf var/cache/*
 
+echo "Deploy $PROJECT"
+
 cd ..
 
 rsync -a --delete --exclude var/local --exclude public/local $PROJECT root@$DEPLOY_TO
@@ -16,8 +18,8 @@ rsync -a --delete --exclude var/local --exclude public/local $PROJECT root@$DEPL
 ssh root@$DEPLOY_HOST "echo 'APP_ENV=prod' >> /var/www/html/$PROJECT/.env.local"
 ssh root@$DEPLOY_HOST "chown -R apache:apache /var/www/html/$PROJECT"
 
-scp -r root@${DEPLOY_TO}/$PROJECT/var/local $PROJECT/var
-scp -r root@${DEPLOY_TO}/$PROJECT/public/local $PROJECT/public
+scp -r -q root@${DEPLOY_TO}/$PROJECT/var/local $PROJECT/var
+scp -r -q root@${DEPLOY_TO}/$PROJECT/public/local $PROJECT/public
 
 cd $PROJECT
 
