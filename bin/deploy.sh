@@ -11,12 +11,12 @@ rm -rf var/cache/*
 
 cd ..
 
-rsync -a --delete --exclude var/data.db --exclude public/local $PROJECT root@$DEPLOY_TO
+rsync -a --delete --exclude var/local --exclude public/local $PROJECT root@$DEPLOY_TO
 #rsync -a --delete $PROJECT root@$DEPLOY_TO
 ssh root@$DEPLOY_HOST "echo 'APP_ENV=prod' >> /var/www/html/$PROJECT/.env.local"
 ssh root@$DEPLOY_HOST "chown -R apache:apache /var/www/html/$PROJECT"
 
-scp root@${DEPLOY_TO}/$PROJECT/var/data.db $PROJECT/var
+scp -r root@${DEPLOY_TO}/$PROJECT/var/local $PROJECT/var
 scp -r root@${DEPLOY_TO}/$PROJECT/public/local $PROJECT/public
 
 cd $PROJECT
