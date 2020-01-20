@@ -28,9 +28,9 @@ class ExportPersonaleService {
         $this->appLogger->info("IN: ExportPersonaleService.export: filename=" . $filename);
 
         file_put_contents($filename, 'CAT,DIP,QUAL,ENTE,"TOTAL AVAILABLE HOURS
-2019",RESPONSABILE,TIMESHEET,ANNUAL PRODUCTIVE HOURS,"PPY AVAILABLE
+2020",RESPONSABILE,TIMESHEET,ANNUAL PRODUCTIVE HOURS,"PPY AVAILABLE
 PART TIME
-2019",SCADENZA
+2020",SCADENZA
 ');
 
         $repo = $this->manager->getRepository(Staff::class);
@@ -58,7 +58,7 @@ PART TIME
             $ostr = $ostr . $x->getLeaderOfGroup() . ",";
             $ostr = $ostr . ($x->getIsTimeSheetEnabled()?"1":"X") . ",";
             $ostr = $ostr . $x->getTotalContractualHoursPerYear() . ",";
-            $ostr = $ostr . $x->getPartTimePercent() . ",";
+            $ostr = $ostr . ($x->getPartTimePercent()/100) . ",";
             //$ostr = $ostr . $x->get();
 
             file_put_contents($filename, $ostr . "\n", FILE_APPEND);
