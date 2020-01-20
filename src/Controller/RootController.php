@@ -60,18 +60,19 @@ class RootController extends AbstractController
 	    $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
 
             if ($item != -1) {
+
                 $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
                     $valid = $x->getValidTo();
                     return (($x->getName() != "noname") && ($valid >= $dateNow)); 
                 }));
                 // list is sorted by surname
 
-                $lastSurname = "";
+                $lastUsername = "";
                 for ($i=0; $i<count($listToShow); $i++) {
-		    if ($lastSurname == $listToShow[$i]->getSurname()) {
+		    if ($lastUsername == $listToShow[$i]->getUsername()) {
 		        unset($listToShow[$i]);
                     } else {
-                        $lastSurname = $listToShow[$i]->getSurname();
+                        $lastUsername = $listToShow[$i]->getUsername();
 		    }
                 }
             }
