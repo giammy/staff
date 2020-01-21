@@ -200,7 +200,7 @@ class RootController extends AbstractController
             ->add('totalContractualHoursPerYear', IntegerType::class, array(
 	                         //'data' => '1720',
 	                        ))
-            ->add('parttimePercent', IntegerType::class, array(
+            ->add('parttimePercent', NumberType::class, array(
 	                         //'data' => '100',
                                 ))
             ->add('isTimeSheetEnabled', ChoiceType::class, array(
