@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
     public function logoutAction(Request $request, LoggerInterface $appLogger) {
         $appLogger->info("IN: logoutAction username='" . 
             $this->get('security.token_storage')->getToken()->getUser()->getUsername() . "'");
-        return $this->redirect($this->generateUrl('root'));
+        return $this->redirect($this->generateUrl('home'));
     }
 
 
