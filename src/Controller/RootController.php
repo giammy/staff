@@ -103,7 +103,10 @@ class RootController extends AbstractController
         if (!$account) {
             // id does not exist: create new user
             $account = new Staff();
-            $account->setCreated(new \DateTime(date('Y-m-d H:i:s')));
+	    $dt = new \DateTime(date('Y-m-d H:i:s'));
+            $account->setCreated($dt);
+            $account->setValidFrom($dt);
+            $account->setValidTo(new \DateTime('2099-12-31 11:59:59'));
         }
 
         $form = $this->createFormBuilder($account)
@@ -211,10 +214,10 @@ class RootController extends AbstractController
 		    	      	         'No' => false,),
 		                  //'data' => null,
 		  	         ))
-            ->add('validFrom', DateType::class, array('data' => new \DateTime()))
+            ->add('validFrom', DateType::class, array('data' => $account->getValidFrom()))
             ->add('validTo', DateType::class, array(
-                                  'years' => range(date('Y')-1, date('Y')+100),
-                                  'data' => new \DateTime('2099-12-31 11:59:59'),
+                                  'years' => range(1980, 2099),
+                                  'data' => $account->getValidTo(),
 
                                  ))
             ->add('note', TextType::class, array(
