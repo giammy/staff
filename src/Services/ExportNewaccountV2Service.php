@@ -32,7 +32,7 @@ class ExportNewaccountV2Service {
         $dateNow = new \DateTime();
         $listToShow = $repo->findAll();
 
-        $dateFormat = 'Y-m-d H:i:sO';
+        $dateFormat = $this->params->get('date_format');
         foreach ($listToShow as $x) {
             $ostr = "\"" . $x->getId() . "\",\"";
             $ostr = $ostr . $x->getUsername() . "\",\"";

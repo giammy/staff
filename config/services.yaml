@@ -26,7 +26,12 @@ parameters:
     staff_import_exceptions: '%env(resolve:STAFF_IMPORT_EXCEPTIONS)%'
 
     export_personale_filename: '%env(resolve:EXPORT_PERSONALE_FILENAME)%'
+    export_personale_path_log: '%env(resolve:EXPORT_PERSONALE_PATH_LOG)%'
+    export_personale_path_sipra2: '%env(resolve:EXPORT_PERSONALE_PATH_SIPRA2)%'
+
     export_newaccountv1_filename: '%env(resolve:EXPORT_NEWACCOUNTV1_FILENAME)%'
+
+    date_format: '%env(resolve:DATE_FORMAT)%'
 
 services:
     # default configuration for services in *this* file
