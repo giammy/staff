@@ -1,0 +1,13 @@
+{% extends 'baseroot.html.twig' %}
+
+{% block title %}Hello RootController!{% endblock %}
+
+{% block body %}
+  <center>
+    <br><p><br>
+    <a href="{{ path('publicAgenda') }}" class="button" style="width:42%">Agenda</a>
+    <br><p><br>
+    <a href="{{ path('publicOrganization') }}" class="button" style="width:42%">Organization</a>
+    <br><p><br>
+  </center>
+{% endblock %}

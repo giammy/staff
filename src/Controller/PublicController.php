@@ -26,11 +26,31 @@ class PublicController extends AbstractController
     }
 
     /**
-     * @Route("/public/agenda", name="publicagenda")
+     * @Route("/public", name="public")
+     */
+    public function publicAction(LoggerInterface $appLogger)
+    {
+        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
+	if ($username != 'anon.') {
+            $username = $username->getUsername();
+        }
+        $appLogger->info("IN: publicAction: username='" . $username . "' allowed");
+        $dateNow = new \DateTime();
+	return $this->render('public/index.html.twig', [
+            'controller_name' => 'PublicController',
+            'username' => $username,
+            ]);
+    }
+
+    /**
+     * @Route("/public/agenda", name="publicAgenda")
      */
     public function publicAgendaAction(LoggerInterface $appLogger)
     {
-        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
+	if ($username != 'anon.') {
+            $username = $username->getUsername();
+        }
         $appLogger->info("IN: publicAgendaAction: username='" . $username . "' allowed");
         $dateNow = new \DateTime();
         $repo = $this->getDoctrine()->getRepository(Staff::class);
@@ -40,8 +60,38 @@ class PublicController extends AbstractController
                 $valid = $x->getValidTo();
                 return (($x->getName() != "noname") && ($valid >= $dateNow)); 
             }),
-            'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
+            'username' => $username,
             ]);
     }
+
+    /**
+     * @Route("/public/organization/{group}", name="publicOrganization")
+     */
+    public function publicOrganizationAction(LoggerInterface $appLogger, $group="")
+    {
+        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
+	if ($username != 'anon.') {
+            $username = $username->getUsername();
+        }
+        $appLogger->info("IN: publicAgendaAction: username='" . $username . "' allowed");
+        $dateNow = new \DateTime();
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+        $listAll = array_filter($repo->findAll(), function ($x) use ($dateNow) { 
+                $valid = $x->getValidTo();
+                return (($x->getName() != "noname") && ($valid >= $dateNow)); 
+            });
+	if ($group != "") {
+            $listAll = array_filter($listAll, function ($x) use ($group) { 
+                return (($x->getGroupName() == $group) || ($x->getLeaderOfGroup() == $group)); 
+            });
+        }
+
+	return $this->render('public/organization.html.twig', [
+            'controller_name' => 'PublicOrganizationController',
+            'list' => $listAll,
+            'username' => $username,
+            ]);
+    }
+
 
 }
