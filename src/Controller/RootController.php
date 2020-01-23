@@ -107,6 +107,8 @@ class RootController extends AbstractController
             $account->setCreated($dt);
             $account->setValidFrom($dt);
             $account->setValidTo(new \DateTime('2099-12-31 11:59:59'));
+            $account->setTotalContractualHoursPerYear(1720);
+            $account->setParttimePercent(100);
         }
 
         $form = $this->createFormBuilder($account)
