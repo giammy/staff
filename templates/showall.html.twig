@@ -71,15 +71,15 @@
       </td>
       <td> {{ ar.surname }} </td>
       <td> {{ ar.name }} </td>
-      <td> {{ ar.groupName }} </td>
-      <td> {{ ar.leaderOfGroup }} </td>
+      <td> {% if ar.groupName == "SCA" %} SIT {% else %} {{ ar.groupName }} {% endif %} </td>
+      <td> {% if ar.leaderOfGroup == "SCA" %} SIT {% else %} {{ ar.leaderOfGroup }} {% endif %} </td>
       <td> {{ ar.qualification }} </td>
       <td> {{ ar.organization }} </td>
 {#
       <td> {{ ar.totalContractualHoursPerYear }} </td>
       <td> {{ ar.parttimePercent }} </td>
 #}
-      <td> <font color="gray">({{ ar.totalContractualHoursPerYear }}*{{ ar.parttimePercent|number_format(2, '.', '') }}=)</font>{{ ar.totalHoursPerYear }} </td>
+      <td> <font color="gray">({{ ar.totalContractualHoursPerYear }}*{{ ar.parttimePercent|number_format(2, '.', '') }}%)</font>{{ ar.totalHoursPerYear }} </td>
       <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
