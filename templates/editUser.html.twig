@@ -8,14 +8,14 @@
 {# {{ form_widget(form) }} #}
 <table style="border-collapse: collapse;">
   <tr>
-    <td> Nome</td>
-    <td> {{ form_widget(attribute(form, "name"), { 'attr': {'size': '40'} }) }} </td>
+    <td> Cognome</td>
+    <td> {{ form_widget(attribute(form, "surname"), { 'attr': {'size': '40'} }) }} </td>
     <td bgcolor="gray" style="border-left: 4px solid #000000;"></td>
     <td bgcolor="gray"><font color='white'>Campi facoltativi</font></td>
   </tr>
   <tr>
-    <td> Cognome</td>
-    <td> {{ form_widget(attribute(form, "surname"), { 'attr': {'size': '40'} }) }} </td>
+    <td> Nome</td>
+    <td> {{ form_widget(attribute(form, "name"), { 'attr': {'size': '40'} }) }} </td>
     <td style="border-left: 4px solid #000000; padding-left: 10px"> Username</td>
     <td> {{ form_widget(attribute(form, "username"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
