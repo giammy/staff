@@ -52,7 +52,7 @@ class ConvertSurnameNameToUsernameData {
 	$ldapSearchFilter = "(cn=" . $username . ")";
 	$attributes['name'] = "noname";
 	$attributes['surname'] = "nosurname";
-	$attributes['email'] = "nomail";
+	$attributes['email'] = "nomail@nomail.com";
 
 	$ds=ldap_connect($ldapServer, $ldapServerPort);
 	$r=ldap_bind($ds, $ldapUser, $ldapPassword);
@@ -70,11 +70,15 @@ class ConvertSurnameNameToUsernameData {
 	//var_dump($username);
 	//var_dump(count($info));
 
-	if (count($info) > 1) {
+        //try {
+	  if (count($info) > 1) {
 	    $attributes['name'] = $info[0]['givenname'][0];
 	    $attributes['surname'] = $info[0]['sn'][0];
-	    $attributes['email'] = $info[0]['mail'][0];
-        }
+	    if (array_key_exists ('mail', $info[0])) {
+                $attributes['email'] = $info[0]['mail'][0];
+            }
+          }
+        //}
 	return $attributes;
     }   
 
