@@ -74,19 +74,25 @@
     <td> {{ form_widget(attribute(form, "validTo"), { 'attr': {'size': '60'} }) }} </td>
     <td style="border-left: 4px solid #000000;"></td>
   </tr>
+
   <tr>
-    <td colspan="2" style="border-top: 4px solid #000000;">
+    <td>
       <center>
-      <a href="{{ path('home') }}" class="button" style="width:80%">ANNULLA</a>
+      <a href="{{ path('showall') }}" class="button" style="width:80%">ANNULLA</a>
       </center>
     </td>
-    <td colspan="2" style="border-top: 4px solid #000000;">
-      <center>
-      <input type="submit" value="SALVA" class='button' style='width: 80%; font-size: 20px;'/>
-      </center>
+    <td></td>
+    <td>
+      <center>{{ form_widget(attribute(form, "newrecord")) }}</center>
+    </td>
+    <td>
+      <center>{{ form_widget(attribute(form, "update")) }}</center>
     </td>
   </tr>
 </table>
+
+<br>
+<hr>
 
 {{ form_end(form) }}
 

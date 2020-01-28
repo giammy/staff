@@ -41,9 +41,18 @@ PART TIME
 2020",SCADENZA
 ';
 
-        file_put_contents($filename1, $ausStr);
-        file_put_contents($filename2, $ausStr);
-
+ 
+        try {
+            file_put_contents($filename1, $ausStr);
+        } catch (Exception $e) {
+            $appLogger()->info('Writing on ' . $filename1 . ' Caught exception: ' . $e->getMessage());
+        }
+        try {
+            file_put_contents($filename2, $ausStr);
+        } catch (Exception $e) {
+            $appLogger()->info('Writing on ' . $filename1 . ' Caught exception: ' . $e->getMessage());
+        }
+       
         $repo = $this->manager->getRepository(Staff::class);
         $dateNow = new \DateTime();
         $listToShow = array_values(array_filter($repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']), function ($x) use ($dateNow) { 
@@ -72,8 +81,16 @@ PART TIME
             $ostr = $ostr . ($x->getPartTimePercent()/100) . ",";
             //$ostr = $ostr . $x->get();
 
-            file_put_contents($filename1, $ostr . "\n", FILE_APPEND);
-            file_put_contents($filename2, $ostr . "\n", FILE_APPEND);
+            try {
+                file_put_contents($filename1, $ostr . "\n", FILE_APPEND);
+            } catch (Exception $e) {
+                $appLogger()->info('Writing on ' . $filename1 . ' Caught exception: ' . $e->getMessage());
+            }
+            try {            
+                file_put_contents($filename2, $ostr . "\n", FILE_APPEND);
+            } catch (Exception $e) {
+                $appLogger()->info('Writing on ' . $filename1 . ' Caught exception: ' . $e->getMessage());
+            }
         }
 
         // for SIPRA2 import

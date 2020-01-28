@@ -28,23 +28,24 @@
       <td></td>
       <td>Surname</td>
       <td>Name</td>
-      <td>Group</td>
-      <td>Capog.</td>
+      <td>Grp</td>
+      <td>Hd</td>
       <td>Qual</td>
       <td>Org</td>
 {#
       <td>Contr.H</td>
       <td>Ptime</td>
 #}
-      <td>Avail. hour/year</td>
+      <td>Avail. h/year</td>
       <td>T.s</td>
       <td>Valid From</td>
       <td>Valid To</td>
+      <td></td>
+      <td>Username</td>
       {% if userBelongsTo(users_admin, username) %}
       <td></td>
       {% endif %}
       <td>E-mail</td>
-      <td>Username</td>
       {% if userBelongsTo(users_admin, username) %}
       <td>Id</td>
       <td>Note</td>
@@ -54,7 +55,7 @@
       <td>Office Phone</td>
       <td>Office Mobile</td>
       <td>Office Location</td>
-      <td>Last Change Atuthor</td>
+      <td>Last Change Author</td>
       <td>Last Change Date</td>
       <td>Internal Note</td>
       {% endif %}
@@ -79,18 +80,30 @@
       <td> {{ ar.totalContractualHoursPerYear }} </td>
       <td> {{ ar.parttimePercent }} </td>
 #}
-      <td> <font color="gray">({{ ar.totalContractualHoursPerYear }}*{{ ar.parttimePercent|number_format(2, '.', '') }}%)</font>{{ ar.totalHoursPerYear }} </td>
+{# {{ ar.totalContractualHoursPerYear }}* #}
+      <td> 
+        <center>
+          {{ ar.totalHoursPerYear }} <br>
+          <font color="gray">{{ ar.parttimePercent|number_format(2, '.', '') }}%</font> 
+        </center>
+      </td>
       <td> {% if ar.isTimesheetEnabled %} YES {% else %} NO {% endif %} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
+      <td>
+        <a href="{{ path('deleteUser', { 'id': ar.id }) }}" onclick="return confirm('VUOI PROPRIO ELIMINARLO?')" >
+          <img src="{{ asset('images/icon-delete.svg') }}" alt="delete" height="24" style="float:left"></img>
+      </td>
+      <td> {{ ar.username }} </td>
       {% if userBelongsTo(users_admin, username) %}
       <td>
-        <a href="{{ path('editUser', { 'id': ar.id }) }}">
-          <img src="{{ asset('images/icon-delete.svg') }}" alt="edit" height="24" style="float:left"></img>
+      {% if "AUTOFILL" in ar.internalNote %}
+        <a href="{{ path('confirmUserAutofill', { 'id': ar.id }) }}" onclick="return confirm('VUOI CONFERMARE username e email?')" >
+          <img src="{{ asset('images/icon-confirm.svg') }}" alt="confirm" height="24" style="float:left"></img>
       </td>
       {% endif %}
+      {% endif %}
       <td> {{ ar.email }} </td>
-      <td> {{ ar.username }} </td>
       {% if userBelongsTo(users_admin, username) %}
       <td> {{ ar.id }} </td>
       <td> {{ ar.note }} </td>

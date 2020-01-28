@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Psr\Log\LoggerInterface;
 use App\Entity\Staff;
 use App\Entity\Account;
+use App\Services\ConvertSurnameNameToUsernameData;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -23,11 +24,66 @@ class RootController extends AbstractController
 {
     private $params;
     private $exportPersonaleService;
+    private $convertSurnameNameToUsernameData;
+
     public function __construct(ParameterBagInterface $params,
+                                ConvertSurnameNameToUsernameData $convertSurnameNameToUsernameData,
                                 ExportPersonaleService $exportPersonaleService) {
         $this->params = $params;
         $this->exportPersonaleService = $exportPersonaleService;
+        $this->convertSurnameNameToUsernameData = $convertSurnameNameToUsernameData;
     }
+
+    public function internalDoLog(LoggerInterface $appLogger, string $action, string $where, $account) {
+        $appLogger->info($action . ": " . $where . ": data: " . 
+              $account->getId() . "," . 
+              $account->getUsername() . "," . 
+              $account->getEmail() . "," . 
+              $account->getSecondaryEmail() . ",'" . 
+              $account->getName() . "','" . 
+              $account->getSurname() . "'," . 
+              $account->getGroupName() . "," . 
+              $account->getLeaderOfGroup() . "," . 
+              $account->getQualification() . "," . 
+              $account->getOrganization() . "," . 
+              $account->getTotalHoursPerYear() . "," . 
+              $account->getTotalContractualHoursPerYear() . "," . 
+              $account->getParttimePercent() . "," . 
+              $account->getIsTimeSheetEnabled() . "," . 
+              $account->getCreated()->format($this->params->get('date_format')) . "," . 
+              $account->getValidFrom()->format($this->params->get('date_format')) . "," . 
+              $account->getValidTo()->format($this->params->get('date_format')) . "," . 
+              $account->getVersion() . ",'" . 
+              $account->getNote() . "','" . 
+              $account->getOfficePhone() . "','" . 
+              $account->getOfficeMobile() . "','" . 
+              $account->getOfficeLocation() . "','" . 
+              $account->getInternalNote() . "'," . 
+              $account->getLastChangeAuthor() . "," . 
+              $account->getLastChangeDate()->format($this->params->get('date_format'))
+              );
+    }
+
+    public function internalCheckUsername(LoggerInterface $appLogger, $account) {
+	if ($account->getUsername() != null) {
+             return;
+        }
+        $appLogger->info("IN internalCheckUsername: missing username!");
+	$usernameData = $this->convertSurnameNameToUsernameData->convert(strtoupper($account->getSurname() . " " . $account->getName()));
+        //echo("<pre>"); var_dump($usernameData); exit;
+	if ((strtoupper($usernameData['surname']) == strtoupper($account->getSurname())) && 
+            (strtoupper($usernameData['name']) == strtoupper($account->getName())) )  {
+            $appLogger->info("IN internalCheckUsername: AUTOFILL:UE, found username " . $usernameData['username'] . " for user '" . $account->getSurname() . "' '" . $account->getName() . "'");
+	    $account->setUsername($usernameData['username']);
+	    $account->setEmail($usernameData['email']);
+            $account->setInternalNote("AUTOFILL:UE," . $account->getInternalNote());
+        }
+    }
+
+    public function internalCheckValidityDates(LoggerInterface $appLogger, $account) {
+        $appLogger->info("IN internalCheckValidityDates: TODO? should change something?");
+    }
+
 
     /**
      * @Route("/", name="home")
@@ -52,40 +108,92 @@ class RootController extends AbstractController
 
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
-        if (in_array($username, $allowedUsers)) {
-            $appLogger->info("IN: showallAction: username='" . $username . "' allowed");
-            $repo = $this->getDoctrine()->getRepository(Staff::class);
-            $dateNow = new \DateTime();
-            // $listToShow = $repo->findAll();
-	    $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
-
-            if ($item != -1) {
-
-                $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
-                    $valid = $x->getValidTo();
-                    return (($x->getName() != "noname") && ($valid >= $dateNow)); 
-                }));
-                // list is sorted by surname
-
-                $lastUsername = "";
-                for ($i=0; $i<count($listToShow); $i++) {
-		    if ($lastUsername == $listToShow[$i]->getUsername()) {
-		        unset($listToShow[$i]);
-                    } else {
-                        $lastUsername = $listToShow[$i]->getUsername();
-		    }
-                }
-            }
-            // echo("<pre>");var_dump($listToShow);exit;
-	    return $this->render('showall.html.twig', [
-                'controller_name' => 'ShowallController',
-                'list' => $listToShow,
-                'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
-                ]);
-        } else {
+        if (!in_array($username, $allowedUsers)) {
             $appLogger->info("IN: showallAction: username='" . $username . "' NOT allowed");
             return $this->redirectToRoute('home');
         }
+
+        $appLogger->info("IN: showallAction: username='" . $username . "' allowed");
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+        $dateNow = new \DateTime();
+        // $listToShow = $repo->findAll();
+        $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
+        // listToShow is sorted by surname
+
+        if ($item >= 0) {
+            // standard show of active records
+            $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
+                    // return (($x->getValidFrom() <= $dateNow) && ($dateNow <= $x->getValidTo())); 
+                    return ($dateNow <= $x->getValidTo()); 
+            }));
+        } else if ($item == -2) {
+            // show only autofill
+            $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
+                    return ((strpos($x->getInternalNote(), 'AUTOFILL') !== false)); 
+            }));
+        }
+
+        return $this->render('showall.html.twig', [
+            'controller_name' => 'ShowallController',
+            'list' => $listToShow,
+            'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
+            ]);
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="deleteUser")
+     */
+    public function deleteUserAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger, $id="-1")
+    {
+        $id = intval($id);
+        $appLogger->info("IN: deleteUserAction id=" . $id);
+
+        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
+        if (!in_array($username, $allowedUsers)) {
+            $appLogger->info("IN: deleteUserAction: username='" . $username . "' NOT allowed");
+            return $this->redirectToRoute('home');
+        }
+
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+	$account = $repo->find($id);
+        if ($account) {
+            $this->internalDoLog($appLogger, "DELETE", "IN deleteUserAction: username='" .
+                $this->get('security.token_storage')->getToken()->getUser()->getUsername() . "'", $account);
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($account);
+            $em->flush();
+        }
+        return $this->redirectToRoute('showall');
+    }
+
+
+    /**
+     * @Route("/confirmUserAutofill/{id}", name="confirmUserAutofill")
+     */
+    public function confirmUserAutofillAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger, $id="-1")
+    {
+        $id = intval($id);
+        $appLogger->info("IN: confirmUserAutofillAction id=" . $id);
+
+        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	$allowedUsers = preg_split('/, */', $this->params->get('users_it'));
+        if (!in_array($username, $allowedUsers)) {
+            $appLogger->info("IN: confirmUserAutofillAction: username='" . $username . "' NOT allowed");
+            return $this->redirectToRoute('home');
+        }
+
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+	$account = $repo->find($id);
+        if ($account) {
+            $this->internalDoLog($appLogger, "CONFIRM", "IN confirmUserAutofillAction: username='" .
+                $this->get('security.token_storage')->getToken()->getUser()->getUsername() . "'", $account);
+            $em = $this->getDoctrine()->getManager();
+            $account->setInternalNote(str_replace("AUTOFILL:UE,", "", $account->getInternalNote()));
+            $em->persist($account);
+            $em->flush();
+        }
+        return $this->redirectToRoute('showall', array('item' => -2));
     }
 
     /**
@@ -96,6 +204,13 @@ class RootController extends AbstractController
         //$appLogger->info("IN: editUserAction");
         $id = intval($id);
         $repo = $this->getDoctrine()->getRepository(Staff::class);
+
+        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
+        if (!in_array($username, $allowedUsers)) {
+            $appLogger->info("IN: editUserAction: username='" . $username . "' NOT allowed");
+            return $this->redirectToRoute('home');
+        }
 
         // if id == -1 -> new user, else edit id user TODO
 	$account = $repo->find($id);
@@ -232,19 +347,33 @@ class RootController extends AbstractController
                         'required' => false,))
             ->getForm();
 
+        $theClass = "button";
+        $theStyle = "width:256px;";
+        $form->add('newrecord', SubmitType::class, array('label' => 'NUOVA POSIZIONE',
+                'attr' => array('class' => $theClass, 'style' => $theStyle )
+            ));
+        $form->add('update', SubmitType::class, array('label' => 'AGGIORNA',
+                'attr' => array('class' => $theClass, 'style' => $theStyle )
+            ));
 	$form->handleRequest($request);
 
         $appLogger->info("IN: editUserAction: username='" .
             $this->get('security.token_storage')->getToken()->getUser()->getUsername() .
             "' isSubmitted=" . ($form->isSubmitted()?"TRUE":"FALSE") . 
             " isValid=" . ($form->isSubmitted()?($form->isValid()?"TRUE":"FALSE"):"---") .
-            " form username='" . $account->getUsername() . "'(" . 
+            " form username='" . $account->getUsername() . "' (" . 
             $account->getSurname() . ", " . $account->getName() . ")"
             );
 
 	if ($form->isSubmitted() && $form->isValid()) {
              // $form->getData() holds the submitted values
              // but, the original variable has also been updated
+
+             $pressedButtonName = $form->getClickedButton()->getName();
+             // echo("<pre>");var_dump($pressedButtonName); exit;
+             $newRecordRequest = ($pressedButtonName == 'newrecord');
+             //var_dump($newRecordRequest); exit;
+
 	     $account = $form->getData();
              $account->setTotalHoursPerYear(($account->getTotalContractualHoursPerYear()*
                                              $account->getParttimePercent())/100);
@@ -255,13 +384,26 @@ class RootController extends AbstractController
 
              if ($oldAccount == null) { // new entry
                  $account->setVersion($this->params->get('staff_current_db_format_version'));
+		 $this->internalCheckUsername($appLogger, $account);
                  $em->persist($account);
-             } else {
+                 $this->internalDoLog($appLogger, "NEWENTRY", "IN editUserAction: username='" .
+                     $this->get('security.token_storage')->getToken()->getUser()->getUsername()."'", $account);
+             } else if ($newRecordRequest) {
                  // change validity dates? duplicate? store new version?
                  $newAccount = new Staff();
                  $newAccount = clone $account;
                  $em->detach($account);
+		 $this->internalCheckUsername($appLogger, $newAccount);
                  $em->persist($newAccount);
+                 $this->internalCheckValidityDates($appLogger, $newAccount);
+                 $this->internalDoLog($appLogger, "NEWRECORD", "IN editUserAction: username='" .
+                     $this->get('security.token_storage')->getToken()->getUser()->getUsername()."'", $newAccount);
+             } else {
+                 // just update
+		 $this->internalCheckUsername($appLogger, $account);
+                 $this->internalDoLog($appLogger, "UPDATE", "IN editUserAction: username='" .
+                     $this->get('security.token_storage')->getToken()->getUser()->getUsername()."'", $account);
+                 $em->persist($account);
              }
              $em->flush();
 
@@ -269,7 +411,7 @@ class RootController extends AbstractController
              $this->exportPersonaleService->export(null); 
 
              // TODO pagina ringraziamento?
-             return $this->redirectToRoute('home');
+             return $this->redirectToRoute('showall');
     	}
 
         return $this->render('editUser.html.twig', [

@@ -11,6 +11,8 @@
         <a href="{{ path('editUser') }}" class="button" style="width:42%">Inserisci nuovo dipendente</a>
         <br><p><br>
         <a href="{{ path('showall') }}" class="button" style="width:42%">Mostra/modifica dipendenti</a>
+        <br><p><br>
+        <a href="{{ path('showall', { 'item': -1 }) }}" class="button" style="width:32%; font-size:15px;">Mostra dipendenti CON STORICO</a>
       </div>
     {% endif %}
 
@@ -18,14 +20,14 @@
       <a href="{{ path('newaccount') }}" class="button" style="width:42%">Richiesta nuovo account</a>
       <br><p>
 
+
     {% if userBelongsTo(users_admin, username) %}
       <div style="border-style: solid; border-color: red">
         <font size="2">Only for administrators:</font>
         <br>
-        <a href="{{ path('showall', { 'item': -1 }) }}" class="button" style="width:42%">Mostra lista INTERNA dipendenti</a>
+        <a href="{{ path('showall', { 'item': -2 }) }}" class="button" style="width:42%">Mostra lista dipendenti con AUTOFILL</a>
       </div>
     {% endif %}
-
 
   </h2></center>
 

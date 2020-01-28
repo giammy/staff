@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="svg1" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" inkscape:output_extension="org.inkscape.output.svg.inkscape" sodipodi:docname="user-trash.svg" sodipodi:docbase="/home/dobey/Projects/gnome-icon-theme/scalable/places" inkscape:version="0.45" sodipodi:version="0.32"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-281 373 48 48"
+	 style="enable-background:new -281 373 48 48;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#path3336_1_);}
+	.st1{fill:url(#path1751_1_);stroke:#204A87;stroke-width:1.0232;}
+	.st2{opacity:0.3297;fill:none;stroke:url(#path4536_1_);stroke-width:1.0232;enable-background:new    ;}
+	.st3{fill:url(#path1841_1_);stroke:#555555;stroke-width:1.0232;}
+	.st4{fill:#204A87;}
+	.st5{fill:#132C52;}
+	.st6{fill:#729FCF;}
+	.st7{fill:url(#path1893_1_);}
+	.st8{opacity:0.13;fill:url(#path8660_1_);enable-background:new    ;}
+	.st9{fill:url(#path1432_1_);stroke:#C4A000;stroke-width:1;}
+	.st10{opacity:0.618;fill:none;stroke:url(#path4247_1_);stroke-width:1;enable-background:new    ;}
+	.st11{opacity:0.45;fill:url(#path4920_1_);enable-background:new    ;}
+</style>
+<sodipodi:namedview  fill="#204a87" inkscape:cy="22.661013" inkscape:cx="32.887321" inkscape:zoom="4" pagecolor="#ffffff" id="base" showgrid="false" bordercolor="#000000" borderopacity="0.11372549" inkscape:window-y="365" inkscape:window-x="790" inkscape:window-height="695" inkscape:window-width="872" inkscape:showpageshadow="false" inkscape:document-units="px" inkscape:current-layer="g1623" inkscape:pageshadow="2" inkscape:pageopacity="0.0">
+	</sodipodi:namedview>
+<g id="layer2" inkscape:label="Shadow" inkscape:groupmode="layer">
+	
+		<radialGradient id="path3336_1_" cx="-262.2617" cy="-360.6372" r="21.747" gradientTransform="matrix(1 0 0 -0.3333 5.3033 293.7166)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#000000"/>
+		<stop  offset="1" style="stop-color:#000000;stop-opacity:0"/>
+	</radialGradient>
+	
+		<path id="path3336" sodipodi:rx="21.743534" sodipodi:cy="41.63604" sodipodi:type="arc" sodipodi:cx="18.738329" sodipodi:ry="7.2478447" class="st0" d="
+		M-235.2,413.9c0,4-9.7,7.2-21.7,7.3c-12,0-21.7-3.2-21.8-7.2c0,0,0,0,0,0c0-4,9.7-7.2,21.7-7.3C-245,406.7-235.2,409.9-235.2,413.9
+		C-235.2,413.9-235.2,413.9-235.2,413.9z"/>
+</g>
+<g id="layer1" inkscape:label="Pixmap Background" inkscape:groupmode="layer">
+</g>
+<g id="g1623" transform="translate(37.06885,-41.11763)" inkscape:label="Layer 1" inkscape:groupmode="layer">
+	
+		<linearGradient id="path1751_1_" gradientUnits="userSpaceOnUse" x1="-351.2928" y1="392.326" x2="-310.9406" y2="392.326" gradientTransform="matrix(1 0 0 -1 37.0689 837.1176)">
+		<stop  offset="0" style="stop-color:#417AC3"/>
+		<stop  offset="1" style="stop-color:#3465A4"/>
+	</linearGradient>
+	<path id="path1751" sodipodi:nodetypes="ccccccc" inkscape:r_cx="true" inkscape:r_cy="true" class="st1" d="M-313.7,430.9
+		c0,0,1.7,24.4,1.7,24.4c0.2,2.4,1.5,3.3,3.1,3.3c0.1,0,28.8,0,29.4,0c2.6,0,3.2-1.6,3.4-3.3c0,0,1.8-24.4,1.8-24.5
+		C-287.5,430.9-300.6,430.9-313.7,430.9z"/>
+	
+		<linearGradient id="path4536_1_" gradientUnits="userSpaceOnUse" x1="-332.2224" y1="382.4969" x2="-334.5681" y2="357.4969" gradientTransform="matrix(1 0 0 -0.9792 37.0689 820.9828)">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path4536" sodipodi:nodetypes="ccccccc" inkscape:r_cx="true" inkscape:r_cy="true" class="st2" d="M-312.5,431.8
+		c0,0,1.5,22.9,1.5,22.9c0.2,2.3,0.9,2.9,2.3,2.9c0,0,28,0,28.6,0c2.4,0,2.7-1.4,2.9-3c0,0,1.6-22.8,1.6-22.8
+		C-287.9,431.8-300.2,431.8-312.5,431.8z"/>
+	
+		<linearGradient id="path1841_1_" gradientUnits="userSpaceOnUse" x1="-407.8681" y1="-49.8165" x2="-407.7545" y2="-56.0428" gradientTransform="matrix(1.4361 0 0 -0.4753 291.8333 405.7419)">
+		<stop  offset="0" style="stop-color:#EFF3F4"/>
+		<stop  offset="1" style="stop-color:#939596"/>
+	</linearGradient>
+	<path id="path1841" sodipodi:nodetypes="cssssscss" inkscape:r_cx="true" inkscape:r_cy="true" class="st3" d="M-310.1,418.8
+		c-1,0-1.9,0-2.3,1c-0.1,0.2-2.6,7.1-2.7,7.4c-1,2.3-0.1,5.1,1.9,5.1c0.4,0,38.7,0,39.3,0c1.7,0,1.9-3.4,1.2-4.9
+		c0-0.1-3.4-7.7-3.5-7.9c-0.4-0.6-1.3-0.9-1.9-0.8C-278.3,418.8-310,418.8-310.1,418.8z"/>
+	<path id="path1864" sodipodi:nodetypes="cssssscss" inkscape:r_cx="true" inkscape:r_cy="true" class="st4" d="M-309.9,420.2
+		c-1,0-1-0.1-1.2,0.7c-0.1,0.2-2.1,6.7-2.2,7c-0.3,0.9,0.1,1.1,1,1.1c0.3,0,36.6,0,37.1,0c0.7,0,1-0.3,0.8-0.9
+		c-0.1-0.3-2.9-7.3-3-7.4c-0.3-0.6-0.3-0.6-0.9-0.6C-278.3,420.1-309.8,420.2-309.9,420.2z"/>
+	<path id="path1880" sodipodi:nodetypes="cccccc" inkscape:r_cx="true" inkscape:r_cy="true" class="st5" d="M-310.4,420.2
+		c-0.4,0-0.5,0.1-0.7,0.7c-0.1,0.2-2.1,6.7-2.1,7c-0.3,0.9,0.1,1.1,1,1.1c0,0,1.9,0,2.1,0L-310.4,420.2z"/>
+	<path id="path1888" sodipodi:nodetypes="cscccc" inkscape:r_cx="true" inkscape:r_cy="true" class="st6" d="M-278.1,420.1
+		c0.4,0,0.6,0,0.9,0.6c0,0.1,2.8,7.1,2.9,7.3c0.3,1-0.3,1-1.3,1c-0.2,0-2.5,0-2.7,0L-278.1,420.1z"/>
+	
+		<linearGradient id="path1893_1_" gradientUnits="userSpaceOnUse" x1="-1452.5459" y1="626.9382" x2="-1452.5459" y2="624.008" gradientTransform="matrix(-0.3587 0 0 -1.8678 -813.7528 1603.2998)">
+		<stop  offset="0" style="stop-color:#000000;stop-opacity:0.1796"/>
+		<stop  offset="1" style="stop-color:#000000;stop-opacity:0"/>
+	</linearGradient>
+	<path id="path1893" sodipodi:nodetypes="cccc" class="st7" d="M-275.1,432.8l-35.1,0.1c26.6,0.6,31.8,3.5,35,3.4L-275.1,432.8z"/>
+</g>
+<g id="layer1_1_" inkscape:label="Layer 1" inkscape:groupmode="layer">
+	<g id="g2776" transform="matrix(-1,0,0,1,45.9611,0)">
+		
+			<radialGradient id="path8660_1_" cx="773.408" cy="1540.2828" r="15.6472" gradientTransform="matrix(-1.4797 0 0 0.4682 1448.0304 -311.9128)" gradientUnits="userSpaceOnUse">
+			<stop  offset="0" style="stop-color:#000000"/>
+			<stop  offset="1" style="stop-color:#000000;stop-opacity:0"/>
+		</radialGradient>
+		
+			<path id="path8660" sodipodi:rx="15.644737" sodipodi:cy="36.421127" sodipodi:type="arc" sodipodi:cx="24.837126" sodipodi:ry="8.3968935" class="st8" d="
+			M326.8,409.3c0-4-10.4-7.3-23.1-7.3s-23.2,3.3-23.2,7.3c0,0,0,0,0,0c0,4,10.4,7.3,23.1,7.3C316.4,416.6,326.8,413.3,326.8,409.3
+			C326.8,409.3,326.8,409.3,326.8,409.3z"/>
+		
+			<linearGradient id="path1432_1_" gradientUnits="userSpaceOnUse" x1="864.0731" y1="406.8411" x2="864.0731" y2="411.1536" gradientTransform="matrix(-1 0 0 -1 1169.9611 796)">
+			<stop  offset="0" style="stop-color:#EDD400"/>
+			<stop  offset="1" style="stop-color:#FCE94F"/>
+		</linearGradient>
+		<path id="path1432" sodipodi:nodetypes="ccccccss" class="st9" d="M297.9,410.4c-17.1-9.5-7.5-29.5,9-29.3V373l16.1,14.1
+			l-16.1,14.7V393c-10.2-0.4-14.7,7.3-5.8,13.4C303.7,408.2,301.9,412.6,297.9,410.4z"/>
+		
+			<linearGradient id="path4247_1_" gradientUnits="userSpaceOnUse" x1="865.1522" y1="397.4506" x2="861.5474" y2="371.4633" gradientTransform="matrix(-1 0 0 -1 1169.9611 796)">
+			<stop  offset="0" style="stop-color:#FFFFFF"/>
+			<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+		</linearGradient>
+		<path id="path4247" class="st10" d="M307.9,375.2v5.9c0,0.5-0.5,1-1,1c-7.8-0.1-14,4.7-16.2,10.4c-2.2,5.8-0.6,12.5,7.7,17
+			c0.9,0.5,1.5,0.5,1.9,0.4c0.4-0.1,0.7-0.3,0.8-0.6c0.4-0.6,0.3-1.5-0.6-2.1c-2.4-1.6-3.9-3.4-4.7-5.2c-0.8-1.8-0.7-3.7,0-5.3
+			c1.5-3.2,5.7-5,11-4.8c0.5,0,1,0.5,1,1c0,0,0,3.9,0,6.4l13.6-12.4L307.9,375.2z"/>
+		
+			<linearGradient id="path4920_1_" gradientUnits="userSpaceOnUse" x1="395.696" y1="529.025" x2="405.8003" y2="524.233" gradientTransform="matrix(1.4306 0 0 -1.4302 -257.1245 1139.8994)">
+			<stop  offset="0" style="stop-color:#FFFFFF"/>
+			<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0"/>
+		</linearGradient>
+		<path id="path4920" sodipodi:nodetypes="ccccc" class="st11" d="M322.1,387.1c-18.6-3.1-28.9,2.1-32.8,10.4
+			c-0.2-12.6,13-16.3,18.1-15.9l0-7.5L322.1,387.1z"/>
+	</g>
+</g>
+</svg>
