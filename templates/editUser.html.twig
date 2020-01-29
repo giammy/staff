@@ -34,8 +34,8 @@
   <tr>
     <td> Qualifica</td>
     <td> {{ form_widget(attribute(form, "qualification"), { 'attr': {'size': '1'} }) }} </td>
-    <td style="border-left: 4px solid #000000; padding-left: 10px"> Note</td>
-    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '60'} }) }} </td>
+    <td style="border-left: 4px solid #000000;"></td>
+    <td></td>
   </tr>
   <tr>
     <td> Organizzazione</td>
@@ -67,7 +67,8 @@
   <tr>
     <td> Data Inizio</td>
     <td> {{ form_widget(attribute(form, "validFrom"), { 'attr': {'size': '60'} }) }} </td>
-    <td style="border-left: 4px solid #000000;"></td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"><b>Note</b></td>
+    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
     <td> Data Fine</td>

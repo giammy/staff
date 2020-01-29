@@ -46,9 +46,9 @@
       <td></td>
       {% endif %}
       <td>E-mail</td>
+      <td>Note</td>
       {% if userBelongsTo(users_admin, username) %}
       <td>Id</td>
-      <td>Note</td>
       <td>Secondary E-mail</td>
       <td>Create Date</td>
       <td>Version</td>
@@ -104,9 +104,9 @@
       {% endif %}
       {% endif %}
       <td> {{ ar.email }} </td>
+      <td> {{ ar.note }} </td>
       {% if userBelongsTo(users_admin, username) %}
       <td> {{ ar.id }} </td>
-      <td> {{ ar.note }} </td>
       <td> {{ ar.secondaryEmail }} </td>
       <td> {{ ar.created|date('d/m/Y') }} </td>
       <td> {{ ar.version }} </td>
