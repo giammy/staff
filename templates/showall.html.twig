@@ -91,7 +91,7 @@
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
       <td>
-        <a href="{{ path('deleteUser', { 'id': ar.id }) }}" onclick="return confirm('VUOI PROPRIO ELIMINARLO?')" >
+        <a href="{{ path('deleteUser', { 'id': ar.id }) }}" onclick="return confirm('SEI SICURO CHE VUOI ELIMINARE IL RECORD {{ ar.username }}?')" >
           <img src="{{ asset('images/icon-delete.svg') }}" alt="delete" height="24" style="float:left"></img>
       </td>
       <td> {{ ar.username }} </td>
