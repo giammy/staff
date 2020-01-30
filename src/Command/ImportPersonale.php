@@ -95,7 +95,7 @@ class ImportPersonale extends Command
                     exit;
                 }
 
-	        $usernameData = $this->convertSurnameNameToUsernameData->convert($row[1]);
+	        $usernameData = $this->convertSurnameNameToUsernameData->convert($row[1], null, null);
 
                 if ($row[0]=="" || (strlen($usernameData['username'])==0 && $row[0]=="BLK")) {
                     $output->write('-IGNORING: ');

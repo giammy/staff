@@ -12,7 +12,7 @@ class ConvertSurnameNameToUsernameData {
         $this->params = $params;
     }
     
-    public function convert($surnameName) {
+    public function convert($surnameName, $surnameArg, $nameArg) {
        //var_dump($surnameName);exit;
        //var_dump($this->exceptionsArray);exit;
 
@@ -27,23 +27,36 @@ class ConvertSurnameNameToUsernameData {
            $exceptArray[$value[0]] = $value[1];
        }
 
+       $spacePos = strpos($surnameName, ' ');
+       $username = strtolower(substr($surnameName, 0, $spacePos));
+       $username2= strtolower($surnameName[$spacePos+1] . substr($surnameName, 0, $spacePos));
        if (array_key_exists($surnameName, $exceptArray)) {
        	   $username = $exceptArray[$surnameName];
-       } else {
-           $username = strtolower(substr($surnameName, 0, strpos($surnameName, ' ')));
-       }  	      
+       }
 
        $usernameData['username'] = $username;
-       $attributes = $this->getLDAPAttributes($username, 
+       $attributes = $this->getLDAPAttributes($username,
                                               $this->params->get('ldap_server'), 
                                               $this->params->get('ldap_server_port'), 
                                               $this->params->get('ldap_user'), 
                                               $this->params->get('ldap_password'), 
                                               $this->params->get('ldap_search_basedn'));
+
+       if ($surnameArg != null && $nameArg != null) {
+           if ($attributes['surname'] != $surnameArg || $attributes['name'] != $nameArg) {
+               $usernameData['username'] = $username2;
+               $attributes = $this->getLDAPAttributes($username2,
+                                              $this->params->get('ldap_server'), 
+                                              $this->params->get('ldap_server_port'), 
+                                              $this->params->get('ldap_user'), 
+                                              $this->params->get('ldap_password'), 
+                                              $this->params->get('ldap_search_basedn'));
+           }
+       }
+
        $usernameData['name'] = $attributes['name'];
        $usernameData['surname'] = $attributes['surname'];
        $usernameData['email'] = $attributes['email'];
-       //var_dump($usernameData);exit;
        return $usernameData;
     }
 

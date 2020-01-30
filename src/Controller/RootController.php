@@ -69,7 +69,7 @@ class RootController extends AbstractController
              return;
         }
         $appLogger->info("IN internalCheckUsername: missing username!");
-	$usernameData = $this->convertSurnameNameToUsernameData->convert(strtoupper($account->getSurname() . " " . $account->getName()));
+	$usernameData = $this->convertSurnameNameToUsernameData->convert(strtoupper($account->getSurname() . " " . $account->getName()), $account->getSurname(), $account->getName());
         //echo("<pre>"); var_dump($usernameData); exit;
 	if ((strtoupper($usernameData['surname']) == strtoupper($account->getSurname())) && 
             (strtoupper($usernameData['name']) == strtoupper($account->getName())) )  {
