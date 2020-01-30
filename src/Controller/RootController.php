@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Psr\Log\LoggerInterface;
 use App\Entity\Staff;
@@ -100,12 +101,10 @@ class RootController extends AbstractController
     }
 
     /**
-     * @Route("/showall/{item}", name="showall")
+     * @Route("/showall/{which}/{mode}", name="showall")
      */
-    public function showallAction(LoggerInterface $appLogger, $item="0")
+    public function showallAction(LoggerInterface $appLogger, $which="active", $mode="html")
     {
-	$item=intval($item);
-
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
         if (!in_array($username, $allowedUsers)) {
@@ -120,24 +119,38 @@ class RootController extends AbstractController
         $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
         // listToShow is sorted by surname
 
-        if ($item >= 0) {
-            // standard show of active records
+        if ($which == "active") {
+            // show active records
             $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
                     // return (($x->getValidFrom() <= $dateNow) && ($dateNow <= $x->getValidTo())); 
                     return ($dateNow <= $x->getValidTo()); 
             }));
-        } else if ($item == -2) {
+        } else if ($which == "auto") {
             // show only autofill
             $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
                     return ((strpos($x->getInternalNote(), 'AUTOFILL') !== false)); 
             }));
         }
-
-        return $this->render('showall.html.twig', [
-            'controller_name' => 'ShowallController',
-            'list' => $listToShow,
-            'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
+       
+        if ($mode == "csv") {
+           //$resp = new Response();
+           $resp = $this->render('showall.csv.twig', [
+               'controller_name' => 'ShowallController',
+               'list' => $listToShow,
+               'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
+     	       ]);
+           $resp->headers->set('Content-Type', 'text/csv');
+           $resp->headers->set('Content-Disposition', 
+                               'attachment; filename="staff_export_' . $dateNow->format('YmdHis\U\TC') . '.csv"');
+        } else {
+            $resp =  $this->render('showall.html.twig', [
+                'controller_name' => 'ShowallController',
+                'list' => $listToShow,
+                'username' => $this->get('security.token_storage')->getToken()->getUser()->getUsername(),
             ]);
+        }
+
+        return $resp;
     }
 
     /**
@@ -193,7 +206,7 @@ class RootController extends AbstractController
             $em->persist($account);
             $em->flush();
         }
-        return $this->redirectToRoute('showall', array('item' => -2));
+        return $this->redirectToRoute('showall', array('which' => 'html', 'mode' => 'auto'));
     }
 
     /**

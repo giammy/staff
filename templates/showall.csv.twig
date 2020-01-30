@@ -1,0 +1,5 @@
+id,username,email,secondaryEmail,name,surname,groupName,leaderOfGroup,qualification,organization,totalHoursPerYear,totalContractualHoursPerYear,parttimePercent,isTimeSheetEnabled,created,validFrom,validTo,version,note,officePhone,officeMobile,officeLocation,internalNote,lastChangeAuthor,lastChangeDate
+{% for ar in list %}
+{{ ar.id }},{{ ar.username }},{{ ar.email }},{{ ar.secondaryEmail }},"{{ ar.name }}","{{ ar.surname }}","{{ ar.groupName }}","{{ ar.leaderOfGroup }}","{{ ar.qualification }}","{{ ar.organization }}",{{ ar.totalHoursPerYear }},{{ ar.totalContractualHoursPerYear }},{{ ar.parttimePercent }},{{ ar.isTimeSheetEnabled }},{{ ar.created|date(date_format) }},{{ ar.validFrom|date(date_format) }},{{ ar.validTo|date(date_format) }},{{ ar.version }},"{{ ar.note }}","{{ ar.officePhone }}","{{ ar.officeMobile }}","{{ ar.officeLocation }}","{{ ar.internalNote }}","{{ ar.lastChangeAuthor }}","{{ ar.lastChangeDate|date(date_format) }}"
+{% endfor %}
+
