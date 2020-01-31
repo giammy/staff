@@ -22,9 +22,10 @@
 
 {% block body %}
 
-<a href="{{ path('showall', { 'which': 'active', 'mode': 'csv' }) }}" class="smallbutton" style="width:20%">Esporta lista</a>
-
 <a href="{{ path('showall', { 'which': 'all', 'mode': 'csv' }) }}" class="smallbutton" style="width:20%">Esporta lista con storico</a>
+
+
+<a href="{{ path('showall', { 'which': 'active', 'mode': 'csv' }) }}" class="smallbutton" style="width:20%">Esporta lista</a>
 
 <table id="staffShowallTable">
   <thead>
