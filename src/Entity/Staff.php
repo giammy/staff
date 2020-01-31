@@ -137,6 +137,16 @@ class Staff
      */
     private $lastChangeDate;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $descriptionList = [];
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $attachList = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -426,6 +436,30 @@ class Staff
     public function setLastChangeDate(\DateTimeInterface $lastChangeDate): self
     {
         $this->lastChangeDate = $lastChangeDate;
+
+        return $this;
+    }
+
+    public function getDescriptionList(): ?array
+    {
+        return $this->descriptionList;
+    }
+
+    public function setDescriptionList(?array $descriptionList): self
+    {
+        $this->descriptionList = $descriptionList;
+
+        return $this;
+    }
+
+    public function getAttachList(): ?array
+    {
+        return $this->attachList;
+    }
+
+    public function setAttachList(?array $attachList): self
+    {
+        $this->attachList = $attachList;
 
         return $this;
     }

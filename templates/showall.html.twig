@@ -62,6 +62,8 @@
       <td>Last Change Author</td>
       <td>Last Change Date</td>
       <td>Internal Note</td>
+      <td>FBDESC</td>
+      <td>FBATT</td>
       {% endif %}
     </tr>
   </thead>
@@ -120,6 +122,8 @@
       <td> {{ ar.lastChangeAuthor }} </td>
       <td> {{ ar.lastChangeDate|date('Ymd-Hise') }} </td>
       <td> {{ ar.internalNote }} </td>
+      <td> {% for x in ar.descriptionList %} {{ x }} <br> {% endfor %} </td>
+      <td> {% for x in ar.attachList %} {{ x }} <br> {% endfor %} </td>
       {% endif %}
     </tr>
     {% endfor %}
