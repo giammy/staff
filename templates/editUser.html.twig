@@ -90,6 +90,25 @@
       <center>{{ form_widget(attribute(form, "update")) }}</center>
     </td>
   </tr>
+
+  {% if userBelongsTo(users_beta, username) %}
+  <tr><td><br></td></tr>
+  <tr>
+    <td align="right"></td>
+    <td> {{ form_widget(attribute(form, "descriptionL1"), { 'attr': {'size': '40'} }) }} </td>
+    <td align="right"></td>
+    <td> {{ form_widget(attribute(form, "descriptionL2"), { 'attr': {'size': '40'} }) }} </td>
+  </tr>
+
+  <tr>
+     <td align="right"></td>
+    <td> {{ form_widget(attribute(form, "descriptionD1"), { 'attr': {'size': '40'} }) }} </td>
+    <td align="right"></td>
+    <td> {{ form_widget(attribute(form, "descriptionD2"), { 'attr': {'size': '60'} }) }} </td>
+  </tr>
+
+  {% endif %}
+
 </table>
 
 <br>

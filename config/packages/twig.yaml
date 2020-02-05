@@ -8,6 +8,7 @@ twig:
         users_admin: '%env(USERS_ADMIN)%'
         users_manager: '%env(USERS_MANAGER)%'
         users_it: '%env(USERS_IT)%'
+        users_beta: '%env(USERS_BETA)%'
         users_ufficio_personale: '%env(USERS_UFFICIO_PERSONALE)%'
         users_newaccount_admin: '%env(USERS_NEWACCOUNT_ADMIN)%'
         date_format: '%env(DATE_FORMAT)%'

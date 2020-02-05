@@ -13,6 +13,7 @@ use App\Entity\Account;
 use App\Services\ConvertSurnameNameToUsernameData;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -239,6 +240,14 @@ class RootController extends AbstractController
             $account->setParttimePercent(100);
         }
 
+        $descriptionList = $account->getDescriptionList();
+        $dl1 = (count($descriptionList)>0)?$descriptionList[0][0]:'';
+        $dd1 = (count($descriptionList)>0)?$descriptionList[0][1]:'';
+        $dl2 = (count($descriptionList)>1)?$descriptionList[1][0]:'';
+        $dd2 = (count($descriptionList)>1)?$descriptionList[1][1]:'';
+        if (count($dl1) == 0) { $dl1 = 'Short description'; }
+        if (count($dl2) == 0) { $dl2 = 'Activity'; }
+
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
                          'required' => false,))
@@ -358,6 +367,10 @@ class RootController extends AbstractController
                          'required' => false,))
             ->add('officeLocation', TextType::class, array(
                         'required' => false,))
+            ->add('descriptionL1', TextType::class, array('data' => $dl1, 'required' => false, 'mapped' => false))
+            ->add('descriptionD1', TextType::class, array('data' => $dd1, 'required' => false, 'mapped' => false))
+            ->add('descriptionL2', TextType::class, array('data' => $dl2, 'required' => false, 'mapped' => false))
+            ->add('descriptionD2', TextareaType::class, array('data' => $dd2, 'required' => false, 'mapped' => false, ))
             ->getForm();
 
         $theClass = "button";
@@ -392,6 +405,13 @@ class RootController extends AbstractController
                                              $account->getParttimePercent())/100);
 	     $account->setLastChangeAuthor($this->get('security.token_storage')->getToken()->getUser()->getUsername());
 	     $account->setLastChangeDate(new \Datetime());
+
+             // manage descriptions' extra fields
+             $dl1 = $form->get('descriptionL1')->getData();
+             $dd1 = $form->get('descriptionD1')->getData();
+             $dl2 = $form->get('descriptionL2')->getData();
+             $dd2 = $form->get('descriptionD2')->getData();
+             $account->setDescriptionList([[$dl1,$dd1],[$dl2,$dd2]]);
 
              $em = $this->getDoctrine()->getManager();
 
@@ -428,6 +448,7 @@ class RootController extends AbstractController
     	}
 
         return $this->render('editUser.html.twig', [
+            'username' => $username,
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);

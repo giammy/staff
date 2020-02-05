@@ -15,6 +15,7 @@ parameters:
     users_admin: '%env(resolve:USERS_ADMIN)%'
     users_manager: '%env(resolve:USERS_MANAGER)%'
     users_it: '%env(resolve:USERS_IT)%'
+    users_beta: '%env(resolve:USERS_BETA)%'
     users_ufficio_personale: '%env(resolve:USERS_UFFICIO_PERSONALE)%'
 
     users_newaccount_admin: '%env(resolve:USERS_NEWACCOUNT_ADMIN)%'
