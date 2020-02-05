@@ -128,7 +128,7 @@
       {% endif %}
       {% if userBelongsTo(users_beta, username) %}
       <td> {% for x in ar.descriptionList %} <b>{{ x[0] }}</b> {{ x[1] }}<br> {% endfor %} </td>
-      <td> {% for x in ar.attachList %} {{ x }} <br> {% endfor %} </td>
+      <td> {% for x in ar.attachList %} <b>{{ x[0] }}</b> {{ x[1] }} <br> {% endfor %} </td>
       {% endif %}
     </tr>
     {% endfor %}

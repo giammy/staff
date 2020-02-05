@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Services\ExportPersonaleService;
 
 class RootController extends AbstractController
@@ -248,6 +249,8 @@ class RootController extends AbstractController
         if (strlen($dl1) == 0) { $dl1 = 'Short description'; }
         if (strlen($dl2) == 0) { $dl2 = 'Activity'; }
 
+        $attachList = $account->getAttachList();
+        $photoWebFilename = (count($attachList)>0)?$attachList[0][1]:'';
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
                          'required' => false,))
@@ -369,6 +372,8 @@ class RootController extends AbstractController
             ->add('descriptionD1', TextType::class, array('data' => $dd1, 'required' => false, 'mapped' => false))
             ->add('descriptionL2', TextType::class, array('data' => $dl2, 'required' => false, 'mapped' => false))
             ->add('descriptionD2', TextareaType::class, array('data' => $dd2, 'required' => false, 'mapped' => false, ))
+	    ->add('photoWeb', FileType::class, array('data' => null, 'required' => false, 'mapped' => false, ))
+
             ->getForm();
 
         $theClass = "button";
@@ -413,6 +418,16 @@ class RootController extends AbstractController
              if (strlen($dl2) == 0) { $dl2 = 'Activity'; }
              $account->setDescriptionList([[$dl1,$dd1],[$dl2,$dd2]]);
 
+             // manage attached files
+             $theUploadedFile = $form->get('photoWeb')->getData();
+             if ($theUploadedFile) {
+               $theName = (new \DateTime())->format($this->params->get('date_format_for_filename')) . "-" .
+                 preg_replace("/[^A-Za-z0-9-_.]/", "", $theUploadedFile->getClientOriginalName());
+               //echo("<pre>");var_dump($theName); var_dump($theUploadedFile); exit;
+               $theUploadedFile->move("local/files", $theName);
+               $account->setAttachList([['photoWeb', $theName]]);
+             }
+
              $em = $this->getDoctrine()->getManager();
 
              if ($oldAccount == null) { // new entry
@@ -449,6 +464,7 @@ class RootController extends AbstractController
 
         return $this->render('editUser.html.twig', [
             'username' => $username,
+            'photoWeb' => $photoWebFilename,
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);

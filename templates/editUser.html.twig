@@ -90,30 +90,41 @@
       <center>{{ form_widget(attribute(form, "update")) }}</center>
     </td>
   </tr>
+</table>
 
   {% if userBelongsTo(users_beta, username) %}
-  <tr><td><br></td></tr>
-  <tr>
-    <td align="right"></td>
-    <td> {{ form_widget(attribute(form, "descriptionL1"), { 'attr': {'size': '40'} }) }} </td>
-    <td align="right"></td>
-    <td> {{ form_widget(attribute(form, "descriptionL2"), { 'attr': {'size': '40'} }) }} </td>
-  </tr>
+  <hr>
+  <table>
+    <tr>
+    <!-- descriptions' fields -->
+      <td>
+        <!-- {{ form_widget(attribute(form, "descriptionL1"), { 'attr': {'size': '40'} }) }}  -->
+        Short description
+        {{ form_widget(attribute(form, "descriptionD1"), { 'attr': {'size': '60'} }) }}
+        <hr>
+        <!-- <div align="top">{{ form_widget(attribute(form, "descriptionL2"), { 'attr': {'size': '40'} }) }} </div> -->
+        Activity <br>
+        {{ form_widget(attribute(form, "descriptionD2"), { 'attr': {'rows': '10', 'cols': '80' } }) }}
+      </td>
 
-  <tr>
-     <td align="right"></td>
-    <td> {{ form_widget(attribute(form, "descriptionD1"), { 'attr': {'size': '40'} }) }} </td>
-    <td align="right"></td>
-    <td> {{ form_widget(attribute(form, "descriptionD2"), { 'attr': {'size': '60'} }) }} </td>
-  </tr>
+      <!-- attach's fields -->
+      <td>
+        {% if photoWeb is defined and photoWeb is not null and photoWeb is not empty %}
+          <img src="/local/files/{{photoWeb}}" alt="photo" height="256" width="256">
+        <br>
+        {% endif %}
+        Photo {{ form_widget(attribute(form, "photoWeb"), { 'attr': {'size': '40'} }) }}
+
+      </td>
+    </tr>
+  </table>
   {% else %}
     {% do form.descriptionL1.setRendered() %}
     {% do form.descriptionL2.setRendered() %}
     {% do form.descriptionD1.setRendered() %}
     {% do form.descriptionD2.setRendered() %}
+    {% do form.photoWeb.setRendered() %}
   {% endif %}
-
-</table>
 
 <br>
 <hr>
