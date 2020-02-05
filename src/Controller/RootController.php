@@ -245,8 +245,8 @@ class RootController extends AbstractController
         $dd1 = (count($descriptionList)>0)?$descriptionList[0][1]:'';
         $dl2 = (count($descriptionList)>1)?$descriptionList[1][0]:'';
         $dd2 = (count($descriptionList)>1)?$descriptionList[1][1]:'';
-        if (count($dl1) == 0) { $dl1 = 'Short description'; }
-        if (count($dl2) == 0) { $dl2 = 'Activity'; }
+        if (strlen($dl1) == 0) { $dl1 = 'Short description'; }
+        if (strlen($dl2) == 0) { $dl2 = 'Activity'; }
 
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
@@ -411,6 +411,8 @@ class RootController extends AbstractController
              $dd1 = $form->get('descriptionD1')->getData();
              $dl2 = $form->get('descriptionL2')->getData();
              $dd2 = $form->get('descriptionD2')->getData();
+             if (strlen($dl1) == 0) { $dl1 = 'Short description'; }
+             if (strlen($dl2) == 0) { $dl2 = 'Activity'; }
              $account->setDescriptionList([[$dl1,$dd1],[$dl2,$dd2]]);
 
              $em = $this->getDoctrine()->getManager();
