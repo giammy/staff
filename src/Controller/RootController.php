@@ -462,11 +462,19 @@ class RootController extends AbstractController
              return $this->redirectToRoute('showall');
     	}
 
+        $root_dir = realpath($this->getParameter('kernel.root_dir').'/..');
+        if (strpos($root_dir, 'www/html/staff') !== false) {
+            $baseUrl = "/staff/";
+        } else {
+            $baseUrl = "/";
+        }
+
         return $this->render('editUser.html.twig', [
             'username' => $username,
+            'baseUrl' => $baseUrl,
             'photoWeb' => $photoWebFilename,
             'form' => $form->createView(),
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+            'base_dir' => $root_dir.DIRECTORY_SEPARATOR,
         ]);
     }
 
