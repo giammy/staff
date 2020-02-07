@@ -3,10 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\ORM\Mapping as ORM;
+
+
+// /staff?validTo[after]=2018-03-19
 
 /**
  * @ApiResource()
+ * @ApiFilter(DateFilter::class, properties={"validTo"})
  * @ORM\Entity(repositoryClass="App\Repository\StaffRepository")
  */
 class Staff
