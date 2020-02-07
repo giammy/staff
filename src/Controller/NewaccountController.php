@@ -150,10 +150,12 @@ class NewaccountController extends AbstractController
 	if ($form->isSubmitted() && $form->isValid()) {
              // $form->getData() holds the submitted values
              // but, the original `$task` variable has also been updated
+             $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	     $account = $form->getData();
+	     $account->setUsername($username);
              $account->setVersion($this->params->get('account_current_db_format_version'));
-             $account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
-             $account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
+             //$account->setValidFrom(new \DateTime(date('Y-m-d H:i:s')));
+             //$account->setValidTo(new \DateTime(date('Y-m-d H:i:s')));
              $account->setItRegulationAccepted(true); // form input will force the check of this flag
 
 	     // save
@@ -162,7 +164,6 @@ class NewaccountController extends AbstractController
              $em->persist($account);
              $em->flush();
 
-             $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	     $mailsToNotify = preg_split('/, */', $this->params->get('newaccount_mailstonotify'));
 	     array_push($mailsToNotify, $username . '@igi.cnr.it');
 
