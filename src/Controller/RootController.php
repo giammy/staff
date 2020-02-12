@@ -125,7 +125,7 @@ class RootController extends AbstractController
             // show active records
             $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
                     // return (($x->getValidFrom() <= $dateNow) && ($dateNow <= $x->getValidTo())); 
-                    return ($dateNow <= $x->getValidTo()); 
+                    return ($dateNow->format('Y') <= $x->getValidTo()->format('Y'));
             }));
         } else if ($which == "auto") {
             // show only autofill
