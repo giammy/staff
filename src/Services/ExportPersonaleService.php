@@ -35,13 +35,14 @@ class ExportPersonaleService {
 
         $this->appLogger->info("IN: ExportPersonaleService.export: filename=" . $filename);
 
-        $ausStr = 'CAT,DIP,QUAL,ENTE,"TOTAL AVAILABLE HOURS
-2020",RESPONSABILE,TIMESHEET,ANNUAL PRODUCTIVE HOURS,"PPY AVAILABLE
-PART TIME
-2020",SCADENZA
-';
+//        $ausStr = 'CAT,DIP,QUAL,ENTE,"TOTAL AVAILABLE HOURS
+//2020",RESPONSABILE,TIMESHEET,ANNUAL PRODUCTIVE HOURS,"PPY AVAILABLE
+//PART TIME
+//2020",SCADENZA
+//';
 
- 
+        $ausStr = 'CAT,DIP,QUAL,ENTE,"TOTAL AVAILABLE HOURS 2020",RESPONSABILE,TIMESHEET,ANNUAL PRODUCTIVE HOURS,"PPY AVAILABLE PART TIME 2020",SCADENZA' . "\n";
+
         try {
             file_put_contents($filename1, $ausStr);
         } catch (Exception $e) {
@@ -61,11 +62,14 @@ PART TIME
             }));
 
         $lastSurname = "";
+        $lastName = "";
         for ($i=0; $i<count($listToShow); $i++) {
-	    if ($lastSurname == $listToShow[$i]->getSurname()) {
+	    if ($lastSurname == $listToShow[$i]->getSurname() &&
+	        $lastName == $listToShow[$i]->getName() ){
 		unset($listToShow[$i]);
             } else {
                 $lastSurname = $listToShow[$i]->getSurname();
+                $lastName = $listToShow[$i]->getName();
 	    }
         }
 
