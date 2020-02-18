@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Psr\Log\LoggerInterface;
 use App\Entity\Staff;
@@ -91,6 +92,54 @@ class PublicController extends AbstractController
             'list' => $listAll,
             'username' => $username,
             ]);
+    }
+
+
+//
+// api/public area
+//
+
+
+    /**
+     * @Route("/api/public/staff/{staffId}", name="apipublicstaff")
+     */
+    public function apiPublicStaffAction(LoggerInterface $appLogger, $staffId=-1)
+    {
+        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
+	if ($username != 'anon.') {
+            $username = $username->getUsername();
+        }
+        $appLogger->info("IN: apiPublicStaffAction: username='" . $username . "' allowed" . " staffId=" . $staffId);
+        $dateNow = new \DateTime();
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+
+	$s = $repo->find($staffId);
+	if ($s) {
+            $listToShow = [$s];
+        } else {
+            $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
+            $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
+                    return ($dateNow->format('Y') <= $x->getValidTo()->format('Y'));
+                }));
+        }
+
+        $answer = array_map(function ($x) { return([
+            'id' => $x->getId(), 
+            'email' => $x->getEmail(),
+            'surname' => $x->getSurname(),
+            'name' => $x->getName(),
+            'groupName' => $x->getGroupName(),
+            'leaderOfGroup' => $x->getLeaderOfGroup(),
+            'qualification' => $x->getQualification(),
+            'organization' => $x->getOrganization(),
+            'officePhone' => $x->getOfficePhone(),
+            'officeLocation' => $x->getOfficeLocation(),
+          ]); }, $listToShow);
+
+	$response = new Response();
+	$response->setContent(json_encode($answer));
+	$response->headers->set('Content-Type', 'application/json');
+	return($response);
     }
 
 
