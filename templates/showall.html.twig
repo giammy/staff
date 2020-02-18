@@ -65,7 +65,7 @@
       <td>Internal Note</td>
       {% endif %}
       {% if userBelongsTo(users_beta, username) %}
-      <td>FCDESC</td>
+      <!-- <td>FCDESC</td> -->
       <td>FCATT</td>
       {% endif %}
     </tr>
@@ -127,7 +127,7 @@
       <td> {{ ar.internalNote }} </td>
       {% endif %}
       {% if userBelongsTo(users_beta, username) %}
-      <td> {% for x in ar.descriptionList %} <b>{{ x[0] }}</b> {{ x[1] }}<br> {% endfor %} </td>
+      <!-- <td> {% for x in ar.descriptionList %} <b>{{ x[0] }}</b> {{ x[1] }}<br> {% endfor %} </td> -->
       <td> {% for x in ar.attachList %} <b>{{ x[0] }}</b> {{ x[1] }} <br> {% endfor %} </td>
       {% endif %}
     </tr>
