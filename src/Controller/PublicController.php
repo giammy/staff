@@ -124,16 +124,16 @@ class PublicController extends AbstractController
         }
 
         $answer = array_map(function ($x) { return([
-            'id' => $x->getId(), 
-            'email' => $x->getEmail(),
-            'surname' => $x->getSurname(),
-            'name' => $x->getName(),
-            'groupName' => $x->getGroupName(),
-            'leaderOfGroup' => $x->getLeaderOfGroup(),
-            'qualification' => $x->getQualification(),
-            'organization' => $x->getOrganization(),
-            'officePhone' => $x->getOfficePhone(),
-            'officeLocation' => $x->getOfficeLocation(),
+            'i' => $x->getId(), 
+            's' => $x->getSurname(),
+            'n' => $x->getName(),
+            'e' => $x->getEmail(),
+            'g' => $x->getGroupName(),
+            'l' => $x->getLeaderOfGroup(),
+            'q' => $x->getQualification(),
+            'o' => $x->getOrganization(),
+            'p' => $x->getOfficePhone(),
+            'r' => $x->getOfficeLocation(),
           ]); }, $listToShow);
 
 	$response = new Response();
