@@ -112,10 +112,12 @@ class PublicController extends AbstractController
         $appLogger->info("IN: apiPublicStaffAction: username='" . $username . "' allowed" . " staffId=" . $staffId);
         $dateNow = new \DateTime();
         $repo = $this->getDoctrine()->getRepository(Staff::class);
+        $extendedInfo = false;
 
 	$s = $repo->find($staffId);
 	if ($s) {
             $listToShow = [$s];
+            $extendedInfo = true;
         } else {
             $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
             $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
@@ -135,6 +137,12 @@ class PublicController extends AbstractController
             'p' => $x->getOfficePhone(),
             'r' => $x->getOfficeLocation(),
           ]); }, $listToShow);
+
+        if ($extendedInfo) {
+          $answer[0] += ['m' => $listToShow[0]->getOfficeMobile()];
+          $answer[0] += ['d' => $listToShow[0]->getDescriptionList()];
+          $answer[0] += ['a' => $listToShow[0]->getAttachList()];
+        }
 
 	$response = new Response();
 	$response->setContent(json_encode($answer));
