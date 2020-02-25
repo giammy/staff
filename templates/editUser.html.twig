@@ -110,11 +110,15 @@
       <!-- attach's fields -->
       <td>
         {% if photoWeb is defined and photoWeb is not null and photoWeb is not empty %}
-          <img src="{{baseUrl}}local/files/{{photoWeb}}" alt="photo" height="256">
-        <br>
+          <center>
+            <img src="{{baseUrl}}{{local_files_directory}}/{{photoWeb}}" alt="photo" height="256">
+            <br>
+            <a href="{{ path('deletePhoto', { 'id': id}) }}" class="smallbutton" style="width:80%">Delete this photo</a>
+          </center>
         {% endif %}
-        Upload photo {{ form_widget(attribute(form, "photoWeb"), { 'attr': {'size': '40'} }) }}
-
+      </td>
+      <td>
+        <h2>Upload new photo {{ form_widget(attribute(form, "photoWeb"), { 'attr': {'size': '40'} }) }}</h2>
       </td>
     </tr>
   </table>

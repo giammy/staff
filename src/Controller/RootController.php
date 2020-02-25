@@ -220,6 +220,8 @@ class RootController extends AbstractController
         $id = intval($id);
         $repo = $this->getDoctrine()->getRepository(Staff::class);
 
+	$localFilesDirectoryPrefix = $this->params->get('local_files_directory');
+
         $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
         if (!in_array($username, $allowedUsers)) {
@@ -251,6 +253,12 @@ class RootController extends AbstractController
 
         $attachList = $account->getAttachList();
         $photoWebFilename = (count($attachList)>0)?$attachList[0][1]:'';
+
+        if (!file_exists($localFilesDirectoryPrefix . "/" . $photoWebFilename)) {
+            $appLogger->info("IN: editUserAction: photoWebFilename='" . $photoWebFilename . "' DOES NOT EXIST!");
+            $photoWebFilename = '';
+        }
+
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
                          'required' => false,))
@@ -424,7 +432,7 @@ class RootController extends AbstractController
                $theName = (new \DateTime())->format($this->params->get('date_format_for_filename')) . "-" .
                  preg_replace("/[^A-Za-z0-9-_.]/", "", $theUploadedFile->getClientOriginalName());
                //echo("<pre>");var_dump($theName); var_dump($theUploadedFile); exit;
-               $theUploadedFile->move("local/files", $theName);
+               $theUploadedFile->move($localFilesDirectoryPrefix, $theName);
                $account->setAttachList([['photoWeb', $theName]]);
              }
 
@@ -470,6 +478,7 @@ class RootController extends AbstractController
         }
 
         return $this->render('editUser.html.twig', [
+            'id' => $id,
             'username' => $username,
             'baseUrl' => $baseUrl,
             'photoWeb' => $photoWebFilename,
@@ -477,5 +486,48 @@ class RootController extends AbstractController
             'base_dir' => $root_dir.DIRECTORY_SEPARATOR,
         ]);
     }
+
+    /**
+     * @Route("/deletePhoto/{id}", name="deletePhoto")
+     */
+    public function deletePhotoAction(Request $request, \Swift_Mailer $mailer, LoggerInterface $appLogger, $id="-1")
+    {
+        $id = intval($id);
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+
+        $localFilesDirectoryPrefix = $this->params->get('local_files_directory');
+
+        $username = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	$allowedUsers = preg_split('/, */', $this->params->get('users_ufficio_personale'));
+        if (!in_array($username, $allowedUsers)) {
+            $appLogger->info("IN: editUserAction: username='" . $username . "' NOT allowed");
+            return $this->redirectToRoute('home');
+        }
+
+        // if id == -1 -> new user, else edit id user TODO
+	$account = $repo->find($id);
+        if ($account) {
+            // delete photo on existing record :-)
+            $attachList = $account->getAttachList();
+            $attachListNoPhotoWeb = array_filter($attachList, function ($x) {return ($x[0] !== 'photoWeb');});
+            $attachListPhotoWeb = array_filter($attachList, function ($x) {return ($x[0] === 'photoWeb');});
+//print("<pre>"); var_dump($attachListNoPhotoWeb); var_dump($attachListPhotoWeb); exit;
+            if (count($attachListPhotoWeb) >= 0) {
+                // there is a photoWeb: remove it ...
+                // ... from the storage (as a matter of fact, just mark it as deleted) ...
+		rename($localFilesDirectoryPrefix . "/" . $attachListPhotoWeb[0][1], 
+                       $localFilesDirectoryPrefix . "/DEL-" . $attachListPhotoWeb[0][1]);
+                // ... and from the database
+                $account->setAttachList($attachListNoPhotoWeb);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($account);
+                $em->flush();
+            }
+        }
+
+        return $this->redirectToRoute('editUser', array('id' => $id));
+
+    } /* endDeletePhotoAction */
+
 
 }

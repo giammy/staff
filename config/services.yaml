@@ -35,6 +35,8 @@ parameters:
     date_format: '%env(resolve:DATE_FORMAT)%'
     date_format_for_filename: '%env(resolve:DATE_FORMAT_FOR_FILENAME)%'
 
+    local_files_directory: '%env(resolve:LOCAL_FILES_DIRECTORY)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
