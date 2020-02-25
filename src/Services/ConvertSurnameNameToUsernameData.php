@@ -57,6 +57,7 @@ class ConvertSurnameNameToUsernameData {
        $usernameData['name'] = $attributes['name'];
        $usernameData['surname'] = $attributes['surname'];
        $usernameData['email'] = $attributes['email'];
+       $usernameData['telephonenumber'] = $attributes['telephonenumber'];
        return $usernameData;
     }
 
@@ -66,6 +67,7 @@ class ConvertSurnameNameToUsernameData {
 	$attributes['name'] = "noname";
 	$attributes['surname'] = "nosurname";
 	$attributes['email'] = "nomail@nomail.com";
+	$attributes['telephonenumber'] = "";
 
 	$ds=ldap_connect($ldapServer, $ldapServerPort);
 	$r=ldap_bind($ds, $ldapUser, $ldapPassword);
@@ -89,6 +91,9 @@ class ConvertSurnameNameToUsernameData {
 	    $attributes['surname'] = $info[0]['sn'][0];
 	    if (array_key_exists ('mail', $info[0])) {
                 $attributes['email'] = $info[0]['mail'][0];
+            }
+	    if (array_key_exists ('telephonenumber', $info[0])) {
+                $attributes['telephonenumber'] = $info[0]['telephonenumber'][0];
             }
           }
         //}

@@ -68,7 +68,9 @@ class RootController extends AbstractController
     }
 
     public function internalCheckUsername(LoggerInterface $appLogger, $account) {
-	if ($account->getUsername() != null) {
+	if ($account->getUsername() != null &&
+            $account->getEmail() != null &&
+            $account->getOfficePhone() != null) {
              return;
         }
         $appLogger->info("IN internalCheckUsername: missing username!");
@@ -79,6 +81,7 @@ class RootController extends AbstractController
             $appLogger->info("IN internalCheckUsername: AUTOFILL:UE, found username " . $usernameData['username'] . " for user '" . $account->getSurname() . "' '" . $account->getName() . "'");
 	    $account->setUsername($usernameData['username']);
 	    $account->setEmail($usernameData['email']);
+	    $account->setOfficePhone($usernameData['telephonenumber']);
             $account->setInternalNote("AUTOFILL:UE," . $account->getInternalNote());
         }
     }
