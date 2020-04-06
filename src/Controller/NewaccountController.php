@@ -73,6 +73,7 @@ class NewaccountController extends AbstractController
 	    	            'FC' => 'GFC',
 			    'FD' => 'GFD',
 			    'FT' => 'GFT',
+			    'Operation of Facilities' => 'GOP',
 		      	    'IP' => 'GIP',
 		    	    'SE' => 'GSE',
 			    'IE' => 'GIE',
