@@ -58,7 +58,7 @@ class ExportPersonaleService {
         $dateNow = new \DateTime();
         $listToShow = array_values(array_filter($repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']), function ($x) use ($dateNow) { 
                 $valid = $x->getValidTo();
-                return (($x->getName() != "noname") && ($valid >= $dateNow)); 
+		return (($x->getName() != "noname") && ($valid->format('Y') >= $dateNow->format('Y')));
             }));
 
         $lastSurname = "";
