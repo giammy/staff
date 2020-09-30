@@ -108,6 +108,21 @@ class Account
      */
     private $internalNote;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $pcRequired;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $flag1array = [];
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $flag2array = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -325,6 +340,42 @@ class Account
     public function setInternalNote(?string $internalNote): self
     {
         $this->internalNote = $internalNote;
+
+        return $this;
+    }
+
+    public function getPcRequired(): ?bool
+    {
+        return $this->pcRequired;
+    }
+
+    public function setPcRequired(?bool $pcRequired): self
+    {
+        $this->pcRequired = $pcRequired;
+
+        return $this;
+    }
+
+    public function getFlag1array(): ?array
+    {
+        return $this->flag1array;
+    }
+
+    public function setFlag1array(?array $flag1array): self
+    {
+        $this->flag1array = $flag1array;
+
+        return $this;
+    }
+
+    public function getFlag2array(): ?array
+    {
+        return $this->flag2array;
+    }
+
+    public function setFlag2array(?array $flag2array): self
+    {
+        $this->flag2array = $flag2array;
 
         return $this;
     }

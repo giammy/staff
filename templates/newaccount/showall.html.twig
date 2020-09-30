@@ -45,6 +45,7 @@
       <td>W</td>
       <td>L</td>
       <td>R</td>
+      <td>PC</td>
       <td>Note</td>
       <td>Request Date</td>
       <td>Create Date</td>
@@ -70,6 +71,7 @@
       <td> {% if ar.windowsEnabled %} Y {% else %} N {% endif %} </td>
       <td> {% if ar.linuxEnabled %} Y {% else %} N {% endif %} </td>
       <td> {% if ar.itRegulationAccepted %} Y {% else %} N {% endif %} </td>
+      <td> {% if ar.pcRequired %} Y {% else %} N {% endif %} </td>
       <td> {{ ar.note }} </td>
       <td> {{ ar.requested|date('d/m/Y') }} </td>
       <td> {{ ar.created|date('d/m/Y') }} </td>

@@ -247,16 +247,24 @@ class RootController extends AbstractController
         }
 
         $descriptionList = $account->getDescriptionList();
-        $dl1 = (count($descriptionList)>0)?$descriptionList[0][0]:'';
-        $dd1 = (count($descriptionList)>0)?$descriptionList[0][1]:'';
-        $dl2 = (count($descriptionList)>1)?$descriptionList[1][0]:'';
-        $dd2 = (count($descriptionList)>1)?$descriptionList[1][1]:'';
+	if (is_array($descriptionList)) {
+	    $dl1 = (count($descriptionList)>0)?$descriptionList[0][0]:'';
+            $dd1 = (count($descriptionList)>0)?$descriptionList[0][1]:'';
+            $dl2 = (count($descriptionList)>1)?$descriptionList[1][0]:'';
+            $dd2 = (count($descriptionList)>1)?$descriptionList[1][1]:'';
+        } else {
+            $appLogger->info("IN editUserAction: descriptionList is not an array - account username=" . $account->getUsername());
+            $dl1 = ''; $dd1 = ''; $dl2 = ''; $dd2 = '';
+        }
         if (strlen($dl1) == 0) { $dl1 = 'Short description'; }
         if (strlen($dl2) == 0) { $dl2 = 'Activity'; }
 
         $attachList = $account->getAttachList();
-        $photoWebFilename = (count($attachList)>0)?$attachList[0][1]:'';
-
+	if (is_array($attachList)) {
+            $photoWebFilename = (count($attachList)>0)?$attachList[0][1]:'';
+        } else {
+	    $photoWebFilename = '';
+	}
         if (!file_exists($localFilesDirectoryPrefix . "/" . $photoWebFilename)) {
             $appLogger->info("IN: editUserAction: photoWebFilename='" . $photoWebFilename . "' DOES NOT EXIST!");
             $photoWebFilename = '';

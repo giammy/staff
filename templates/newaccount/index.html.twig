@@ -52,6 +52,10 @@
     <td> {{ form_widget(attribute(form, "linuxEnabled"), { 'attr': {'size': '3'} }) }} </td>
   </tr>
   <tr>
+    <td> Needs a PC (specify in notes special requirements)</td>
+    <td> {{ form_widget(attribute(form, "pcRequired"), { 'attr': {'size': '3'} }) }} </td>
+  </tr>
+  <tr>
     <td> Mi impegno a informare<br>
          l'utente dell'esistenza del<br>
          Regolamento informatico<br>
@@ -59,7 +63,7 @@
     <td> {{ form_widget(attribute(form, "itRegulationAccepted"), { 'attr': {'size': '1'} }) }} </td>
   </tr>
   <tr>
-    <td> Note</td>
+    <td> Notes</td>
     <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
 </table>

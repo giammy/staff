@@ -118,6 +118,15 @@ class NewaccountController extends AbstractController
                                             ),
                                  'data' => false,
                                            ))
+            ->add('pcRequired', ChoiceType::class, array(
+                                 'expanded' => true,
+                                 'multiple' => false,
+                                 'choices'  => array(
+                                            'Yes' => true,
+                                            'No' => false,
+                                            ),
+                                 'data' => false,
+                                           ))
             ->add('itRegulationAccepted', CheckboxType::class, array(
                                  'mapped' => false,
                                  'constraints' => [
