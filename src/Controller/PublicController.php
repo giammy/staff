@@ -94,11 +94,9 @@ class PublicController extends AbstractController
             ]);
     }
 
-
 //
 // api/public area
 //
-
 
     /**
      * @Route("/api/public/staff/{staffId}", name="apipublicstaff")

@@ -311,6 +311,8 @@ class RootController extends AbstractController
             ->add('leaderOfGroup', ChoiceType::class, array(
                          'required' => false,
                          'placeholder' => 'Se capogruppo, indicare il gruppo',
+ 			 //'multiple' => true,
+			 //'expanded' => true,
 			 'choices'  => array(
 			    'AI' => 'GAI',
 			    'FA' => 'GFA',
@@ -541,6 +543,28 @@ class RootController extends AbstractController
         return $this->redirectToRoute('editUser', array('id' => $id));
 
     } /* endDeletePhotoAction */
+
+
+//
+// api/private area
+//
+
+    /**
+     * @Route("/api/private/auth", name="apiprivateauth")
+     */
+    public function apiPrivateAuthAction(LoggerInterface $appLogger)
+    {
+        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
+	if ($username != 'anon.') {
+            $username = $username->getUsername();
+        }
+        $appLogger->info("IN: apiPrivateAuthAction: username='" . $username . "' allowed");
+
+        $response = new Response();
+        $response->setContent('{ "result": "ok", "username": "' . $username . '" }');
+	$response->headers->set('Content-Type', 'application/json');
+	return($response);
+    }
 
 
 }

@@ -39,4 +39,30 @@ class SecurityController extends AbstractController
     }
 
 
+//
+
+   /**
+     * @Route("/jsonlogin", name="jsonlogin")
+     */
+
+
+// @Route("/jsonlogin", name="jsonlogin", methods={"POST"})
+
+    public function jsonlogin(Request $request, AuthenticationUtils $authUtils, LoggerInterface $appLogger)
+    {
+        $user = $this->getUser();
+
+	$lastUsername = $authUtils->getLastUsername();
+
+var_dump($user);
+var_dump($lastUsername);
+
+//        $appLogger->info("IN: jsonloginAction: username=" . $user->getUsername() . " roles='" . $user->getRoles() . "'");
+
+        return $this->json([
+            'username' => $lastUsername, // "xx", // $user->getUsername(),
+            'roles' => "rr", //$user->getRoles(),
+        ]);
+    }
+
 }

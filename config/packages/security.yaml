@@ -47,6 +47,9 @@ security:
                 dn_string: '%env(resolve:LDAP_LOGIN_STRING)%'
             logout: true
 
+            json_login:
+                check_path: jsonlogin
+
             anonymous: true 
 
             # activate different ways to authenticate
