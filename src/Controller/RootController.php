@@ -270,6 +270,74 @@ class RootController extends AbstractController
             $photoWebFilename = '';
         }
 
+	$theOldChoices = array(
+			    'AI' => 'GAI',
+			    'FA' => 'GFA',
+			    'FB' => 'GFB',
+	    	            'FC' => 'GFC',
+			    'FD' => 'GFD',
+			    'FT' => 'GFT',
+			    'Operation of Facilities' => 'GOP',
+		      	    'IP' => 'GIP',
+		    	    'SE' => 'GSE',
+			    'IE' => 'GIE',
+			    'SIT' => 'SCA',
+			    'NBI' => 'NBI',
+ 	       	            'Officine' => 'OME',
+       		            'SX-Alimentazioni' => 'SXA',
+		            'SX-Controlli' => 'SXC',
+     		            'SX-Diagnostiche' => 'SXD',
+   		       	    'SX-Macchina' => 'SXM',
+		      	    'Direzione' => 'DIR',
+		      	    'Amministrazione' => 'AMM',
+     			    'Ufficio Manutenzione' => 'SMA',
+	  		    'Ufficio Tecnico' => 'UTE',
+			    'Altro' => 'BLK',
+	  	         );
+
+	$theNewChoices = [
+	    'Research' => [
+	        'GAI Automation Engineering and Information Technology' => 'GAI',
+	        'GFA FA - Physics' => 'GFA',
+	        'GFB FB - Physics' => 'GFB',
+	        'GFC FC - Physics' => 'GFC',
+	        'GFD FD - Physics' => 'GFD',
+	        'GFT Theoretical Physics' => 'GFT',
+	        'GIE Electric and Magnetic Fields Engineering' => 'GIE',
+	        'GIP Thermomechanics, Vacuum and Plasma Engineering' => 'GIP',
+	        'GSE Power Systems Engineering' => 'GSE',
+	        'NBI NBTF Organization' => 'NBI',
+	        'GOP Operation of Facilities' => 'GOP',
+	    ],
+	    'Technical Staff' => [
+		'OME Mechanics Workshop' => 'OME',
+	        'SIT Information Technology' => 'SCA',
+	        'SMA Mechanics Workshop' => 'SMA',
+	        'SXA Power Supply' => 'SXA',
+	        'SXC Controls and Data Acquisition' => 'SXC',
+	        'SXD Diagnostics' => 'SXD',
+	        'SXM Machine' => 'SXM',
+	        'UTE Drawing Office' => 'UTE',
+	    ],
+	    'Administration' => [
+	       'AAP Administration & Purchasing' => 'AAP',
+	       'APG Personnel' => 'APG',
+	    ],
+	    'Direction' => [
+               'DIR Direction' => 'DIR',
+	       'SAD Programme and Strategy Group' => 'SAD',
+	       'GCP Scientific and Technological Programmes' => 'GCP',
+	       'GCL Group of Collaborators' => 'GCL',
+	       'SPP Prevention and Protection' => 'SPP',
+	       'QMA Quality Management & GDPR' => 'QMA', 
+	       'FPL Financial Planning' => 'FPL',
+	       'HET Higher Education and Training' => 'HET',
+	       'ERC Communication and External Relations' => 'ERC',
+	       'RSL Scientific Secretary Library' => 'RSL',
+	       'ADR Chairperson and Director Staff' => 'ADR',
+            ],
+	];
+	
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
                          'required' => false,))
@@ -283,60 +351,16 @@ class RootController extends AbstractController
                          //'expanded' => false,
                          //'multiple' => false,
                          'placeholder' => 'Scegliere un gruppo',
-			 'choices'  => array(
-			    'AI' => 'GAI',
-			    'FA' => 'GFA',
-			    'FB' => 'GFB',
-	    	            'FC' => 'GFC',
-			    'FD' => 'GFD',
-			    'FT' => 'GFT',
-			    'Operation of Facilities' => 'GOP',
-		      	    'IP' => 'GIP',
-		    	    'SE' => 'GSE',
-			    'IE' => 'GIE',
-			    'SIT' => 'SCA',
-			    'NBI' => 'NBI',
- 	       	            'Officine' => 'OME',
-       		            'SX-Alimentazioni' => 'SXA',
-		            'SX-Controlli' => 'SXC',
-     		            'SX-Diagnostiche' => 'SXD',
-   		       	    'SX-Macchina' => 'SXM',
-		      	    'Direzione' => 'DIR',
-		      	    'Amministrazione' => 'AMM',
-     			    'Ufficio Manutenzione' => 'SMA',
-	  		    'Ufficio Tecnico' => 'UTE',
-			    'Altro' => 'BLK',
-	  	         ),
+			 'choices'  => $theNewChoices,
 	          ))
             ->add('leaderOfGroup', ChoiceType::class, array(
                          'required' => false,
                          'placeholder' => 'Se capogruppo, indicare il gruppo',
- 			 //'multiple' => true,
-			 //'expanded' => true,
-			 'choices'  => array(
-			    'AI' => 'GAI',
-			    'FA' => 'GFA',
-			    'FB' => 'GFB',
-	    	            'FC' => 'GFC',
-			    'FD' => 'GFD',
-			    'FT' => 'GFT',
-			    'Operation of Facilities' => 'GOP',
-		      	    'IP' => 'GIP',
-		    	    'SE' => 'GSE',
-			    'IE' => 'GIE',
-			    'SIT' => 'SCA',
-			    'NBI' => 'NBI',
- 	       	            'Officine' => 'OME',
-       		            'SX-Alimentazioni' => 'SXA',
-		            'SX-Controlli' => 'SXC',
-     		            'SX-Diagnostiche' => 'SXD',
-   		       	    'SX-Macchina' => 'SXM',
-		      	    'Direzione' => 'DIR',
-		      	    'Amministrazione' => 'AMM',
-     			    'Ufficio Manutenzione' => 'SMA',
-	  		    'Ufficio Tecnico' => 'UTE',
-			    'Altro' => 'BLK',
-	  	         ),
+ 			 'multiple' => true,
+			 'mapped' => false,
+			 'expanded' => true,
+			 'data' => explode(":", $account->getLeaderOfGroup()),
+			 'choices'  => $theNewChoices,
 	          ))
             ->add('qualification', ChoiceType::class, array(
                          'placeholder' => 'Scegliere la qualifica',
@@ -383,7 +407,7 @@ class RootController extends AbstractController
                                   'data' => $account->getValidTo(),
 
                                  ))
-            ->add('note', TextType::class, array(
+            ->add('note', TextareaType::class, array(
                          'required' => false,))
             ->add('officePhone', TextType::class, array(
                          'required' => false,))
@@ -427,6 +451,9 @@ class RootController extends AbstractController
              //var_dump($newRecordRequest); exit;
 
 	     $account = $form->getData();
+
+	     $account->setLeaderOfGroup(implode(":", $form->get('leaderOfGroup')->getData()));
+
              $account->setTotalHoursPerYear(($account->getTotalContractualHoursPerYear()*
                                              $account->getParttimePercent())/100);
 	     $account->setLastChangeAuthor($this->get('security.token_storage')->getToken()->getUser()->getUsername());

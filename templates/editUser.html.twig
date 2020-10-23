@@ -26,8 +26,8 @@
     <td> {{ form_widget(attribute(form, "email"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
   <tr>
-    <td> Capo Gruppo di</td>
-    <td> {{ form_widget(attribute(form, "leaderOfGroup"), { 'attr': {'size': '1'} }) }} </td>
+    <td></td>
+    <td></td> 
     <td style="border-left: 4px solid #000000; padding-left: 10px"> E-mail secondaria</td>
     <td> {{ form_widget(attribute(form, "secondaryEmail"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
@@ -67,8 +67,7 @@
   <tr>
     <td> Data Inizio</td>
     <td> {{ form_widget(attribute(form, "validFrom"), { 'attr': {'size': '60'} }) }} </td>
-    <td style="border-left: 4px solid #000000; padding-left: 10px"><b>Note</b></td>
-    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'size': '60'} }) }} </td>
+    <td style="border-left: 4px solid #000000;"></td>
   </tr>
   <tr>
     <td> Data Fine</td>
@@ -76,6 +75,54 @@
     <td style="border-left: 4px solid #000000;"></td>
   </tr>
 
+  <tr>
+    <td>Capo Gruppo di</td>
+    <td>
+      <br><font style="color:grey">Research</font><br>
+      {# {{ form_widget(attribute(form, "leaderOfGroup"), { 'attr': {'size': '10'} }) }} #}
+      {{ form_widget(form.leaderOfGroup.0) }}{{ form_label(form.leaderOfGroup.0) }}<br>
+      {{ form_widget(form.leaderOfGroup.1) }}{{ form_label(form.leaderOfGroup.1) }}<br>
+      {{ form_widget(form.leaderOfGroup.2) }}{{ form_label(form.leaderOfGroup.2) }}<br>
+      {{ form_widget(form.leaderOfGroup.3) }}{{ form_label(form.leaderOfGroup.3) }}<br>
+      {{ form_widget(form.leaderOfGroup.4) }}{{ form_label(form.leaderOfGroup.4) }}<br>
+      {{ form_widget(form.leaderOfGroup.5) }}{{ form_label(form.leaderOfGroup.5) }}<br>
+      {{ form_widget(form.leaderOfGroup.6) }}{{ form_label(form.leaderOfGroup.6) }}<br>
+      {{ form_widget(form.leaderOfGroup.7) }}{{ form_label(form.leaderOfGroup.7) }}<br>
+      {{ form_widget(form.leaderOfGroup.8) }}{{ form_label(form.leaderOfGroup.8) }}<br>
+      {{ form_widget(form.leaderOfGroup.9) }}{{ form_label(form.leaderOfGroup.9) }}<br>
+      {{ form_widget(form.leaderOfGroup.10) }}{{ form_label(form.leaderOfGroup.10) }}<br>
+      <br><font style="color:grey">Technical Staff</font><br>
+      {{ form_widget(form.leaderOfGroup.11) }}{{ form_label(form.leaderOfGroup.11) }}<br>
+      {{ form_widget(form.leaderOfGroup.12) }}{{ form_label(form.leaderOfGroup.12) }}<br>
+      {{ form_widget(form.leaderOfGroup.13) }}{{ form_label(form.leaderOfGroup.13) }}<br>
+      {{ form_widget(form.leaderOfGroup.14) }}{{ form_label(form.leaderOfGroup.14) }}<br>
+      {{ form_widget(form.leaderOfGroup.15) }}{{ form_label(form.leaderOfGroup.15) }}<br>
+      {{ form_widget(form.leaderOfGroup.16) }}{{ form_label(form.leaderOfGroup.16) }}<br>
+      {{ form_widget(form.leaderOfGroup.17) }}{{ form_label(form.leaderOfGroup.17) }}<br>
+      {{ form_widget(form.leaderOfGroup.18) }}{{ form_label(form.leaderOfGroup.18) }}<br>
+      <br><font style="color:grey">Administration</font><br>
+      {{ form_widget(form.leaderOfGroup.19) }}{{ form_label(form.leaderOfGroup.19) }}<br>
+      {{ form_widget(form.leaderOfGroup.20) }}{{ form_label(form.leaderOfGroup.20) }}<br>
+      <br><font style="color:grey">Direction</font><br>
+      {{ form_widget(form.leaderOfGroup.21) }}{{ form_label(form.leaderOfGroup.21) }}<br>
+      {{ form_widget(form.leaderOfGroup.22) }}{{ form_label(form.leaderOfGroup.22) }}<br>
+      {{ form_widget(form.leaderOfGroup.23) }}{{ form_label(form.leaderOfGroup.23) }}<br>
+      {{ form_widget(form.leaderOfGroup.24) }}{{ form_label(form.leaderOfGroup.24) }}<br>
+      {{ form_widget(form.leaderOfGroup.25) }}{{ form_label(form.leaderOfGroup.25) }}<br>
+      {{ form_widget(form.leaderOfGroup.26) }}{{ form_label(form.leaderOfGroup.26) }}<br>
+      {{ form_widget(form.leaderOfGroup.27) }}{{ form_label(form.leaderOfGroup.27) }}<br>
+      {{ form_widget(form.leaderOfGroup.28) }}{{ form_label(form.leaderOfGroup.28) }}<br>
+      {{ form_widget(form.leaderOfGroup.29) }}{{ form_label(form.leaderOfGroup.29) }}<br>
+      {{ form_widget(form.leaderOfGroup.30) }}{{ form_label(form.leaderOfGroup.30) }}<br>
+      {{ form_widget(form.leaderOfGroup.31) }}{{ form_label(form.leaderOfGroup.31) }}<br>
+      
+    </td>
+    <td style="border-left: 4px solid #000000; padding-left: 10px"><b>Note</b></td>
+    <td> {{ form_widget(attribute(form, "note"), { 'attr': {'cols': '48', 'rows': 10} }) }} </td>
+    
+  </tr>
+
+  
   <tr>
     <td>
       <center>
