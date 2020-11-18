@@ -290,7 +290,7 @@ class RootController extends AbstractController
    		       	    'SX-Macchina' => 'SXM',
 		      	    'Direzione' => 'DIR',
 		      	    'Amministrazione' => 'AMM',
-     			    'Ufficio Manutenzione' => 'SMA',
+     			    'SMA - Maintenance' => 'SMA',
 	  		    'Ufficio Tecnico' => 'UTE',
 			    'Altro' => 'BLK',
 	  	         );
@@ -312,7 +312,7 @@ class RootController extends AbstractController
 	    'Technical Staff' => [
 		'OME Mechanics Workshop' => 'OME',
 	        'SIT Information Technology' => 'SCA',
-	        'SMA Mechanics Workshop' => 'SMA',
+	        'SMA Maintenance' => 'SMA',
 	        'SXA Power Supply' => 'SXA',
 	        'SXC Controls and Data Acquisition' => 'SXC',
 	        'SXD Diagnostics' => 'SXD',
