@@ -44,19 +44,19 @@ class PublicController extends AbstractController
     }
 
     /**
-     * @Route("/public/agenda", name="publicAgenda")
+     * @Route("/public/rubrica", name="publicRubrica")
      */
-    public function publicAgendaAction(LoggerInterface $appLogger)
+    public function publicRubricaAction(LoggerInterface $appLogger)
     {
         $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
 	if ($username != 'anon.') {
             $username = $username->getUsername();
         }
-        $appLogger->info("IN: publicAgendaAction: username='" . $username . "' allowed");
+        $appLogger->info("IN: publicRubricaAction: username='" . $username . "' allowed");
         $dateNow = new \DateTime();
         $repo = $this->getDoctrine()->getRepository(Staff::class);
-	return $this->render('public/agenda.html.twig', [
-            'controller_name' => 'PublicAgendaController',
+	return $this->render('public/rubrica.html.twig', [
+            'controller_name' => 'PublicRubricaController',
             'list' => array_filter($repo->findAll(), function ($x) use ($dateNow) { 
                 $valid = $x->getValidTo();
                 return (($x->getName() != "noname") && ($valid >= $dateNow)); 
@@ -74,7 +74,7 @@ class PublicController extends AbstractController
 	if ($username != 'anon.') {
             $username = $username->getUsername();
         }
-        $appLogger->info("IN: publicAgendaAction: username='" . $username . "' allowed");
+        $appLogger->info("IN: publicOrganizationAction: username='" . $username . "' allowed");
         $dateNow = new \DateTime();
         $repo = $this->getDoctrine()->getRepository(Staff::class);
         $listAll = array_filter($repo->findAll(), function ($x) use ($dateNow) { 
