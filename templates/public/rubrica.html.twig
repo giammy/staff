@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rubrica{% endblock %}
+{% block headerTitle %}Rubrica{% endblock %}
+{% block headerSubTitle %}{% endblock %}
+
+{% block javascripts %}
+  <script>
+    // initialization and configuration
+    $(document).ready( function () {
+        $('#publicRubricaTable').dataTable( {
+              "fixedHeader": true,
+              "lengthMenu": [ 2000, 100, 75, 50, 25, 10 ]
+              //"info":     false, // remove header and footer
+              //"ordering": false,
+              //"bPaginate": false,
+              //"sDom": 'T<"clear">lfrtip'
+        } ); // end dataTable
+    } ); // end ready function
+    // END initialization and configuration
+  </script>
+{% endblock %}
+
+
+{% block body %}
+
+<table id="publicRubricaTable">
+  <thead>
+    <tr>
+      <td>Surname</td>
+      <td>Name</td>
+      <td>Username</td>
+      <td>E-mail</td>
+      <td>Office Phone</td>
+      <td>Office Mobile</td>
+      <td>Office Location</td>
+      <td>Group</td>
+      <td>Leader of</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for ar in list %}
+    <tr>
+      <td> {{ ar.surname }} </td>
+      <td> {{ ar.name }} </td>
+      <td> {{ ar.username }} </td>
+      <td> {{ ar.email }} </td>
+      <td> {{ ar.officePhone }} </td>
+      <td> {{ ar.officeMobile }} </td>
+      <td> {{ ar.officeLocation }} </td>
+      <td> {{ ar.groupName }} </td>
+      <td> {{ ar.leaderOfGroup }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
