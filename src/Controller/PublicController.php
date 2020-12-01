@@ -44,9 +44,9 @@ class PublicController extends AbstractController
     }
 
     /**
-     * @Route("/public/rubrica", name="publicRubrica")
+     * @Route("/public/rubrica/{group}", name="publicRubrica")
      */
-    public function publicRubricaAction(LoggerInterface $appLogger)
+    public function publicRubricaAction(LoggerInterface $appLogger, $group="")
     {
         $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
 	if ($username != 'anon.') {
@@ -55,19 +55,26 @@ class PublicController extends AbstractController
         $appLogger->info("IN: publicRubricaAction: username='" . $username . "' allowed");
         $dateNow = new \DateTime();
         $repo = $this->getDoctrine()->getRepository(Staff::class);
-	return $this->render('public/rubrica.html.twig', [
-            'controller_name' => 'PublicRubricaController',
-            'list' => array_filter($repo->findAll(), function ($x) use ($dateNow) { 
+        $listAll = array_filter($repo->findAll(), function ($x) use ($dateNow) { 
                 $valid = $x->getValidTo();
                 return (($x->getName() != "noname") && ($valid >= $dateNow)); 
-            }),
+            });
+	if ($group != "") {
+            $listAll = array_filter($listAll, function ($x) use ($group) { 
+                return (($x->getGroupName() == $group) || ($x->getLeaderOfGroup() == $group)); 
+            });
+        }
+        return $this->render('public/rubrica.html.twig', [
+            'controller_name' => 'PublicRubricaController',
+            'list' => $listAll,
             'username' => $username,
             ]);
     }
 
-    /**
+    /*
+       REMOVE / DELETE
      * @Route("/public/organization/{group}", name="publicOrganization")
-     */
+     *
     public function publicOrganizationAction(LoggerInterface $appLogger, $group="")
     {
         $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
@@ -93,6 +100,7 @@ class PublicController extends AbstractController
             'username' => $username,
             ]);
     }
+ */
 
 //
 // api/public area
