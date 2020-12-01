@@ -71,66 +71,22 @@ class PublicController extends AbstractController
             ]);
     }
 
-    /*
-       REMOVE / DELETE
-     * @Route("/public/organization/{group}", name="publicOrganization")
-     *
-    public function publicOrganizationAction(LoggerInterface $appLogger, $group="")
-    {
-        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
-	if ($username != 'anon.') {
-            $username = $username->getUsername();
-        }
-        $appLogger->info("IN: publicOrganizationAction: username='" . $username . "' allowed");
-        $dateNow = new \DateTime();
-        $repo = $this->getDoctrine()->getRepository(Staff::class);
-        $listAll = array_filter($repo->findAll(), function ($x) use ($dateNow) { 
-                $valid = $x->getValidTo();
-                return (($x->getName() != "noname") && ($valid >= $dateNow)); 
-            });
-	if ($group != "") {
-            $listAll = array_filter($listAll, function ($x) use ($group) { 
-                return (($x->getGroupName() == $group) || ($x->getLeaderOfGroup() == $group)); 
-            });
-        }
-
-	return $this->render('public/organization.html.twig', [
-            'controller_name' => 'PublicOrganizationController',
-            'list' => $listAll,
-            'username' => $username,
-            ]);
-    }
- */
-
 //
 // api/public area
 //
 
-    /**
-     * @Route("/api/public/staff/{staffId}", name="apipublicstaff")
-     */
-    public function apiPublicStaffAction(LoggerInterface $appLogger, $staffId=-1)
-    {
-        $username = $this->get('security.token_storage')->getToken()->getUser(); //->getUsername();
+// https://www.mediawiki.org/wiki/Extension:External_Data
+// https://www.mediawiki.org/wiki/Extension_talk:External_Data/Archive_2017_to_2018
+
+    public function initialLog(LoggerInterface $appLogger, $where, $what) {
+        $username = $this->get('security.token_storage')->getToken()->getUser();
 	if ($username != 'anon.') {
             $username = $username->getUsername();
         }
-        $appLogger->info("IN: apiPublicStaffAction: username='" . $username . "' allowed" . " staffId=" . $staffId);
-        $dateNow = new \DateTime();
-        $repo = $this->getDoctrine()->getRepository(Staff::class);
-        $extendedInfo = false;
+        $appLogger->info("IN: " . $where . ": username='" . $username . "' for=" . $what);
+    }
 
-	$s = $repo->find($staffId);
-	if ($s) {
-            $listToShow = [$s];
-            $extendedInfo = true;
-        } else {
-            $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
-            $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
-                    return ($dateNow->format('Y') <= $x->getValidTo()->format('Y'));
-                }));
-        }
-
+    public function buildResponse($listToShow, $extendedInfo) {
         $answer = array_map(function ($x) { return([
             'i' => $x->getId(), 
             's' => $x->getSurname(),
@@ -154,6 +110,71 @@ class PublicController extends AbstractController
 	$response->setContent(json_encode($answer));
 	$response->headers->set('Content-Type', 'application/json');
 	return($response);
+    }
+
+
+    /**
+     * @Route("/api/public/staff/{staffId}", name="apipublicstaff")
+     */
+    public function apiPublicStaffAction(LoggerInterface $appLogger, $staffId=-1)
+    {
+        $this->initialLog($appLogger, "apiPublicStaffAction", $staffId);
+
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+	$s = $repo->find($staffId);
+        $extendedInfo = false;
+	if ($s) {
+            $listToShow = [$s];
+            $extendedInfo = true;
+        } else {
+            $dateNow = new \DateTime();
+	    $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
+            $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 
+                    return ($dateNow->format('Y') <= $x->getValidTo()->format('Y'));
+                }));
+        }
+
+	return($this->buildResponse($listToShow, $extendedInfo));
+    }
+
+    /**
+     * @Route("/api/public/groupstaff/{group}", name="apipublicgroupstaff")
+     */
+    public function apiPublicGroupStaffAction(LoggerInterface $appLogger, $group='')
+    {
+        $this->initialLog($appLogger, "apiPublicStaffAction", $group);
+
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+        $extendedInfo = false;
+        $dateNow = new \DateTime();
+	$listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
+        $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow, $group) { 
+                       return ( ($dateNow->format('Y') <= $x->getValidTo()->format('Y')) &&
+                         ($x->getGroupName() == $group)
+		       );
+            }));
+
+	return($this->buildResponse($listToShow, $extendedInfo));
+    }
+
+    /**
+     * @Route("/api/public/leaderofstaff/{group}", name="apipublicleaderofstaff")
+     */
+    public function apiPublicLeaderOfStaffAction(LoggerInterface $appLogger, $group='')
+    {
+        $this->initialLog($appLogger, "apiPublicStaffAction", $group);
+
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+        $extendedInfo = false;
+        $dateNow = new \DateTime();
+	$listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
+        $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow, $group) { 
+                       return ( ($dateNow->format('Y') <= $x->getValidTo()->format('Y')) &&
+                         (strpos($x->getLeaderOfGroup(), $group) !== false)
+		       );
+            }));
+
+	return($this->buildResponse($listToShow, $extendedInfo));
     }
 
 
