@@ -25,11 +25,13 @@ class ExportPersonaleService {
         $dateNowt = new \DateTime();
         $path_log = $filenamePar?$filenamePar:$this->params->get('export_personale_path_log');
         $path_sipra2 = $filenamePar?$filenamePar:$this->params->get('export_personale_path_sipra2');
+        $path_sipra3 = $filenamePar?$filenamePar:$this->params->get('export_personale_path_sipra3');	
         $filename = $filenamePar?$filenamePar:$this->params->get('export_personale_filename');
 
         $dateFormat = $this->params->get('date_format');
         $filename1 = $path_log . "/" . $dateNowt->format($dateFormat) . "-" . $filename;
         $filename2 = $path_sipra2 . "/" . $filename;
+        $filename3 = $path_sipra3 . "/" . $filename;	
 
         // var_dump($filename);exit;
 
@@ -51,9 +53,10 @@ class ExportPersonaleService {
         try {
             file_put_contents($filename2, $ausStr);
         } catch (Exception $e) {
-            $appLogger()->info('Writing on ' . $filename1 . ' Caught exception: ' . $e->getMessage());
+            $appLogger()->info('Writing on ' . $filename2 . ' Caught exception: ' . $e->getMessage());
         }
-       
+
+
         $repo = $this->manager->getRepository(Staff::class);
         $dateNow = new \DateTime();
         $listToShow = array_values(array_filter($repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']), function ($x) use ($dateNow) { 
@@ -98,9 +101,11 @@ class ExportPersonaleService {
         }
 
         // for SIPRA2 import
-        $output0 = shell_exec('cp ' . $filename1 . ' /.reserved/r/public/webprojects/ttui/data/personale-2020.csv');
+        //$output0 = shell_exec('cp ' . $filename1 . ' /.reserved/r/public/webprojects/ttui/data/personale-2020.csv');
+	unlink($filename3);
+        copy($filename2, $filename3);
 
-    }
+	}
 
 }
 
