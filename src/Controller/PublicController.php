@@ -178,4 +178,14 @@ class PublicController extends AbstractController
     }
 
 
+//
+// api private area
+//
+//    /**
+//     * @Route("/api/private/staffall", name="apiprivatestaffall")
+//     */
+//    public function apiPublicLeaderOfStaffAction(LoggerInterface $appLogger, $group='')
+//    {
+//    }
+
 }

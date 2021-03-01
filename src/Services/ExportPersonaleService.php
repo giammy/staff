@@ -61,7 +61,12 @@ class ExportPersonaleService {
         $dateNow = new \DateTime();
         $listToShow = array_values(array_filter($repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']), function ($x) use ($dateNow) { 
                 $valid = $x->getValidTo();
+//		return (($x->getName() != "noname") && ($valid->format('Y') >= $dateNow->format('Y')));
+
+// GMY FIX TODO esporta personale in corso (anno attuale) e anno precedente
+//		return (($x->getName() != "noname") && ($valid->format('Y') >= $dateNow->format('Y')-1));
 		return (($x->getName() != "noname") && ($valid->format('Y') >= $dateNow->format('Y')));
+
             }));
 
         $lastSurname = "";
