@@ -86,25 +86,50 @@ class PublicController extends AbstractController
         $appLogger->info("IN: " . $where . ": username='" . $username . "' for=" . $what);
     }
 
+    public function getLeaderOfUser($listToShow, $x) {
+      $username = $x->getUsername();
+      $myGroup = $x->getGroupName();
+      $leaders = array_filter($listToShow, function ($u) use ($myGroup) {
+      	    if  (strpos($u->getLeaderOfGroup(), $myGroup) === false)
+	    	return false;
+	    else
+		return true;
+       });
+
+       if (count($leaders) < 1)
+          return "";
+       else {
+       	    return reset($leaders)->getUsername();
+       }
+    }
+
     public function buildResponse($listToShow, $extendedInfo) {
-        $answer = array_map(function ($x) { return([
-            'i' => $x->getId(), 
-            's' => $x->getSurname(),
-            'n' => $x->getName(),
-            'e' => $x->getEmail(),
+        $answer = array_map(function ($x) use ($listToShow) { return([
+            // a > see below
+	    'b' => $this->getLeaderOfUser($listToShow, $x),     // who is  this users' boss
+            // d > see below
+	    'e' => $x->getEmail(),
             'g' => $x->getGroupName(),
+	    'i' => $x->getId(),
             'l' => $x->getLeaderOfGroup(),
-            'q' => $x->getQualification(),
+            // m > see below
+            'n' => $x->getName(),
             'o' => $x->getOrganization(),
             'p' => $x->getOfficePhone(),
-            'r' => $x->getOfficeLocation(),
-          ]); }, $listToShow);
+            'q' => $x->getQualification(),
+	    'r' => $x->getOfficeLocation(),
+            's' => $x->getSurname(),
+	    'u' => $x->getUsername(),
+            'x' => "SS,SR,PL,RS",                  // SS=ScientificSecretary, SR=ScientificResponsible,
+	    	   				   // PL=ProgramLeader, RS=researcher
+	    'y' => "Name Of Project",              // name of project this user is leader of
+ 	    ]); }, $listToShow);
 
         if ($extendedInfo) {
-          $answer[0] += ['m' => $listToShow[0]->getOfficeMobile()];
-          $answer[0] += ['d' => $listToShow[0]->getDescriptionList()];
           $answer[0] += ['a' => $listToShow[0]->getAttachList()];
-        }
+	  $answer[0] += ['d' => $listToShow[0]->getDescriptionList()];
+          $answer[0] += ['m' => $listToShow[0]->getOfficeMobile()];
+	}
 
 	$response = new Response();
 	$response->setContent(json_encode($answer));
@@ -181,11 +206,36 @@ class PublicController extends AbstractController
 //
 // api private area
 //
-//    /**
-//     * @Route("/api/private/staffall", name="apiprivatestaffall")
-//     */
-//    public function apiPublicLeaderOfStaffAction(LoggerInterface $appLogger, $group='')
-//    {
-//    }
+
+     function json_encode_objs($item){   
+//  var_dump($item); exit;
+        if (!is_array($item) && !is_object($item)) {   
+             return json_encode($item);   
+         } else {   
+             $pieces = array();   
+             foreach($item as $k=>$v) {   
+  var_dump($v); exit;
+	         $pieces[] = "\"$k\":".json_encode_objs($v);   
+             }
+    var_dump($pieces); exit;
+             return '{'.implode(',',$pieces).'}';   
+         }   
+    } 
+
+    /**
+     * @Route("/api/private/staffall", name="apiprivatestaffall")
+     */
+    public function apiPrivateStaffallAction(LoggerInterface $appLogger)
+    {
+        $this->initialLog($appLogger, "apiPrivateStaffall", "Start");
+        $repo = $this->getDoctrine()->getRepository(Staff::class);
+	$listToShow = $repo->findAll();
+
+	$response = new Response();
+//var_dump($listToShow); exit;
+	$response->setContent($this->json_encode_objs($listToShow));
+	$response->headers->set('Content-Type', 'application/json');
+	return($response);
+    }
 
 }
