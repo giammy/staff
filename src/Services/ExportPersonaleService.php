@@ -20,7 +20,15 @@ class ExportPersonaleService {
         $this->params = $params;
         $this->appLogger = $appLogger;
     }
-    
+
+    public function convertGroup($s) {
+        if ($s == 'SCA') return 'SIT';
+        if ($s == 'GFA') return 'GFO';
+        if ($s == 'GFC') return 'GFS';
+        if ($s == 'OME') return 'UTE';
+	return $s;
+    }
+
     public function export($filenamePar) {
         $dateNowt = new \DateTime();
         $path_log = $filenamePar?$filenamePar:$this->params->get('export_personale_path_log');
@@ -82,12 +90,12 @@ class ExportPersonaleService {
         }
 
         foreach ($listToShow as $x) {
-            $ostr = $x->getGroupName() . ",";
+            $ostr = $this->convertGroup($x->getGroupName()) . ",";
             $ostr = $ostr . strtoupper(str_replace(" ", "-", $x->getSurname()) . " " . $x->getName()) . ",";
             $ostr = $ostr . $x->getQualification() . ",";
             $ostr = $ostr . $x->getOrganization() . ",";
             $ostr = $ostr . $x->getTotalHoursPerYear() . ",";
-            $ostr = $ostr . $x->getLeaderOfGroup() . ",";
+            $ostr = $ostr . $this->convertGroup($x->getLeaderOfGroup()) . ",";
             $ostr = $ostr . ($x->getIsTimeSheetEnabled()?"1":"X") . ",";
             $ostr = $ostr . $x->getTotalContractualHoursPerYear() . ",";
             $ostr = $ostr . ($x->getPartTimePercent()/100) . ",";

@@ -68,10 +68,10 @@ class NewaccountController extends AbstractController
             ->add('groupName', ChoiceType::class, array(
 			 'choices'  => array(
 			    'AI' => 'GAI',
-			    'FA' => 'GFA',
+			    'FO (old name: FA)' => 'GFA',
 			    'FB' => 'GFB',
-	    	            'FC' => 'GFC',
-			    'FD' => 'GFD',
+	    	            'FS (old name: FC)' => 'GFC',
+			    // 'FD' => 'GFD',
 			    'FT' => 'GFT',
 			    'Operation of Facilities' => 'GOP',
 		      	    'IP' => 'GIP',

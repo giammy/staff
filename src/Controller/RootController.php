@@ -295,7 +295,8 @@ class RootController extends AbstractController
 			    'Altro' => 'BLK',
 	  	         );
 
-	$theNewChoices = [
+
+	$theSecondOldChoices = [
 	    'Research' => [
 	        'GAI Automation Engineering and Information Technology' => 'GAI',
 	        'GFA FA - Physics' => 'GFA',
@@ -312,6 +313,50 @@ class RootController extends AbstractController
 	    'Technical Staff' => [
 		'OME Mechanics Workshop' => 'OME',
 	        'SIT Information Technology' => 'SCA',
+	        'SMA Maintenance' => 'SMA',
+	        'SXA Power Supply' => 'SXA',
+	        'SXC Controls and Data Acquisition' => 'SXC',
+	        'SXD Diagnostics' => 'SXD',
+	        'SXM Machine' => 'SXM',
+	        'UTE Drawing Office' => 'UTE',
+	    ],
+	    'Administration' => [
+	       'AAP Administration & Purchasing' => 'AAP',
+	       'APG Personnel' => 'APG',
+	    ],
+	    'Direction' => [
+               'DIR Direction' => 'DIR',
+	       'SAD Programme and Strategy Group' => 'SAD',
+	       'GCP Scientific and Technological Programmes' => 'GCP',
+	       'GCL Group of Collaborators' => 'GCL',
+	       'SPP Prevention and Protection' => 'SPP',
+	       'QMA Quality Management & GDPR' => 'QMA', 
+	       'FPL Financial Planning' => 'FPL',
+	       'HET Higher Education and Training' => 'HET',
+	       'ERC Communication and External Relations' => 'ERC',
+	       'RSL Scientific Secretary Library' => 'RSL',
+	       'ADR Chairperson and Director Staff' => 'ADR',
+            ],
+	];
+
+
+	$theNewChoices = [
+	    'Research' => [
+	        'GAI Automation Engineering and Information Technology' => 'GAI',
+	        'GFO FO - Physics' => 'GFO',
+	        'GFB FB - Physics' => 'GFB',
+	        'GFS FS - Physics' => 'GFS',
+	        '' => 'GFD',
+	        'GFT Theoretical Physics' => 'GFT',
+	        'GIE Electric and Magnetic Fields Engineering' => 'GIE',
+	        'GIP Thermomechanics, Vacuum and Plasma Engineering' => 'GIP',
+	        'GSE Power Systems Engineering' => 'GSE',
+	        'NBI NBTF Organization' => 'NBI',
+	        'GOP Operation of Facilities' => 'GOP',
+	    ],
+	    'Technical Staff' => [
+		'' => 'OME',
+	        'SIT Information Technology' => 'SIT',
 	        'SMA Maintenance' => 'SMA',
 	        'SXA Power Supply' => 'SXA',
 	        'SXC Controls and Data Acquisition' => 'SXC',

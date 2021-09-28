@@ -59,16 +59,25 @@ class PublicController extends AbstractController
                 $valid = $x->getValidTo();
                 return (($x->getName() != "noname") && ($valid >= $dateNow)); 
             });
-	if ($group != "") {
+	if ($group != "" && $group != "csv") {
             $listAll = array_filter($listAll, function ($x) use ($group) { 
                 return (($x->getGroupName() == $group) || ($x->getLeaderOfGroup() == $group)); 
             });
         }
-        return $this->render('public/rubrica.html.twig', [
+
+	if ($group == "csv") {
+	  return $this->render('public/rubrica.csv.twig', [
+            'controller_name' => 'PublicRubricaControllerCSV',
+            'list' => $listAll,
+            'username' => $username,
+            ]);
+        } else {
+	  return $this->render('public/rubrica.html.twig', [
             'controller_name' => 'PublicRubricaController',
             'list' => $listAll,
             'username' => $username,
             ]);
+        }
     }
 
 //

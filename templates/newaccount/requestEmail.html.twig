@@ -4,7 +4,7 @@
     <ul>
       <li> Name:           <b> {{ ar.name }} </b> </li>
       <li> Surname:        <b> {{ ar.surname }} </b> </li>
-      <li> Group:          <b> {{ ar.groupName }} </b> </li>
+      <li> Group:          <b> {% if ar.groupName == "GFC" %} GFS {% elseif ar.groupName == "GFA" %} GFO {% else %} {{ ar.groupName }} {% endif %} </b> </li>
       <li> Contact person: <b> {{ ar.contactPerson }} </b> </li>
       <li> Arrival date:   <b> {{ ar.validFrom|date('d/m/Y') }} </b> </li>
       <li> Departure date: <b> {{ ar.validTo|date('d/m/Y') }} </b> </li>

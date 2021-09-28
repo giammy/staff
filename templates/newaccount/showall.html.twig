@@ -62,7 +62,7 @@
       <td> {{ ar.name }} </td>
       <td> {{ ar.surname }} </td>
       <td> {% if ar.accountIsNew %} Y {% else %} N {% endif %} </td>
-      <td> {{ ar.groupName }} </td>
+      <td> {% if ar.groupName == "GFC" %} GFS {% elseif ar.groupName == "GFA" %} GFO {% else %} {{ ar.groupName }} {% endif %} </td>
       <td> {{ ar.contactPerson }} </td>
       <td> {{ ar.validFrom|date('d/m/Y') }} </td>
       <td> {{ ar.validTo|date('d/m/Y') }} </td>
