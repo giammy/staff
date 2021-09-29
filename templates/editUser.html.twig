@@ -84,7 +84,10 @@
       {{ form_widget(form.leaderOfGroup.1) }}{{ form_label(form.leaderOfGroup.1) }}<br>
       {{ form_widget(form.leaderOfGroup.2) }}{{ form_label(form.leaderOfGroup.2) }}<br>
       {{ form_widget(form.leaderOfGroup.3) }}{{ form_label(form.leaderOfGroup.3) }}<br>
-{#      {{ form_widget(form.leaderOfGroup.4) }}{{ form_label(form.leaderOfGroup.4) }}<br> #}
+
+      {#      {{ form_widget(form.leaderOfGroup.4) }}{{ form_label(form.leaderOfGroup.4) }}<br> #}
+      {% do form.leaderOfGroup.4.setRendered() %}
+
       {{ form_widget(form.leaderOfGroup.5) }}{{ form_label(form.leaderOfGroup.5) }}<br>
       {{ form_widget(form.leaderOfGroup.6) }}{{ form_label(form.leaderOfGroup.6) }}<br>
       {{ form_widget(form.leaderOfGroup.7) }}{{ form_label(form.leaderOfGroup.7) }}<br>
@@ -93,6 +96,8 @@
       {{ form_widget(form.leaderOfGroup.10) }}{{ form_label(form.leaderOfGroup.10) }}<br>
       <br><font style="color:grey">Technical Staff</font><br>
 {#      {{ form_widget(form.leaderOfGroup.11) }}{{ form_label(form.leaderOfGroup.11) }}<br> #}
+      {% do form.leaderOfGroup.11.setRendered() %}
+
       {{ form_widget(form.leaderOfGroup.12) }}{{ form_label(form.leaderOfGroup.12) }}<br>
       {{ form_widget(form.leaderOfGroup.13) }}{{ form_label(form.leaderOfGroup.13) }}<br>
       {{ form_widget(form.leaderOfGroup.14) }}{{ form_label(form.leaderOfGroup.14) }}<br>

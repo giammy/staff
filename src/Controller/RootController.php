@@ -124,6 +124,25 @@ class RootController extends AbstractController
         $listToShow = $repo->findBy([], ['surname' => 'ASC', 'lastChangeDate' => 'DESC']);
         // listToShow is sorted by surname
 
+
+/// START DB REFACTOR
+/*
+    	foreach ($listToShow as $ll) {
+            	 if ($ll->getGroupName() == 'SCA') $ll->setGroupName('SIT');
+             	 if ($ll->getGroupName() == 'GFA') $ll->setGroupName('GFO');
+            	 if ($ll->getGroupName() == 'GFC') $ll->setGroupName('GFS');
+            	 if ($ll->getGroupName() == 'OME') $ll->setGroupName('UTE');
+            	 if ($ll->getLeaderOfGroup() == 'SCA') $ll->setLeaderOfGroup('SIT');
+             	 if ($ll->getLeaderOfGroup() == 'GFA') $ll->setLeaderOfGroup('GFO');
+            	 if ($ll->getLeaderOfGroup() == 'GFC') $ll->setLeaderOfGroup('GFS');
+            	 if ($ll->getLeaderOfGroup() == 'OME') $ll->setLeaderOfGroup('UTE');
+           $em = $this->getDoctrine()->getManager();
+           $em->flush();
+}
+*/
+///
+
+
         if ($which == "active") {
             // show active records
             $listToShow = array_values(array_filter($listToShow, function ($x) use ($dateNow) { 

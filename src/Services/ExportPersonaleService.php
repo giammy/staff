@@ -22,10 +22,10 @@ class ExportPersonaleService {
     }
 
     public function convertGroup($s) {
-        if ($s == 'SCA') return 'SIT';
-        if ($s == 'GFA') return 'GFO';
-        if ($s == 'GFC') return 'GFS';
-        if ($s == 'OME') return 'UTE';
+        //if ($s == 'SCA') return 'SIT';
+        //if ($s == 'GFA') return 'GFO';
+        //if ($s == 'GFC') return 'GFS';
+        //if ($s == 'OME') return 'UTE';
 	return $s;
     }
 

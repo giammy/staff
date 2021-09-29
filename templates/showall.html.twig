@@ -81,8 +81,18 @@
       </td>
       <td> {{ ar.surname }} </td>
       <td> {{ ar.name }} </td>
-      <td> {% if ar.groupName == "SCA" %} SIT {% else %} {{ ar.groupName }} {% endif %} </td>
-      <td> {% if ar.leaderOfGroup == "SCA" %} SIT {% else %} {{ ar.leaderOfGroup }} {% endif %} </td>
+      <td> {{ ar.groupName }}
+
+	{#
+	{% if ar.groupName == "SCA" %} SIT {% elseif ar.groupName == "GFA" %} GFO {% elseif ar.groupName == "GFC" %} GFS {% elseif ar.groupName == "OME" %} UTE {% else %} {{ ar.groupName }} {% endif %}
+	#}
+      </td>
+      <td> {{ ar.leaderOfGroup }}
+
+	{#
+	{% if ar.leaderOfGroup == "SCA" %} SIT {% elseif ar.leaderOfGroup == "GFA" %} GFO {% elseif ar.leaderOfGroup == "GFC" %} GFS {% elseif ar.leaderOfGroup == "OME" %} UTE {% else %} {{ ar.leaderOfGroup }} {% endif %}
+	#}
+      </td>
       <td> {{ ar.qualification }} </td>
       <td> {{ ar.organization }} </td>
 {#
