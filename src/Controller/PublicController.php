@@ -121,7 +121,7 @@ class PublicController extends AbstractController
             'g' => $x->getGroupName(),
 	    'i' => $x->getId(),
             'l' => $x->getLeaderOfGroup(),
-            // m > see below
+            'm' => $x->getOfficeMobile(), 
             'n' => $x->getName(),
             'o' => $x->getOrganization(),
             'p' => $x->getOfficePhone(),
@@ -129,7 +129,7 @@ class PublicController extends AbstractController
 	    'r' => $x->getOfficeLocation(),
             's' => $x->getSurname(),
 	    'u' => $x->getUsername(),
-            'x' => "SS,SR,PL,RS",                  // SS=ScientificSecretary, SR=ScientificResponsible,
+            'x' => "SS: SR: PL: RS",                  // SS=ScientificSecretary, SR=ScientificResponsible,
 	    	   				   // PL=ProgramLeader, RS=researcher
 	    'y' => "Name Of Project",              // name of project this user is leader of
  	    ]); }, $listToShow);
@@ -137,7 +137,7 @@ class PublicController extends AbstractController
         if ($extendedInfo) {
           $answer[0] += ['a' => $listToShow[0]->getAttachList()];
 	  $answer[0] += ['d' => $listToShow[0]->getDescriptionList()];
-          $answer[0] += ['m' => $listToShow[0]->getOfficeMobile()];
+          //$answer[0] += ['m' => $listToShow[0]->getOfficeMobile()];
 	}
 
 	$response = new Response();

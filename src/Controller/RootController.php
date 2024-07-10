@@ -233,6 +233,49 @@ class RootController extends AbstractController
         return $this->redirectToRoute('showall', array('which' => 'html', 'mode' => 'auto'));
     }
 
+// curl -u "rfx:password" "https://www.pd.cnr.it/services/rfx-api/rubrica/select.php?name=Gianluca&surname=Moro"
+// [{"id":"60092","name":"Gianluca","surname":"Moro","phone":"5095","phone2":"","fax":""}]
+
+    public function exportToAreaCards($appLogger, $account) {
+         $appLogger->info("CARDS: exportToAreaCards: username='" .
+                     $this->get('security.token_storage')->getToken()->getUser()->getUsername()."' - " .
+		     		$account->getUsername() . " " .
+		     		$account->getSurname() . " " .
+		     		$account->getName() . " " .
+				$account->getOfficePhone() . " " .
+				$account->getOfficeMobile()  );
+
+	// build command line
+	$name = urlencode($account->getName());
+	$surname = urlencode($account->getSurname());
+	$phone = strtok($account->getOfficePhone(),",");
+	$phone2 = strtok($account->getOfficeMobile(), ",");
+
+	if ($phone == "0000" or $phone == "") {
+            $appLogger->info("CARDS: exportToAreaCards: SKIP - no phone");
+	    return;
+        }
+
+	$baseUrl = "https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?";
+	$params = "name=" . $name . "&surname=" . $surname . "&phone=" . $phone;
+	if ($phone2 != "0000" and $phone2 != "") {
+	   $params = $params . "&phone2=" . $phone2;
+           $appLogger->info("CARDS: exportToAreaCards: URLPHONE2=...." . $params);
+        }
+	$url = $baseUrl . $params;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($ch, CURLOPT_USERPWD, "rfx:rfx_CNR3v1x");
+        $result = curl_exec($ch);
+        curl_close($ch);
+	$appLogger->info("CARDS: exportToAreaCards: URL=" . $url . " JSONRES=" . $result);
+
+}
+
+
     /**
      * @Route("/editUser/{id}", name="editUser")
      */
@@ -289,6 +332,7 @@ class RootController extends AbstractController
             $photoWebFilename = '';
         }
 
+/*
 	$theOldChoices = array(
 			    'AI' => 'GAI',
 			    'FA' => 'GFA',
@@ -298,6 +342,8 @@ class RootController extends AbstractController
 			    'FT' => 'GFT',
 			    'Operation of Facilities' => 'GOP',
 		      	    'IP' => 'GIP',
+			    'IS' => 'GIS',
+			    'IM' => 'GIM',
 		    	    'SE' => 'GSE',
 			    'IE' => 'GIE',
 			    'SIT' => 'SCA',
@@ -311,10 +357,11 @@ class RootController extends AbstractController
 		      	    'Amministrazione' => 'AMM',
      			    'SMA - Maintenance' => 'SMA',
 	  		    'Ufficio Tecnico' => 'UTE',
+    	  		    'Officina Meccanica' => 'OME',
 			    'Altro' => 'BLK',
 	  	         );
-
-
+*/
+/*
 	$theSecondOldChoices = [
 	    'Research' => [
 	        'GAI Automation Engineering and Information Technology' => 'GAI',
@@ -325,6 +372,8 @@ class RootController extends AbstractController
 	        'GFT Theoretical Physics' => 'GFT',
 	        'GIE Electric and Magnetic Fields Engineering' => 'GIE',
 	        'GIP Thermomechanics, Vacuum and Plasma Engineering' => 'GIP',
+	        'GIS Thermo-mechanical systems engineering' => 'GIS',
+	        'GIM Thermo-mechanical components engineering' => 'GIM',
 	        'GSE Power Systems Engineering' => 'GSE',
 	        'NBI NBTF Organization' => 'NBI',
 	        'GOP Operation of Facilities' => 'GOP',
@@ -337,7 +386,8 @@ class RootController extends AbstractController
 	        'SXC Controls and Data Acquisition' => 'SXC',
 	        'SXD Diagnostics' => 'SXD',
 	        'SXM Machine' => 'SXM',
-	        'UTE Drawing Office' => 'UTE',
+	        'UTE Drawing office' => 'UTE',
+	        'OME Mechanical off.' => 'OME',
 	    ],
 	    'Administration' => [
 	       'AAP Administration & Purchasing' => 'AAP',
@@ -357,7 +407,7 @@ class RootController extends AbstractController
 	       'ADR Chairperson and Director Staff' => 'ADR',
             ],
 	];
-
+*/
 
 	$theNewChoices = [
 	    'Research' => [
@@ -365,16 +415,17 @@ class RootController extends AbstractController
 	        'GFO FO - Physics' => 'GFO',
 	        'GFB FB - Physics' => 'GFB',
 	        'GFS FS - Physics' => 'GFS',
-	        '' => 'GFD',
+//	        '' => 'GFD',
 	        'GFT Theoretical Physics' => 'GFT',
 	        'GIE Electric and Magnetic Fields Engineering' => 'GIE',
-	        'GIP Thermomechanics, Vacuum and Plasma Engineering' => 'GIP',
-	        'GSE Power Systems Engineering' => 'GSE',
+//	        'GIP Thermomechanics, Vacuum and Plasma Engineering' => 'GIP',
+	        'GIS Thermo-mechanical systems engineering' => 'GIS',
+	        'GIM Thermo-mechanical components engineering' => 'GIM',
+                'GSE Power Systems Engineering' => 'GSE',
 	        'NBI NBTF Organization' => 'NBI',
 	        'GOP Operation of Facilities' => 'GOP',
 	    ],
 	    'Technical Staff' => [
-		'' => 'OME',
 	        'SIT Information Technology' => 'SIT',
 	        'SMA Maintenance' => 'SMA',
 	        'SXA Power Supply' => 'SXA',
@@ -382,6 +433,7 @@ class RootController extends AbstractController
 	        'SXD Diagnostics' => 'SXD',
 	        'SXM Machine' => 'SXM',
 	        'UTE Drawing Office' => 'UTE',
+		'OME Mechanical off.' => 'OME',
 	    ],
 	    'Administration' => [
 	       'AAP Administration & Purchasing' => 'AAP',
@@ -449,6 +501,8 @@ class RootController extends AbstractController
 			    'INFN' => 'INF',
 	    	            'RFX' => 'RFX',
 			    'UNIPD' => 'UPD',
+    	    	            'BLK' => 'BLK',
+    	    	            'EXT' => 'EXT',
 	  	         ),
 	          ))
             ->add('totalContractualHoursPerYear', IntegerType::class, array(
@@ -516,7 +570,7 @@ class RootController extends AbstractController
 
 	     $account = $form->getData();
 
-	     $account->setLeaderOfGroup(implode(":", $form->get('leaderOfGroup')->getData()));
+	     $account->setLeaderOfGroup(implode(": ", $form->get('leaderOfGroup')->getData()));
 
              $account->setTotalHoursPerYear(($account->getTotalContractualHoursPerYear()*
                                              $account->getParttimePercent())/100);
@@ -568,6 +622,8 @@ class RootController extends AbstractController
                  $em->persist($account);
              }
              $em->flush();
+
+	     $this->exportToAreaCards($appLogger, $account);
 
 	     // use default filename from environment variable EXPORT_PERSONALE_FILENAME
              $this->exportPersonaleService->export(null); 

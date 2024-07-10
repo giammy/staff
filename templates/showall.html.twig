@@ -51,15 +51,15 @@
       <td></td>
       {% endif %}
       <td>E-mail</td>
+      <td>Office Phone</td>
+      <td>Office Phone2</td>
+      <td>Office Location</td>
       <td>Note</td>
       {% if userBelongsTo(users_admin, username) %}
       <td>Id</td>
       <td>Secondary E-mail</td>
       <td>Create Date</td>
       <td>Version</td>
-      <td>Office Phone</td>
-      <td>Office Mobile</td>
-      <td>Office Location</td>
       <td>Last Change Author</td>
       <td>Last Change Date</td>
       <td>Internal Note</td>
@@ -123,15 +123,15 @@
       {% endif %}
       {% endif %}
       <td> {{ ar.email }} </td>
+      <td> {{ ar.officePhone }} </td>
+      <td> {{ ar.officeMobile }} </td>
+      <td> {{ ar.officeLocation }} </td>
       <td> {{ ar.note }} </td>
       {% if userBelongsTo(users_admin, username) %}
       <td> {{ ar.id }} </td>
       <td> {{ ar.secondaryEmail }} </td>
       <td> {{ ar.created|date('d/m/Y') }} </td>
       <td> {{ ar.version }} </td>
-      <td> {{ ar.officePhone }} </td>
-      <td> {{ ar.officeMobile }} </td>
-      <td> {{ ar.officeLocation }} </td>
       <td> {{ ar.lastChangeAuthor }} </td>
       <td> {{ ar.lastChangeDate|date('Ymd-Hise') }} </td>
       <td> {{ ar.internalNote }} </td>
