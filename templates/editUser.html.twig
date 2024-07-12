@@ -43,6 +43,10 @@
     <td style="border-left: 4px solid #000000; padding-left: 10px"> Telefono Ufficio</td>
     <td> {{ form_widget(attribute(form, "officePhone"), { 'attr': {'size': '60'} }) }} </td>
   </tr>
+  <tr>
+      <td> Organizzazione (nome se EXT)</td><td><input type="text"></input></td>
+  <tr>
+
   {#<tr>
     <td> Ore all'anno - da contract calcolato part-time</td>
     <td> {{ form_widget(attribute(form, "totalHoursPerYear"), { 'attr': {'size': '60'} }) }} </td>
@@ -129,6 +133,7 @@
   </tr>
 
   
+  
   <tr>
     <td>
       <center>
@@ -144,6 +149,92 @@
     </td>
   </tr>
 </table>
+
+
+  <hr>
+
+  <center>
+    <h3>
+      <table style="width:100%">
+      <tr><td bgcolor="gray"><center><font color='white'>Dottorandi, tirocinanti, tesisti</font></center>
+      </td></tr></table>
+    </h3>
+    </center>
+
+  <table>
+    <tr>
+      <td>Titolo tesi proposta</td><td><input type="text"></input></td>
+    <tr>
+    <tr>
+      <td>Competenze raggiunte</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Tutor1</td><td><input type="text"></input></td>
+    <tr>
+    <tr>
+      <td>Tutor1 (organizzazione a cui appartiene)</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Tutor2</td><td><input type="text"></input></td>
+    <tr>
+    <tr>
+      <td>Tutor2 (organizzazione a cui appartiene)</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Tutor3</td><td><input type="text"></input></td>
+    <tr>
+    <tr>
+      <td>Tutor3 (organizzazione a cui appartiene)</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Finanziato da</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Corso di Studio</td><td><input type="text"></input></td>
+    <tr>
+    <tr>
+      <td>Titolo di Studio</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Titolo di Studio conseguito a</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Titolo di Studio conseguito presso</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Titolo di Studio data</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Titolo di Studio titolo tesi</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Dipartimento di provenienza</td><td><input type="text"></input></td>
+    <tr>
+
+    <tr>
+      <td>Citt&agrave;/paese di provenienza</td><td><input type="text"></input></td>
+    <tr>
+
+      
+
+      
+      
+    </table>
+
+
+
+
+  
 
   {% if userBelongsTo(users_beta, username) %}
   <hr>

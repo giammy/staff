@@ -194,10 +194,22 @@ class NewaccountController extends AbstractController
             return $this->redirectToRoute('thanks');
     	}
 
-        return $this->render('newaccount/index.html.twig', [
+	$usernameOfRequester = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+	$staffRepo = $this->getDoctrine()->getRepository(Staff::class);
+	$allStaff = $staffRepo->findAll();
+	$leaderStaff = array_values(array_filter($allStaff, function ($x) { return (strlen($x->getLeaderOfGroup())>0);}));
+	$leaderStaffUsername = array_map(function ($x) {return ($x->getUsername());}, $leaderStaff);
+ 	$appLogger->info("IN: newaccountIndex: usernameOfRequester='" . $usernameOfRequester );
+	$appLogger->info("IN: newaccountIndex: listOfLeader='" . implode(', ', $leaderStaffUsername) );
+
+	if (in_array($usernameOfRequester, $leaderStaffUsername)) {
+          return $this->render('newaccount/index.html.twig', [
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ]);
+            ]);
+        } else {
+	    return $this->redirectToRoute('noaccess');
+        }
     }
 
     /**
@@ -230,4 +242,14 @@ class NewaccountController extends AbstractController
             ));
     }
 
+
+    /**
+     * @Route("newaccount/noaccess", name="noaccess")
+     */
+    public function noaccessAction(Request $request)
+    {
+        return $this->render('newaccount/noaccess.html.twig', array(
+            'note' => "note",
+            ));
+    }
 }

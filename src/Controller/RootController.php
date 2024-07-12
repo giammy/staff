@@ -491,6 +491,10 @@ class RootController extends AbstractController
 		    	    'RC2' => 'RC2',
 			    'RC3' => 'RC3',
 			    'TEC' => 'TEC',
+			    'TIR' => 'TIR',
+			    'TES' => 'TES',
+			    'TIRMOB'=> 'TIRMOB',
+			    'PHDMOB'=> 'PHDMOB',
 	  	         ),
 	          ))
             ->add('organization', ChoiceType::class, array(
