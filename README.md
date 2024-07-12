@@ -1,48 +1,6 @@
 # staff
 A service to store staff information and make it available via API
 
-
-E' stato previsot un comando per sincronizzare i dati di STAFF con l'agenda di area
-
-Sync CARDS agenda
-
-User not found
-
-Nicolo' Ferron - in AREA e' chiamato: Nicolo' Alvise Ferron
-Oisin Mc Cormack - in AREA e' chiamato: Oisin McCormack 
-Alastair Shepherd - in AREA e' chiamato: Alastair Sheperd
-
-Sono stati inseriti in area con nomi diversi
-
-More than one user found:
-Riccardo Agnello
-Lucio Baseggio
-Manola Carraro
-Gianluca De Masi
-Claudia Gasparrini
-Paolo Scarin
-Giuseppe Zollino
-
-In area sono stati inseriti duplicati della stessa persona, ad esempio per Lucio Baseggio:
-[
-{"id":"33004","name":"Lucio","surname":"Baseggio","phone":"0498295091","phone2":"","fax":"0498700718"},
-{"id":"60462","name":"Lucio","surname":"Baseggio","phone":"0498295091","phone2":"","fax":""}
-]
-
-
-
-LOG:
-Sync CARDS agenda
-CARDS: exportToAreaCards: URL=https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?name=Domenico&surname=Abate&phone=5074 JSONRES={"result":"Successfully updated user #60152"}
-CARDS: exportToAreaCards: URL=https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?name=Riccardo&surname=Agnello&phone=5887 JSONRES={"result":"error","details":{"number":10,"message":"More than one user found (2)"}}
-CARDS: exportToAreaCards: URL=https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?name=Piero&surname=Agostinetti&phone=5087 JSONRES={"result":"Successfully updated user #33490"}
-...
-CARDS: exportToAreaCards: URL=https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?name=Giuseppe&surname=Zollino&phone=5993&phone2=334.6053074 JSONRES={"result":"error","details":{"number":10,"message":"More than one user found (2)"}}
-CARDS: exportToAreaCards: URL=https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?name=Simone&surname=Zucchetti&phone=5027&phone2=331.6886333 JSONRES={"result":"Successfully updated user #33362"}
-CARDS: exportToAreaCards: URL=https://www.pd.cnr.it/services/rfx-api/rubrica/update.php?name=Matteo&surname=Zuin&phone=5075 JSONRES={"result":"Successfully updated user #32157"}
-
-
-
 NUOVI CAMPI PER DOTTORANDI/TIROCINANTI
 
     private $id;     /* @ORM\Column(type="integer")
