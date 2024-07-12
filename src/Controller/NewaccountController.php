@@ -196,8 +196,17 @@ class NewaccountController extends AbstractController
 
 	$usernameOfRequester = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 	$staffRepo = $this->getDoctrine()->getRepository(Staff::class);
-	$allStaff = $staffRepo->findAll();
-	$leaderStaff = array_values(array_filter($allStaff, function ($x) { return (strlen($x->getLeaderOfGroup())>0);}));
+	$allStaffHistoric = $staffRepo->findAll();
+	$dateNow = new \DateTime();
+        $allStaff = array_values(array_filter($allStaffHistoric, function ($x) use ($dateNow) { 
+                    return ($dateNow->format('Y') <= $x->getValidTo()->format('Y'));
+            }));
+        $leaderStaff = array_values(array_filter($allStaff, function ($x) {
+//              if (strcmp($x->getUsername(), 'zanotto') == 0) {
+//                  var_dump($x->getLeaderOfGroup()); exit;
+//		}
+                return (strlen($x->getLeaderOfGroup())>0);
+	    }));
 	$leaderStaffUsername = array_map(function ($x) {return ($x->getUsername());}, $leaderStaff);
  	$appLogger->info("IN: newaccountIndex: usernameOfRequester='" . $usernameOfRequester );
 	$appLogger->info("IN: newaccountIndex: listOfLeader='" . implode(', ', $leaderStaffUsername) );
