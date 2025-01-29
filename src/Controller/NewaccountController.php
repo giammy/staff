@@ -211,7 +211,7 @@ class NewaccountController extends AbstractController
  	$appLogger->info("IN: newaccountIndex: usernameOfRequester='" . $usernameOfRequester );
 	$appLogger->info("IN: newaccountIndex: listOfLeader='" . implode(', ', $leaderStaffUsername) );
 
-	if (in_array($usernameOfRequester, $leaderStaffUsername)) {
+	if (in_array($usernameOfRequester, $leaderStaffUsername) or in_array($usernameOfRequester, ['moro', 'serianni', 'pasqualotto']) ) {
           return $this->render('newaccount/index.html.twig', [
             'form' => $form->createView(),
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,

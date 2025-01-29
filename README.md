@@ -1,6 +1,18 @@
 # staff
 A service to store staff information and make it available via API
 
+
+MIGRATION:
+https://stackoverflow.com/questions/56317862/add-new-columns-to-a-existing-database-througt-doctrine-command-symfony
+1 - change Entity file: bin/console make:entity
+2 - bin/console make:migration
+3 - bin/console doctrine:migrations:migrate
+
+*** altra versione (non l'ho usata ...) ***
+2 - php bin/console doctrine:migrations:diff
+3 - php bin/console doctrine:migrations:migrate
+
+
 NUOVI CAMPI PER DOTTORANDI/TIROCINANTI
 
     private $id;     /* @ORM\Column(type="integer")

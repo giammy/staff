@@ -453,7 +453,13 @@ class RootController extends AbstractController
 	       'ADR Chairperson and Director Staff' => 'ADR',
             ],
 	];
-	
+
+//GMY
+//$pippo = array_map(trim, explode(":", $account->getLeaderOfGroup()));
+//var_dump($pippo); exit();
+//
+
+
         $form = $this->createFormBuilder($account)
             ->add('username', TextType::class, array(
                          'required' => false,))
@@ -475,7 +481,7 @@ class RootController extends AbstractController
  			 'multiple' => true,
 			 'mapped' => false,
 			 'expanded' => true,
-			 'data' => explode(":", $account->getLeaderOfGroup()),
+			 'data' => array_map(trim, explode(":", $account->getLeaderOfGroup())),
 			 'choices'  => $theNewChoices,
 	          ))
             ->add('qualification', ChoiceType::class, array(
@@ -573,6 +579,12 @@ class RootController extends AbstractController
              //var_dump($newRecordRequest); exit;
 
 	     $account = $form->getData();
+
+//GMY
+//$pippo = implode(": ", $form->get('leaderOfGroup')->getData());
+// var_dump($pippo); exit;
+//
+
 
 	     $account->setLeaderOfGroup(implode(": ", $form->get('leaderOfGroup')->getData()));
 
